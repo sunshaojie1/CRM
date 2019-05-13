@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssj.dao.UserysMapper">
+
+
+<!--    员工jsp显示           -->
+	
+	 <select id="selUseryCount" parameterType="fenye" resultType="int">
+	
+	SELECT count(u_id) FROM usery
+	 <where>
+
+			<if test="u_loginName !=null and u_loginName !=''">
+				and u_loginName like "%"#{u_loginName}"%"
+			</if>
+
+			
+		</where> 
+	
+	
+	</select>
+	
+	
+	<select id="selUsery" parameterType="fenye" resultType="usery">
+	
+	SELECT u_id,u_loginName,u_password,u_isLockout,u_loginTime,u_logoutTime,u_clockinTime,
+		u_clockoutTime,u_creationTime,u_email,u_phone
+  			 FROM usery 
+		<where>
+
+			<if test="u_loginName !=null and u_loginName !=''">
+				and u_loginName like "%"#{u_loginName}"%"
+			</if>
+
+			
+		</where>
+	 
+	 limit #{page},#{pageSize}; 
+	</select>
+
+
+
+
+</mapper>
+
+
+
+
+
+		
+	

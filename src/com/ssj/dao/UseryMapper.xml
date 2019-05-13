@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssj.dao.UseryMapper">
+	<select id="selectUsery" parameterType="usery" resultType="usery">
+		SELECT u_id,u_loginName,u_password,u_isLockout,u_phone FROM usery 
+		WHERE u_loginName=#{u_loginName}
+	</select>
+	<!-- 查询用户角色 -->
+	<resultMap type="Roles" id="relesMap">
+		<id column="r_id" property="r_id"/>
+		<result column="usery.u_loginName" property="u_loginName"/>
+		<result column="roles.r_name" property="r_name"/>
+	</resultMap>
+	<select id="selectRoles" parameterType="String" resultMap="relesMap">
+		SELECT u.u_loginName,r.r_id,r.r_name FROM usery u,userroles us,roles r
+		where u.u_loginName=#{u_loginName} AND u.u_id=us.user_id and  r.r_id=us.roles_id
+	</select>
+	
+	
+	<!--查询用户下面的模块 -->
+	<resultMap type="Modules" id="ModulesMap">
+		<id column="m_id" property="m_id"/>
+		<result column="module.m_name" property="m_name"/>
+		<result column="roles.r_name" property="r_name"/>
+	</resultMap>
+	<select id="selectModules" parameterType="String" resultMap="ModulesMap">
+		SELECT m.m_treeid,r.r_name,m.m_name FROM roles r,modules m,rolemodules rm
+		WHERE r.r_name=#{m_name} and  r.r_id=rm.role_id and m.m_id=rm.module_id;
+	</select>
+	
+	
+	<!-- 重置密码 -->
+	<update id="updateCz" parameterType="usery">
+		UPDATE usery SET u_password="ssj.123"
+		WHERE u_phone=#{u_phone} AND u_loginName=#{u_loginName}
+	</update>
+	
+	
+	
+
+	
+	
+</mapper>
