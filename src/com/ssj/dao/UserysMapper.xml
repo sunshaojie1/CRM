@@ -39,6 +39,68 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	 limit #{page},#{pageSize}; 
 	</select>
+	
+		<update id="updateUsery" parameterType="usery">
+		update usery
+		<set>
+			<if test="u_loginName != null and u_loginName !=''">
+				u_loginName=#{u_loginName },
+			</if>
+			<!-- <if test="u_password != null and u_password !=''">
+				u_password=#{u_password},
+			</if> -->
+			<if test="u_isLockout != null and u_isLockout !=''">
+				u_isLockout=#{u_isLockout},
+			</if>
+		<!-- 	<if test="u_loginTime != null and u_loginTime !=''">
+				u_loginTime=#{u_loginTime},
+			</if>
+			<if test="u_logoutTime != null and u_logoutTime !=''">
+				u_logoutTime=#{u_logoutTime },
+			</if>
+			<if test="u_clockinTime != null and u_clockinTime !=''">
+				u_clockinTime=#{u_clockinTime},
+			</if>
+			<if test="u_clockoutTime != null and u_clockoutTime !=''">
+				u_clockoutTime=#{u_clockoutTime},
+			</if>
+			<if test="u_creationTime != null and u_creationTime !=''">
+				u_creationTime=#{u_creationTime},
+			</if> -->
+			
+			<if test="u_email != null and u_email !=''">
+				u_email=#{u_email},
+			</if>
+			<if test="u_phone != null and u_phone !=''">
+				u_phone=#{u_phone},
+			</if>
+
+
+		</set>
+		<where>
+			<if test="u_id !=null and u_id !=''">
+				u_id=#{u_id}
+			</if>
+
+		</where>
+	</update>
+
+
+	<delete id="delUsery" parameterType="int">
+		delete from Usery where
+		u_id=#{u_id}
+	</delete>
+
+
+
+	<insert id="addUsery" parameterType="Usery">
+		insert into Usery
+		(u_loginName,u_password,u_isLockout,u_email,u_phone)
+		values(#{u_loginName},#{u_password},#{u_isLockout},#{u_email},#{u_phone})
+
+	</insert> 
+
+	
 
 
 

@@ -34,5 +34,33 @@ public class UserysController {
 		 return fenye;
 		 
 	 }
+	//ÐÞ¸Ä
+		@RequestMapping(value="/updateUsery",method=RequestMethod.POST)
+		@ResponseBody
+		public Integer updateUsery(Usery usery){
+		
+			
+			return userysService.updateUsery(usery);
+		}
+		
+		
+		
+		//Ìí¼Ó
+		@RequestMapping(value="/addUsery",method=RequestMethod.POST)
+		@ResponseBody
+		public Integer addUsery(Usery usery){
+			
+			
+			return userysService.addUsery(usery);
+		}
+		
+		//É¾³ý
+		@RequestMapping(value="/delUsery",method=RequestMethod.POST)
+		@ResponseBody
+		public Integer delUsery( Integer u_id){
+		
+			return userysService.delUsery(u_id);
+		}
+		
 
 }

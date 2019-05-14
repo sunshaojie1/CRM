@@ -28,19 +28,19 @@ public class UserysServiceImpl implements UserysService {
 	@Override
 	public Integer updateUsery(Usery usery) {
 		// TODO Auto-generated method stub
-		return null;
+		return userysMapper.updateUsery(usery);
 	}
 
 	@Override
 	public Integer addUsery(Usery usery) {
 		// TODO Auto-generated method stub
-		return null;
+		return userysMapper.addUsery(usery);
 	}
 
 	@Override
 	public Integer delUsery(Integer u_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return userysMapper.delUsery(u_id);
 	}
 
 

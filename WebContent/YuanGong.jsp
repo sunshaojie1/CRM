@@ -32,7 +32,7 @@
 				toolbar:"#bar",
 				queryParams:{
 					u_loginName:$("#u_loginName").val(),
-					//u_isLockout:$("#u_isLockout").val(),
+				
 
 					}
 
@@ -44,20 +44,13 @@
 			return "<a href='javascript:void(0)' onclick='updateUsery("+index+")'>修改</a>  <a href='javascript:void(0)' onclick='addUsery("+index+")'>添加</a>  <a href='javascript:void(0)' onclick='delUsery("+index+")'>删除</a>"
 		}
 		
-	/* 	//修改
+	 	//修改
 		function  updateUsery(index){
 			//获取修改的数据    展示     修改    点击提交按钮
-			var data=$("#showUsery").datagrid("getData");
+			var data=$("#selUsery").datagrid("getData");
 			var row=data.rows[index];	
 			
-			$("#updatett").combobox({
-				url:'getUseryType',
-				method:'post',
-				valueField:'tId',//填充进 <option value='id'>text</option>    
-				textField:'tName'//标签中间（<option>text</option>）   
-				
-			})
-			$("#updatett").combobox('setValue',row.UseryType.tId)
+			$("#updatett").combobox('setValue',row.u_isLockout)
 		
 			//填充表单
 			$("#updatefrm").form("load",row);
@@ -67,19 +60,25 @@
 		}
 		
 		function saveUpdate(){
-			alert($("#updatett").combobox('getValue'));
+			//alert($("#updatett").combobox('getValue'));
 			$.post("updateUsery",{
-				bId:$("#updatebId").val(),
-				bName:$("#updatebName").val(),
-				tId:$("#updatett").combobox('getValue'),
-				bPrice:$("#updatebPrice").val(),
-				bAuthor:$("#updatebAuthor").val(),
-				bJieshao:$("#updatebJieshao").val(),
+				u_id:$("#updateu_id").val(),
+				u_loginName:$("#updateu_loginName").val(),
+				//u_password:$("#updateu_password").val(),
+				u_isLockout:$("#updatett").combobox('getValue'),
+				/* u_loginTime:$("#updateu_loginTime").val(),
+				u_logoutTime:$("#updateu_logoutTime").val(),
+				u_clockinTime:$("#updateu_clockinTime").val(),
+				u_clockoutTime:$("#updateu_clockoutTime").val(),
+				u_creationTime:$("#updateu_creationTime").val(), */
+				u_email:$("#updateu_email").val(),
+				u_phone:$("#updateu_phone").val(),
+		
 				
 			},function(res){
 				if(res>0){
 					//修改成功
-					$("#showUsery").datagrid("reload");
+					$("#selUsery").datagrid("reload");
 					$("#updatedialog").dialog("close")
 					$.messager.alert("提示","修改成功");
 				}else{
@@ -88,17 +87,17 @@
 				}
 			},"json")
 		}
-		//删除
-		function delUsery(index){
-			 var data=$("#showUsery").datagrid("getData");
+	 	//删除
+	 	function delUsery(index){
+			 var data=$("#selUsery").datagrid("getData");
 		 	var row=data.rows[index];
-			alert(row.bId);
+			alert(row.u_id);
 			$.post("delUsery",{
-				bId:row.bId,		
+				u_id:row.u_id,		
 			},function(res){
 				if(res>0){
 					//删除成功
-					$("#showUsery").datagrid("reload");
+					$("#selUsery").datagrid("reload");
 					$.messager.alert("提示","删除成功");
 				}else{
 					//删除失败
@@ -107,19 +106,10 @@
 			},"json")
 			
 		
-		}
+		} 
 		
 		//添加
 		function  addUsery(index){
-		
-			
-		 	$("#addtt").combobox({
-				url:'getUseryType',
-				method:'post',
-				valueField:'tId',//填充进 <option value='id'>text</option>    
-				textField:'tName'//标签中间（<option>text</option>）   
-				
-			}) 
 			
 			
 			//打开弹窗
@@ -129,16 +119,21 @@
 		function saveAdd(){
 			
 			$.post("addUsery",{				
-				bId:$("#addbId").val(),
-				bName:$("#addbName").val(),
-				tId:$("#addtt").combobox('getValue'),
-				bPrice:$("#addbPrice").val(),
-				bAuthor:$("#addbAuthor").val(),
-				bJieshao:$("#addbJieshao").val(),
+				u_id:$("#addu_id").val(),
+				u_loginName:$("#addu_loginName").val(),
+				u_password:$("#addeu_password").val(),
+				u_isLockout:$("#addtt").combobox('getValue'),
+			/* 	u_loginTime:$("#addu_loginTime").val(),
+				u_logoutTime:$("#addu_logoutTime").val(),
+				u_clockinTime:$("#addu_clockinTime").val(),
+				u_clockoutTime:$("#addu_clockoutTime").val(),
+				u_creationTime:$("#addu_creationTime").val(), */
+				u_email:$("#addu_email").val(),
+				u_phone:$("#addu_phone").val(),
 			},function(res){
 				if(res>0){
 					//修改成功
-					$("#showUsery").datagrid("reload");
+					$("#selUsery").datagrid("reload");
 					$("#add-dialog").dialog("close")
 					$.messager.alert("提示","添加成功");
 				}else{
@@ -148,7 +143,7 @@
 			},"json")
 			$("#addfrm").form("reset");
 		}
-		 */
+		 
 
 
 
@@ -201,25 +196,42 @@
 	}
 	]">
 		<form id="updatefrm" class="easyui-form">
-			  <label for="name">书籍Id:</label>   
-	          <input class="easyui-validatebox" disabled="disabled" name="bId" type="text" id="updatebId" data-options="required:true" />   
+			  <label for="name">Id:</label>   
+	          <input class="easyui-validatebox" disabled="disabled" name="u_id" type="text" id="updateu_id" data-options="required:true" />   
 			  <br>
-			  <label for="name">书籍名称:</label>   
-	          <input class="easyui-validatebox" name="bName" type="text" id="updatebName" data-options="required:true" /> 
+			  <label for="name">登录账户:</label>   
+	          <input class="easyui-validatebox" name="u_loginName" type="text" id="updateu_loginName" data-options="required:true" /> 
 	          <br>
-	           <!-- 下拉列表 -->
+	         <!--  <label for="name">登录密码:</label>   
+	          <input class="easyui-validatebox" name="u_password" type="text" id="updateu_password" data-options="required:true" /> 
+	        <br> -->
+	         <!-- 下拉列表 -->
 			<select id="updatett" class="easyui-combobox">
-				<option selected="selected" >--请选择班级--</option>
+				<option selected="selected" >--是否锁定--</option>
 			</select>
-	          <label for="name">价格:</label>   
-	          <input class="easyui-validatebox" name="bPrice" type="text" id="updatebPrice" data-options="required:true" /> 
+			<br>
+	    <!--      <label for="name">登录时间:</label>   
+	          <input class="easyui-validatebox" name="u_loginTime" type="text" id="updateu_loginTime" data-options="required:true" /> 
 	        <br>
-	         <label for="name">作者:</label>   
-	          <input class="easyui-validatebox" name="bAuthor" type="text" id="updatebAuthor" data-options="required:true" /> 
+	         <label for="name">退出时间:</label>   
+	          <input class="easyui-validatebox" name="u_logoutTime" type="text" id="updateu_logoutTime" data-options="required:true" /> 
 	        <br>
-	         <label for="name">介绍:</label>   
-	          <input class="easyui-validatebox" name="bJieshao" type="text" id="updatebJieshao" data-options="required:true" /> 
+	           <label for="name">打卡上班:</label>   
+	          <input class="easyui-validatebox" name="u_clockinTime" type="text" id="updateu_clockinTime" data-options="required:true" /> 
 	        <br>
+	         <label for="name">打卡下班:</label>   
+	          <input class="easyui-validatebox" name="u_clockoutTime" type="text" id="updateu_clockoutTime" data-options="required:true" /> 
+	        <br>
+	         <label for="name">创建时间:</label>   
+	          <input class="easyui-validatebox" name="u_creationTime" type="text" id="updateu_creationTime" data-options="required:true" /> 
+	        <br> -->
+	           <label for="name">邮箱:</label>   
+	          <input class="easyui-validatebox" name="u_email" type="text" id="updateu_email" data-options="required:true" /> 
+	        <br>
+	         <label for="name">手机号:</label>   
+	          <input class="easyui-validatebox" name="u_phone" type="text" id="updateu_phone" data-options="required:true" /> 
+	        <br>
+	    
 	  
 		</form>
 	</div>
@@ -239,22 +251,45 @@
 	}
 	]">
 		<form id="addfrm" class="easyui-form">
-			  <label for="name">书籍名称:</label>   
-	          <input class="easyui-validatebox" name="bName" type="text" id="addbName" data-options="required:true" /> 
+			  <label for="name">Id:</label>   
+	          <input class="easyui-validatebox" disabled="disabled" name="u_id" type="text" id="addu_id" data-options="required:true" />   
+			  <br>
+			  <label for="name">登录账户:</label>   
+	          <input class="easyui-validatebox" name="u_loginName" type="text" id="addu_loginName" data-options="required:true" /> 
 	          <br>
-	           <!-- 下拉列表 -->
-			<select id="addtt" class="easyui-combobox">
-				<option selected="selected"" >--请选择班级--</option>
+	          <label for="name">登录密码:</label>   
+	          <input class="easyui-validatebox" name="u_password" type="text" id="addeu_password" data-options="required:true" value="123456" /> 
+	        <br> 
+	         <!-- 下拉列表 -->
+			<select id="addtt" class="easyui-combobox" >
+				<option selected="selected" >是否锁定</option>
+				<option selected="selected" >0</option>
+				<option selected="selected" >1</option>
 			</select>
-	          <label for="name">价格:</label>   
-	          <input class="easyui-validatebox" name="bPrice" type="text" id="addbPrice" data-options="required:true" /> 
+			<br>
+	      <!--    <label for="name">登录时间:</label>   
+	          <input class="easyui-validatebox" name="u_loginTime" type="text" id="addu_loginTime"  /> 
 	        <br>
-	         <label for="name">作者:</label>   
-	          <input class="easyui-validatebox" name="bAuthor" type="text" id="addbAuthor" data-options="required:true" /> 
+	         <label for="name">退出时间:</label>   
+	          <input class="easyui-validatebox" name="u_logoutTime" type="text" id="addu_logoutTime" /> 
 	        <br>
-	         <label for="name">介绍:</label>   
-	          <input class="easyui-validatebox" name="bJieshao" type="text" id="addbJieshao" data-options="required:true" /> 
+	           <label for="name">打卡上班:</label>   
+	          <input class="easyui-validatebox" name="u_clockinTime" type="text" id="addu_clockinTime"  /> 
 	        <br>
+	         <label for="name">打卡下班:</label>   
+	          <input class="easyui-validatebox" name="u_clockoutTime" type="text" id="addu_clockoutTime" /> 
+	        <br>
+	         <label for="name">创建时间:</label>   
+	          <input class="easyui-validatebox" name="u_creationTime" type="text" id="addu_creationTime"  /> 
+	        <br> -->
+	           <label for="name">邮箱:</label>   
+	          <input class="easyui-validatebox" name="u_email" type="text" id="addu_email" data-options="required:true" /> 
+	        <br>
+	         <label for="name">手机号:</label>   
+	          <input class="easyui-validatebox" name="u_phone" type="text" id="addu_phone" data-options="required:true" /> 
+	        <br>
+	    
+	  
 		</form>
 	</div>
 </body>
