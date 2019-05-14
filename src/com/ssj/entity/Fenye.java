@@ -11,6 +11,16 @@ public class Fenye<T> {
 	private List<T> rows;
 	private Usery usery;
 	
+	private String stu_name;
+	private String stu_phone;
+	//private String stu_name;
+	private Integer stu_money;
+	private Integer stu_youXiao;
+	private Integer stu_huiFang;
+	private String stu_qq;
+	private String stu_creatorTime;
+	
+	
 	private String u_loginName;
 	private String u_isLockout;
 	public Integer getPage() {
@@ -54,6 +64,50 @@ public class Fenye<T> {
 	}
 	public void setU_isLockout(String u_isLockout) {
 		this.u_isLockout = u_isLockout;
+	}
+	
+//我的学生
+	public String getStu_name() {
+		return stu_name;
+	}
+	public void setStu_name(String stu_name) {
+		this.stu_name = stu_name;
+	}
+	public String getStu_phone() {
+		return stu_phone;
+	}
+	public void setStu_phone(String stu_phone) {
+		this.stu_phone = stu_phone;
+	}
+	public Integer getStu_money() {
+		return stu_money;
+	}
+	public void setStu_money(Integer stu_money) {
+		this.stu_money = stu_money;
+	}
+	public Integer getStu_youXiao() {
+		return stu_youXiao;
+	}
+	public void setStu_youXiao(Integer stu_youXiao) {
+		this.stu_youXiao = stu_youXiao;
+	}
+	public Integer getStu_huiFang() {
+		return stu_huiFang;
+	}
+	public void setStu_huiFang(Integer stu_huiFang) {
+		this.stu_huiFang = stu_huiFang;
+	}
+	public String getStu_qq() {
+		return stu_qq;
+	}
+	public void setStu_qq(String stu_qq) {
+		this.stu_qq = stu_qq;
+	}
+	public String getStu_creatorTime() {
+		return stu_creatorTime;
+	}
+	public void setStu_creatorTime(String stu_creatorTime) {
+		this.stu_creatorTime = stu_creatorTime;
 	}
 	@Override
 	public String toString() {
