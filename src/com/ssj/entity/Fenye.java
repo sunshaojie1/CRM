@@ -23,6 +23,28 @@ public class Fenye<T> {
 	
 	private String u_loginName;
 	private String u_isLockout;
+	private String u_isQianDao;
+	private String u_clockinTime;//打卡上班
+	private String u_clockoutTime;//打卡下班 
+	
+	public String getU_isQianDao() {
+		return u_isQianDao;
+	}
+	public void setU_isQianDao(String u_isQianDao) {
+		this.u_isQianDao = u_isQianDao;
+	}
+	public String getU_clockinTime() {
+		return u_clockinTime;
+	}
+	public void setU_clockinTime(String u_clockinTime) {
+		this.u_clockinTime = u_clockinTime;
+	}
+	public String getU_clockoutTime() {
+		return u_clockoutTime;
+	}
+	public void setU_clockoutTime(String u_clockoutTime) {
+		this.u_clockoutTime = u_clockoutTime;
+	}
 	public Integer getPage() {
 		return page;
 	}
@@ -114,7 +136,9 @@ public class Fenye<T> {
 		return "Fenye [page=" + page + ", pageSize=" + pageSize + ", total="
 				+ total + ", rows=" + rows + ", usery=" + usery
 				+ ", u_loginName=" + u_loginName + ", u_isLockout="
-				+ u_isLockout + "]";
+				+ u_isLockout + ", u_isQianDao=" + u_isQianDao
+				+ ", u_clockinTime=" + u_clockinTime + ", u_clockoutTime="
+				+ u_clockoutTime + "]";
 	}
 	
 

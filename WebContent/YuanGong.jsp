@@ -32,7 +32,7 @@
 				toolbar:"#bar",
 				queryParams:{
 					u_loginName:$("#u_loginName").val(),
-				
+					u_isLockout:$("#u_isLockout").combobox("getValue")
 
 					}
 
@@ -143,7 +143,9 @@
 			},"json")
 			$("#addfrm").form("reset");
 		}
-		 
+		function formatteru_isLockout(value,row,index) {
+			return row.u_isLockout==1? "已锁定":"未锁定";
+		}
 
 
 
@@ -157,7 +159,7 @@
 				<th data-options="field:'u_id',title:'bId'" >u_id</th>
 				<th data-options="field:'u_loginName',title:'u_loginName'">账户</th>
 				<!-- <th data-options="field:'u_password',title:'u_password'" >密码</th> -->
-				<th data-options="field:'u_isLockout',title:'u_isLockout'" >是否锁定</th>
+				<th data-options="field:'u_isLockout',title:'u_isLockout',formatter:formatteru_isLockout" >是否锁定</th>
 				<th data-options="field:'u_loginTime',title:'u_loginTime'" >登录时间</th>
 				<th data-options="field:'u_logoutTime',title:'u_logoutTime'" >退出时间</th>
 				<th data-options="field:'u_clockinTime',title:'u_clockinTime'" >打卡上班</th>
@@ -176,6 +178,12 @@
 
 		  <label for="name">用户名:</label>   
           <input class="easyui-validatebox" type="text" id="u_loginName" /> 
+            <label for="name">是否锁定:</label>   
+	       <select class="easyui-combobox" id="u_isLockout" name="u_isLockout">   
+			    <option value="">--请选择--</option>
+			    <option value="1">已锁定</option>   
+			    <option value="0">未锁定</option>
+			<select>
           
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="initUsery()">搜索</a> 
 		</form>
@@ -206,8 +214,11 @@
 	          <input class="easyui-validatebox" name="u_password" type="text" id="updateu_password" data-options="required:true" /> 
 	        <br> -->
 	         <!-- 下拉列表 -->
-			<select id="updatett" class="easyui-combobox">
+			<select id="updatett" class="easyui-combobox" id="u_isLockout">
 				<option selected="selected" >--是否锁定--</option>
+				  <option value="1">已锁定</option>   
+			    <option value="2">未锁定</option>   
+				
 			</select>
 			<br>
 	    <!--      <label for="name">登录时间:</label>   
@@ -263,8 +274,8 @@
 	         <!-- 下拉列表 -->
 			<select id="addtt" class="easyui-combobox" >
 				<option selected="selected" >是否锁定</option>
-				<option selected="selected" >0</option>
-				<option selected="selected" >1</option>
+				 <option value="1">已锁定</option>   
+			    <option value="0">未锁定</option>  
 			</select>
 			<br>
 	      <!--    <label for="name">登录时间:</label>   

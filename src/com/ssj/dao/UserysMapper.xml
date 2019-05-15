@@ -15,7 +15,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="u_loginName !=null and u_loginName !=''">
 				and u_loginName like "%"#{u_loginName}"%"
 			</if>
+			<if test="u_isLockout !=null and u_isLockout !=''">
+				and u_isLockout =#{u_isLockout}
+			</if>
+			<if test="u_isQianDao !=null and u_isQianDao !=''">
+				and u_isQianDao =#{u_isQianDao}
+			</if>
+			<if test="u_clockinTime !=null and u_clockinTime !=''">
+				and u_clockinTime &gt; =#{u_clockinTime}
+			</if>
+			<if test="u_clockoutTime !=null and u_clockoutTime !=''">
+				and u_clockoutTime &lt; =#{u_clockoutTime}
+			</if>
+			<!-- where u_clockinTime not between u_clockinTime and u_clockoutTime
 
+			and u_clockoutTime not between u_clockinTime and u_clockoutTime
+			
+			where 开始时间 not between 开始时间 and 结束时间
+
+			and 结束时间 not between 开始时间 and 结束时间
+			 -->
 			
 		</where> 
 	
@@ -25,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selUsery" parameterType="fenye" resultType="usery">
 	
-	SELECT u_id,u_loginName,u_password,u_isLockout,u_loginTime,u_logoutTime,u_clockinTime,
+	SELECT u_id,u_loginName,u_password,u_isLockout,u_loginTime,u_logoutTime,u_isQianDao,u_clockinTime,
 		u_clockoutTime,u_creationTime,u_email,u_phone
   			 FROM usery 
 		<where>
@@ -33,6 +52,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="u_loginName !=null and u_loginName !=''">
 				and u_loginName like "%"#{u_loginName}"%"
 			</if>
+			<if test="u_isLockout !=null and u_isLockout !=''">
+				and u_isLockout =#{u_isLockout}
+			</if>
+			<if test="u_isQianDao !=null and u_isQianDao !=''">
+				and u_isQianDao =#{u_isQianDao}
+			</if>
+			<if test="u_clockinTime !=null and u_clockinTime !=''">
+				and u_clockinTime &gt; =#{u_clockinTime}
+			</if>
+			<if test="u_clockoutTime !=null and u_clockoutTime !=''">
+				and u_clockoutTime &lt; =#{u_clockoutTime}
+			</if>
+			  
+			 
+			
 
 			
 		</where>

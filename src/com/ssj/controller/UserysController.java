@@ -23,10 +23,14 @@ public class UserysController {
 	 
 	 @RequestMapping(value="/selUsery",method=RequestMethod.POST)
 	 @ResponseBody
-	 public Fenye<Usery> selUsery(Integer page,Integer rows,String u_loginName){
+	 public Fenye<Usery> selUsery(Integer page,Integer rows,String u_loginName,String u_isLockout,String u_isQianDao,String u_clockinTime,String u_clockoutTime){
 		 fenye.setPage((page-1)*rows);
 		 fenye.setPageSize(rows);
 		 fenye.setU_loginName(u_loginName);
+		 fenye.setU_isLockout(u_isLockout);
+		 fenye.setU_isQianDao(u_isQianDao);
+		 fenye.setU_clockinTime(u_clockinTime);
+		 fenye.setU_clockoutTime(u_clockoutTime);
 		
 		 
 		 fenye=userysService.selUsery(fenye);
