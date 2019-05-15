@@ -10,6 +10,7 @@ public class Usery {
 	private Integer u_isLockout;//是否锁定
 	private String u_loginTime;//登录时间
 	private String u_logoutTime;//退出时间
+	private String u_isQianDao;//是否签到
 	private String u_clockinTime;//打卡上班
 	private String u_clockoutTime;//打卡下班
 	private String u_creationTime;//创建时间
@@ -17,6 +18,13 @@ public class Usery {
 	private String u_phone;//手机号
 	
 	
+	
+	public String getU_isQianDao() {
+		return u_isQianDao;
+	}
+	public void setU_isQianDao(String u_isQianDao) {
+		this.u_isQianDao = u_isQianDao;
+	}
 	public Usery(Integer u_id, String u_loginName, String u_password, Integer u_isLockout, String u_loginTime,
 			String u_logoutTime, String u_clockinTime, String u_clockoutTime, String u_creationTime, String u_email,
 			String u_phone) {
@@ -105,9 +113,12 @@ public class Usery {
 	}
 	@Override
 	public String toString() {
-		return "Usery [u_id=" + u_id + ", u_loginName=" + u_loginName + ", u_password=" + u_password + ", u_isLockout="
-				+ u_isLockout + ", u_loginTime=" + u_loginTime + ", u_logoutTime=" + u_logoutTime + ", u_clockinTime="
-				+ u_clockinTime + ", u_clockoutTime=" + u_clockoutTime + ", u_creationTime=" + u_creationTime
+		return "Usery [u_id=" + u_id + ", u_loginName=" + u_loginName
+				+ ", u_password=" + u_password + ", u_isLockout=" + u_isLockout
+				+ ", u_loginTime=" + u_loginTime + ", u_logoutTime="
+				+ u_logoutTime + ", u_isQianDao=" + u_isQianDao
+				+ ", u_clockinTime=" + u_clockinTime + ", u_clockoutTime="
+				+ u_clockoutTime + ", u_creationTime=" + u_creationTime
 				+ ", u_email=" + u_email + ", u_phone=" + u_phone + "]";
 	}
 	
