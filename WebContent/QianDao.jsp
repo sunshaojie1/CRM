@@ -45,8 +45,10 @@ function formatteru_isQianDao(value,row,index) {
 	return row.u_isQianDao==1? "已签到":"未签到";
 }
 function formattercaozuo(value,row,index){
-	return "<a href='javascript:void(0)' onclick='updateUsery("+index+")'>签退</a>"
+	return "<a href='javascript:void(0)' onclick='updateUsery("+index+")'>修改状态</a>"
 }
+
+	
 
 
 </script>
@@ -84,5 +86,6 @@ function formattercaozuo(value,row,index){
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="initUsery()">搜索</a> 
 		</form>
 	</div>
+
 </body>
 </html>

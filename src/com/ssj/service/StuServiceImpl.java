@@ -5,39 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssj.dao.WodeStuMapper;
+import com.ssj.dao.StuMapper;
 import com.ssj.entity.Fenye;
 import com.ssj.entity.Student;
+
 @Service
-public class WodeStuServiceImpl implements WodeStuService{
+public class StuServiceImpl implements StuService{
+	
 	@Autowired
-private WodeStuMapper wodeStuMapper;
+	private StuMapper stuMapper;
+
 	@Override
-	//∑÷“≥≤È—Ø
 	public Fenye<Student> selectStu(Fenye<Student> fenye) {
 		// TODO Auto-generated method stub
-		List<Student> stu = wodeStuMapper.selectStu(fenye);
-		Integer count = wodeStuMapper.selectStuCount(fenye);
+		List<Student> stu = stuMapper.selectStu(fenye);
+		Integer count = stuMapper.selectStuCount(fenye);
 		fenye.setRows(stu);
 		fenye.setTotal(count);
 		return fenye;
 	}
+
 	@Override
 	public Integer updateStu(Student student) {
 		// TODO Auto-generated method stub
-		return wodeStuMapper.updateStu(student);
+		return stuMapper.updateStu(student);
 	}
+
 	@Override
 	public Integer delStu(Integer stu_id) {
 		// TODO Auto-generated method stub
-		return wodeStuMapper.delStu(stu_id);
+		return stuMapper.delStu(stu_id);
 	}
+
 	@Override
 	public Integer addStu(Student student) {
 		// TODO Auto-generated method stub
-		return wodeStuMapper.addStu(student);
+		return stuMapper.addStu(student);
 	}
-	 
-	 
 
 }

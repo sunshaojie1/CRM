@@ -144,5 +144,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="delStu" parameterType="int">
 DELETE FROM student WHERE stu_id=#{stu_id}
 </delete>
+ <!--添加  -->
+<!-- <insert id="addStu" parameterType="student">
+
+		insert into student
+		(stu_name,stu_sex,stu_age,stu_phone,stu_state,stu_xueLi,stu_quDao,stu_wangZhan,stu_guanZhu,stu_guanJian,stu_wx,stu_qq,stu_baoBei,stu_beiZhu,stu_useryId)
+		values(#{stu_name},#{stu_sex},#{stu_age},#{stu_phone},#{stu_state},#{stu_xueLi},#{stu_quDao},#{stu_wangZhan},#{stu_guanZhu},#{stu_guanJian,#{stu_wx},#{stu_qq},#{stu_baoBei},#{stu_beiZhu}},#{stu_useryId})
+
+	</insert>   -->
 
 </mapper>

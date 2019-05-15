@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssj.dao.StuMapper">
+<!-- 查询总条数 -->
+		<select id="selectStuCount" parameterType="fenye" resultType="int">
+		SELECT COUNT(stu_id) FROM student
+			<where>
+			<if test="stu_name !='' and stu_name !=null">
+			and stu_name like "%"#{stu_name}"%"
+		</if>
+		<if test="stu_phone !='' and stu_phone !=null">
+			and stu_phone like "%"#{stu_phone}"%"
+		</if>
+		<if test="stu_name !='' and stu_name !=null">
+			and stu_name like "%"#{stu_name}"%"
+		</if>
+		<if test="stu_money !='' and stu_money !=null">
+			and stu_money like "%"#{stu_money}"%"
+		</if>
+		<if test="stu_youXiao !='' and stu_youXiao !=null">
+			and stu_youXiao like "%"#{stu_youXiao}"%"
+		</if>
+		<if test="stu_huiFang !='' and stu_huiFang !=null">
+			and stu_huiFang like "%"#{stu_huiFang}"%"
+		</if>
+		<if test="stu_qq !='' and stu_qq !=null">
+			and stu_qq like "%"#{stu_qq}"%"
+		</if>
+		<if test="stu_creatorTime !='' and stu_creatorTime !=null">
+			and stu_creatorTime like "%"#{stu_creatorTime}"%"
+		</if>
+		</where> 
+		 
+		</select>
+		<!--模糊查询  -->
+		<select id="selectStu" parameterType="fenye" resultType="student">
+	  	SELECT s.stu_id, s.stu_name,s.stu_sex,s.stu_age,s.stu_phone,s.stu_state,s.stu_xueLi,s.stu_quDao,
+				s.stu_wangZhan,s.stu_guanZhu,s.stu_guanJian,s.stu_wx,s.stu_qq,s.stu_baoBei,s.stu_beiZhu,s.stu_useryId,
+				s.stu_youXiao,s.stu_wuXiaoYuanYin,s.stu_huiFang,s.stu_creatorTime,s.stu_visit,s.stu_visitTime,s.stu_payTime,
+				s.stu_money,s.stu_moneyTime,s.stu_jinE,s.stu_tui,s.stu_tuiYin,s.stu_dingJinE,s.stu_dingTime,
+				s.stu_class,s.stu_classTime,s.stu_classBeiZhu,s.stu_ziXun,s.stu_ziXunBeiZhu,s.stu_quYu,
+				s.stu_buMen,s.stu_keCheng,s.stu_daFen,s.stu_luRu
+ 				FROM student s
+ 				<where>
+			<if test="stu_name !='' and stu_name !=null">
+			and stu_name like "%"#{stu_name}"%"
+		</if>
+		<if test="stu_phone !='' and stu_phone !=null">
+			and stu_phone like "%"#{stu_phone}"%"
+		</if>
+		<if test="stu_name !='' and stu_name !=null">
+			and stu_name like "%"#{stu_name}"%"
+		</if> 
+		<if test="stu_money !='' and stu_money !=null">
+			and stu_money like "%"#{stu_money}"%"
+		</if>
+		<if test="stu_youXiao !='' and stu_youXiao !=null">
+			and stu_youXiao like "%"#{stu_youXiao}"%"
+		</if>
+		<if test="stu_huiFang !='' and stu_huiFang !=null">
+			and stu_huiFang like "%"#{stu_huiFang}"%"
+		</if>
+		<if test="stu_qq !='' and stu_qq !=null">
+			and stu_qq like "%"#{stu_qq}"%"
+		</if>
+		<if test="stu_creatorTime !='' and stu_creatorTime !=null">
+			and stu_creatorTime like "%"#{stu_creatorTime}"%"
+		</if>
+		</where> 
+ 				limit #{page},#{pageSize}
+		</select>
+	<!--修改  -->
+		<update id="updateStu" parameterType="student">
+			UPDATE student 
+		 <set> 
+			<if test="stu_name != null and stu_name !=''">
+				 stu_name=#{stu_name},
+			</if>
+			<if test="stu_sex != null and stu_sex !=''">
+				 stu_sex=#{stu_sex},
+			</if>
+			<if test="stu_age != null and stu_age !=''">
+				 stu_age=#{stu_age},
+			</if>
+			
+			<if test="stu_phone != null and stu_phone !=''">
+				 stu_phone=#{stu_phone},
+			</if>
+			<if test="stu_state != null and stu_state !=''">
+				 stu_state=#{stu_state},
+			</if>
+			<if test="stu_xueLi != null and stu_xueLi !=''">
+				 stu_xueLi=#{stu_xueLi},
+			</if>
+			
+			<if test="stu_quDao != null and stu_quDao !=''">
+				 stu_quDao=#{stu_quDao},
+			</if>
+			<if test="stu_wangZhan != null and stu_wangZhan !=''">
+				 stu_wangZhan=#{stu_wangZhan},
+			</if>
+			<if test="stu_guanZhu != null and stu_guanZhu !=''">
+				 stu_guanZhu=#{stu_guanZhu},
+			</if>
+			<if test="stu_guanJian != null and stu_guanJian !=''">
+				 stu_guanJian=#{stu_guanJian},
+			</if>
+			<if test="stu_wx != null and stu_wx !=''">
+				 stu_wx=#{stu_wx},
+			</if>
+			<if test="stu_qq != null and stu_qq !=''">
+				 stu_qq=#{stu_qq},
+			</if>
+			<if test="stu_baoBei != null and stu_baoBei !=''">
+				 stu_baoBei=#{stu_baoBei},
+			</if>
+			<if test="stu_beiZhu != null and stu_beiZhu !=''">
+				 stu_beiZhu=#{stu_beiZhu},
+			</if>
+			<if test="stu_useryId != null and stu_useryId !=''">
+				 stu_useryId=#{stu_useryId},
+			</if>
+			<if test="stu_luRu != null and stu_luRu !=''">
+				 stu_luRu=#{stu_luRu},
+			</if>
+			
+</set>
+ <where>
+
+		<if test="stu_id !=null and stu_id !=''">
+				stu_id=#{stu_id}
+		</if>
+			
+</where> 
+</update>
+<!--  删除-->
+<delete id="delStu" parameterType="int">
+DELETE FROM student WHERE stu_id=#{stu_id}
+</delete>
+ <!--添加  -->
+<!--  <insert id="addStu" parameterType="student" >
+		insert into student(stu_name,stu_sex,stu_age,stu_phone,stu_state,stu_xueLi,stu_quDao,stu_wangZhan,stu_guanZhu,stu_guanJian,stu_wx,stu_qq,stu_baoBei,stu_beiZhu,stu_useryId)
+		values(#{stu_name},#{stu_sex},#{stu_age},#{stu_phone},#{stu_state},#{stu_xueLi},#{stu_quDao},#{stu_wangZhan},#{stu_guanZhu},#{stu_guanJian,#{stu_wx},#{stu_qq},#{stu_baoBei},#{stu_beiZhu},#{stu_useryId})
+	</insert> -->
+<!-- <insert id="addStu" parameterType="student" >
+insert into student(stu_name,stu_sex,stu_age,stu_phone,stu_state,stu_xueLi,stu_quDao,stu_wangZhan,stu_guanZhu,stu_guanJian,stu_wx,stu_qq,stu_baoBei,stu_beiZhu,stu_useryId)
+		values(#{stu_name},#{stu_sex},#{stu_age},#{stu_phone},#{stu_state},#{stu_xueLi},#{stu_quDao},#{stu_wangZhan},#{stu_guanZhu},#{stu_guanJian,#{stu_wx},#{stu_qq},#{stu_baoBei},#{stu_beiZhu},#{stu_useryId})
+</insert> -->
+</mapper>

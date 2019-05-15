@@ -179,7 +179,7 @@
 		  <label for="name">用户名:</label>   
           <input class="easyui-validatebox" type="text" id="u_loginName" /> 
             <label for="name">是否锁定:</label>   
-	       <select class="easyui-combobox" id="u_isLockout" name="u_isLockout">   
+	       <select class="easyui-combobox" id="u_isLockout" name="u_isLockout" >   
 			    <option value="">--请选择--</option>
 			    <option value="1">已锁定</option>   
 			    <option value="0">未锁定</option>

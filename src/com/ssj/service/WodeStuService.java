@@ -11,5 +11,7 @@ public interface WodeStuService {
 	Integer updateStu(Student student);
 	//É¾³ı
 	Integer delStu(Integer stu_id);
+	//Ìí¼Ó
+	Integer addStu(Student student);
 
 }
