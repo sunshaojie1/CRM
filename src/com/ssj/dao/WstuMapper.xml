@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssj.dao.WstuMapper">
+	<select id="selectWstuCount" parameterType="fenye" resultType="int">
+		select count(*) from student
+		<!--  <where>
+			<if test="Sname !=null Sname !=''">
+				and stu_name like "%" #{Sname} "%"
+			</if>
+
+		</where>   -->
+	</select>
+	<select id="selectWstu" parameterType="fenye" resultType="student">
+		SELECT
+		s.stu_id,s.stu_name,s.stu_sex,s.stu_age,s.stu_phone,s.stu_state,s.stu_xueLi,s.stu_quDao,
+		s.stu_wangZhan,s.stu_guanJian,s.stu_wx,
+		s.stu_baoBei,s.stu_keCheng,s.stu_youXiao,s.stu_daFen,s.stu_huiFang,s.stu_visit,s.stu_visitTime,s.stu_baoBei,
+		s.stu_payTime,s.stu_wuXiaoYuanYin,
+		s.stu_money,s.stu_moneyTime,s.stu_jinE,s.stu_tui,s.stu_class,s.stu_classTime,s.stu_classBeiZhu,
+		s.stu_tuiYin,s.stu_dingJinE,s.stu_dingTime,s.stu_quYu,s.stu_buMen,s.stu_qq,s.stu_ziXun,s.stu_creatorTime
+		FROM student s
+		<!--  <where>
+			<if test="Sname !=null Sname !=''">
+				and stu_name like "%" #{Sname} "%"
+			</if>
+
+		</where>  -->
+
+		limit #{page},#{pageSize}
+
+	</select>
+  <!--  修改 -->
+  <update id="updateWstu" parameterType="int">
+		update student  
+		<set>
+		    <if test="stu_id !=null and stu_id !='' ">
+				stu_id=#{stu_id},
+			</if>
+			<if test="stu_ziXun !=null and stu_ziXun !='' ">
+				stu_ziXun=#{stu_ziXun},
+			</if>
+			<if test="stu_keCheng !=null and stu_keCheng  !='' ">
+				stu_keCheng=#{stu_keCheng},
+			</if>
+			<if test="stu_daFen !=null and stu_daFen !='' ">
+				stu_daFen=#{stu_daFen},
+			</if>
+			<if test="stu_baoBei !=null and stu_baoBei !='' ">
+				stu_baoBei=#{stu_baoBei},
+			</if>
+			<if test="stu_class !=null and stu_class  !='' ">
+				stu_class=#{stu_class},
+			</if>
+			<if test="stu_classTime !=null and stu_classTime !='' ">
+				stu_classTime=#{stu_classTime},
+			</if>
+			<if test="stu_classBeiZhu !=null and stu_classBeiZhu !='' ">
+				stu_classBeiZhu=#{stu_classBeiZhu},
+			</if>
+			<if test="stu_youXiao !=null and stu_youXiao  !='' ">
+				stu_youXiao=#{stu_youXiao},
+			</if>
+			<if test="stu_wuXiaoYuanYin !=null and stu_wuXiaoYuanYin !='' ">
+				stu_wuXiaoYuanYin=#{stu_wuXiaoYuanYin},
+			</if>
+			<if test="stu_huiFang !=null and stu_huiFang !='' ">
+				stu_huiFang=#{stu_huiFang},
+			</if>
+			<if test="stu_visit !=null and stu_visit  !='' ">
+				stu_visit=#{stu_visit},
+			</if>
+			<if test="stu_payTime !=null and stu_payTime !='' ">
+				stu_payTime=#{stu_payTime},
+			</if>
+			<if test="stu_money !=null and stu_money !='' ">
+				stu_money=#{stu_money},
+			</if>
+			<if test="stu_moneyTime !=null and stu_moneyTime  !='' ">
+				stu_moneyTime=#{stu_moneyTime},
+			</if>
+			<if test="stu_jinE !=null and stu_jinE !='' ">
+				stu_jinE=#{stu_jinE},
+			</if>
+			<if test="stu_tui !=null and stu_tui !='' ">
+				stu_tui=#{stu_tui},
+			</if>
+			<if test="stu_tuiYin !=null and stu_tuiYin  !='' ">
+				stu_tuiYin=#{stu_tuiYin},
+			</if>
+			<if test="stu_dingJinE !=null and stu_dingJinE !='' ">
+				stu_dingJinE=#{stu_dingJinE},
+			</if>
+			<if test="stu_dingTime !=null and stu_dingTime !='' ">
+				stu_dingTime=#{stu_dingTime},
+			</if>
+		</set>
+		<where>
+		  stu_id=#{stu_id}
+		
+		</where> 
+	</update>
+	<delete id="delWstu" parameterType="int">
+		delete from student where stu_id=#{stu_id}
+
+	</delete>
+</mapper>

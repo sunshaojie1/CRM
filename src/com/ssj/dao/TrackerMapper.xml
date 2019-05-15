@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssj.dao.TrackerMapper">
+	<select id="selectTrackerCount" parameterType="fenye"
+		resultType="int">
+		select count(*) tracker
+	</select>
+	<resultMap type="tracker" id="Map">
+		<result column="tracker.student.stu_name" property="stu_name" />
+		<result column="t_beginTime" property="t_beginTime" />
+		<result column="t_finishTime" property="t_finishTime" />
+		<result column="t_huiFang" property="t_huiFang" />
+		<result column="t_fangShi" property="t_fangShi" />
+		<result column="tracker.student.stu_id" property="stu_id" />
+	</resultMap>
+	<select id="selectTracker" parameterType="fenye" resultMap="Map">
+		select s.stu_name,t.t_beginTime,t.t_finishTime,t.t_huiFang,t.t_fangShi,
+		s.stu_id from tracker t,student s where t.t_stuId=s.stu_id
+		limit #{page},#{pageSize}
+
+	</select>
+
+
+</mapper>
