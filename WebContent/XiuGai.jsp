@@ -17,7 +17,7 @@
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 
-/* $(function(){
+ /* $(function(){
 	initUseryes();
 	
 })
@@ -84,14 +84,13 @@ function initUseryes(){
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="update()" >提交</a>
 					</td>
 				</tr>  
-  </table>
+  </table> 
   <div id="showlianxi" style="display:none;filter:alpha(opacity=50); background: #FF9999">  
  <label id="lable1"></label>
  </div>
  <label id="old_pass" style="display:none">0</label>
  <label id="new_password_control" style="display:none">0</label>
  <label id="new_password_confirmation_control" style="display:none">0</label>
-
 </body>
 
 </html>
