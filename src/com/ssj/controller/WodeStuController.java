@@ -2,6 +2,11 @@ package com.ssj.controller;
 
 import java.util.List;
 
+import javafx.scene.control.Cell;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,17 +27,19 @@ public class WodeStuController {
 	@RequestMapping(value="/selectStu",method=RequestMethod.POST)
 	@ResponseBody
 public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String stu_phone,Integer stu_money,
-		Integer stu_youXiao,Integer stu_huiFang,String stu_qq,String stu_creatorTime){
+		Integer stu_youXiao,Integer stu_huiFang,String stu_qq,String startstu_creatorTime,String eddstu_creatorTime){
 	fenye.setPage((page-1)*rows);
 	fenye.setPageSize(rows);
 	fenye.setStu_name(stu_name);
 	fenye.setStu_phone(stu_phone);
 	fenye.setStu_money(stu_money);
 	fenye.setStu_youXiao(stu_youXiao);
+	System.out.println(stu_youXiao);
 	fenye.setStu_huiFang(stu_huiFang);
 	fenye.setStu_qq(stu_qq);
-	fenye.setStu_creatorTime(stu_creatorTime);
-	
+	fenye.setStartstu_creatorTime(startstu_creatorTime);
+	fenye.setEddstu_creatorTime(eddstu_creatorTime);
+	System.out.println(eddstu_creatorTime);
 	fenye = wodeStuService.selectStu(fenye);
 	return fenye;
 	
@@ -52,6 +59,7 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 		return wodeStuService.delStu(stu_id);
 		
 	}
+
 	//Ìí¼Ó
 	@RequestMapping(value="/addStu",method=RequestMethod.POST)
 	@ResponseBody
@@ -62,4 +70,6 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 	}
 	
 
+
+ 
 }

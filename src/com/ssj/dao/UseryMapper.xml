@@ -36,6 +36,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE usery SET u_password="ssj.123"
 		WHERE u_phone=#{u_phone} AND u_loginName=#{u_loginName}
 	</update>
+	<!-- 修改密码 -->
+	<update id="updateXiugai" parameterType="usery">
+	UPDATE usery SET u_password=#{u_password} WHERE u_id=#{u_id}
+			
+		
+		
+	</update>
 	
 	
 	

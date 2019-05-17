@@ -36,9 +36,12 @@ public interface UseryMapper {
 	 * @return
 	 */
 	Integer updateCz(Usery usery);
-	
-	
-	
-	
-	
+	/**
+	 * ĞŞ¸ÄÃÜÂë
+	 * @param CzName
+	 * @param CzPhone
+	 * @return
+	 */
+	Integer updateXiugai(Usery usery);
+		
 }

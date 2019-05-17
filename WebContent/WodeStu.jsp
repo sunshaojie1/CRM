@@ -24,12 +24,12 @@
 		    	queryParams: {
 		    		stu_name:$("#stu_name").val(),
 		    		stu_phone:$("#stu_phone").val(),
-		    		//sid:$("#sid").val(),
-		    		stu_money:$("#stu_money").val(),
-		    		stu_youXiao:$("#stu_youXiao").val(),
-		    		stu_huiFang:$("#stu_huiFang").val(),
+		    		stu_money:$("#stu_money").combobox("getValue"),
+		    		stu_youXiao:$("#stu_youXiao").combobox("getValue"),
+		    		stu_huiFang:$("#stu_huiFang").combobox("getValue"),
 		    		stu_qq:$("#stu_qq").val(),
-		    		stu_creatorTime:$("#stu_creatorTime").val(),
+		    		startstu_creatorTime:$("#startstu_creatorTime").val(),
+		    		eddstu_creatorTime:$("#eddstu_creatorTime").val(),
 
 		}
 
@@ -37,6 +37,34 @@
 	}
 	function formattercaozuo(value,row,index) {
 		return "<a href='javascript:void(0)' onclick='update("+index+")'>修改</a> <a href='javascript:void(0)' onclick='del("+index+")'>删除</a>   <a href='javascript:void(0)' onclick='chakan("+index+")'>查看</a>"
+	}
+	function formattershi(value,row,index){
+		return row.stu_baoBei==1? "是":"否";
+
+	}
+	function formattershistu_youXiao(value,row,index){
+		return row.stu_youXiao==1? "是":"否";
+
+	}
+	function formattershistu_huiFang(value,row,index){
+		return row.stu_huiFang==1? "是":"否";
+
+	}
+	function formattershistu_visit(value,row,index){
+		return row.stu_visit ==1? "是":"否";
+
+	}
+	function formattershistu_money(value,row,index){
+		return row.stu_money==1? "是":"否";
+
+	}
+	function formattershistu_tui(value,row,index){
+		return row.stu_tui==1? "是":"否";
+
+	}
+	function formattershistu_class(value,row,index){
+		return row.stu_class==1? "是":"否";
+
 	}
 	//查看
 	function chakan(index) {
@@ -59,20 +87,20 @@
 			stu_ziXun:$("#stu_ziXun").val(),
 			stu_keCheng:$("#stu_keCheng").val(),
 			stu_daFen:$("#stu_daFen").val(),
-			stu_class:$("#stu_class").val(),
+			stu_class:$("#stu_class").combobox("getValue"),
 			stu_classTime:$("#stu_classTime").val(),
 			stu_classBeiZhu:$("#stu_classBeiZhu").val(),
 			stu_ziXunBeiZhu:$("#stu_ziXunBeiZhu").val(),
-			stu_youXiao:$("#stu_youXiao").val(),
+			stu_youXiao:$("#stu_youXiao").combobox("getValue"),
 			stu_wuXiaoYuanYin:$("#stu_wuXiaoYuanYin").val(),
-			stu_huiFang:$("#stu_huiFang").val(),
-			stu_visit:$("#stu_visit").val(),
+			stu_huiFang:$("#stu_huiFang").combobox("getValue"),
+			stu_visit:$("#stu_visit").combobox("getValue"),
 			stu_visitTime:$("#stu_visitTime").val(),
 			stu_payTime:$("#stu_payTime").val(),
-			stu_money:$("#stu_money").val(),
+			stu_money:$("#stu_money").combobox("getValue"),
 			stu_moneyTime:$("#stu_moneyTime").val(),
 			stu_jinE:$("#stu_jinE").val(),
-			stu_tui:$("#stu_tui").val(),
+			stu_tui:$("#stu_tui").combobox("getValue"),
 			stu_tuiYin:$("#stu_tuiYin").val(),
 			stu_dingJinE:$("#stu_dingJinE").val(),
 			stu_dingTime:$("#stu_dingTime").val(),
@@ -111,11 +139,11 @@
 				
 			}
 		})
-		
 	} 
 </script>
 </head>
 <body>
+
 	<table class="easyui-datagrid" id="ltab">   
     <thead>   
         <tr>   
@@ -130,21 +158,20 @@
             <th data-options="field:'stu_wangZhan',title:'来源网址'"></th>   
             <th data-options="field:'stu_guanJian',title:'来源关键词'"></th>   
             <th data-options="field:'stu_wx',title:'微信'"></th>   
-            <th data-options="field:'stu_baoBei',title:'是否报备'"></th>   
+            <th data-options="field:'stu_baoBei',title:'是否报备',formatter:formattershi"></th>   
             <th data-options="field:'stu_keCheng',title:'课程方向'"></th>   
-            <th data-options="field:'stu_youXiao',title:'是否有效'"></th>   
+            <th data-options="field:'stu_youXiao',title:'是否有效',formatter:formattershistu_youXiao"></th>   
             <th data-options="field:'stu_daFen',title:'打分'"></th>   
-            <th data-options="field:'stu_huiFang',title:'是否回访'"></th>   
-            <th data-options="field:'stu_visit',title:'是否上门'"></th>   
+            <th data-options="field:'stu_huiFang',title:'是否回访',formatter:formattershistu_huiFang"></th>   
+            <th data-options="field:'stu_visit',title:'是否上门',formatter:formattershistu_visit"></th>   
             <th data-options="field:'stu_visitTime',title:'上门时间'"></th>   
-            <th data-options="field:'stu_baoBei',title:'是否报备'"></th>   
             <th data-options="field:'stu_payTime',title:'首次回访时间'"></th>   
             <th data-options="field:'stu_wuXiaoYuanYin',title:'无效原因'"></th>   
-            <th data-options="field:'stu_money',title:'是否缴费'"></th>   
+            <th data-options="field:'stu_money',title:'是否缴费',formatter:formattershistu_money"></th>   
             <th data-options="field:'stu_moneyTime',title:'缴费时间'"></th>   
             <th data-options="field:'stu_jinE',title:'金额'"></th>   
-            <th data-options="field:'stu_tui',title:'是否退费'"></th>   
-            <th data-options="field:'stu_class',title:'是否进班'"></th>   
+            <th data-options="field:'stu_tui',title:'是否退费',formatter:formattershistu_tui"></th>   
+            <th data-options="field:'stu_class',title:'是否进班',formatter:formattershistu_class"></th>   
             <th data-options="field:'stu_classTime',title:'进班时间'"></th>   
             <th data-options="field:'stu_classBeiZhu',title:'进班备注'"></th>   
             <th data-options="field:'stu_tuiYin',title:'退费原因'"></th>   
@@ -171,22 +198,32 @@
         <input class="easyui-validatebox" type="text" id="" name="email" />    -->    
         
            <label for="email">是否缴费:</label>   
-        <input class="easyui-validatebox" type="text" id="stu_money" name="stu_money" />       
+          <select class="easyui-combobox" id="stu_money" name="stu_money">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>     
         
            <label for="email">是否有效:</label>   
-        <input class="easyui-validatebox" type="text" id="stu_youXiao" name="stu_youXiao" />       </br>
+        <select class="easyui-combobox" id="stu_youXiao" name="stu_youXiao">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>       
         
            <label for="email">是否回访:</label>   
-        <input class="easyui-validatebox" type="text" id="stu_huiFang" name="stu_huiFang" />       
-        
+ 			<select class="easyui-combobox" id="stu_huiFang" name="stu_huiFang">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>        </br>
            <label for="email">QQ:</label>   
         <input class="easyui-validatebox" type="text" id="stu_qq" name="stu_qq" />       
         
        <label for="email">创建时间:</label>   
-        <input class="easyui-datebox" id="stu_creatorTime" name="stu_creatorTime" required="true"/>
-       
+        <input class="easyui-datebox" id="startstu_creatorTime" name="startstu_creatorTime" required="true"/>~
+        <input class="easyui-datebox" id="eddstu_creatorTime" name="eddstu_creatorTime" required="true"/>
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="initWodeStu()">搜索</a> 
-          <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="add()">添加</a> 
 </form> 
 </div>
 
@@ -229,7 +266,11 @@
 						<label for="name">是否进班:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" id="stu_class" name="stu_class" />
+						     <select class="easyui-combobox" id="stu_class" name="stu_class">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 					
 					<td>
@@ -257,7 +298,11 @@
 						<label for="name">是否有效:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" id="stu_youXiao" name="stu_youXiao" />
+					   <select class="easyui-combobox" id="stu_youXiao" name="stu_youXiao">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>
@@ -272,14 +317,22 @@
 						<label for="name">是否回访:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" id="stu_huiFang" name="stu_huiFang" />
+						   <select class="easyui-combobox" id="stu_huiFang" name="stu_huiFang">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>
 						<label for="name">是否上门:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" id="stu_visit" name="stu_visit" />
+					   <select class="easyui-combobox" id="stu_visit" name="stu_visit">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>
@@ -301,7 +354,11 @@
 						<label for="name">是否缴费:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" id="stu_money" name="stu_money" />
+						   <select class="easyui-combobox" id="stu_money" name="stu_money">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>
@@ -323,7 +380,11 @@
 						<label for="name">是否退费:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" id="stu_tui" name="stu_tui" />
+						   <select class="easyui-combobox" id="stu_tui" name="stu_tui">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>
@@ -402,7 +463,11 @@
 						<label for="name">是否进班:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_class" name="stu_class" />
+					 <select class="easyui-combobox" disabled="disabled"  id="stu_class" name="stu_class">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 					
 					<td>
@@ -430,7 +495,11 @@
 						<label for="name">是否有效:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_youXiao" name="stu_youXiao" />
+					  <select class="easyui-combobox" disabled="disabled"  id="stu_youXiao" name="stu_youXiao">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>
@@ -452,7 +521,11 @@
 						<label for="name">是否上门:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_visit" name="stu_visit" />
+					<select class="easyui-combobox" disabled="disabled"  id="stu_visit" name="stu_visit">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>
@@ -474,7 +547,11 @@
 						<label for="name">是否缴费:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_money" name="stu_money" />
+						<select class="easyui-combobox" disabled="disabled"  id="stu_money" name="stu_money">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>
@@ -496,7 +573,11 @@
 						<label for="name">是否退费:</label> 
 					</td>
 					<td>
-						<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_tui" name="stu_tui" />
+						<select class="easyui-combobox" disabled="disabled"  id="stu_tui" name="stu_tui">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>
 					</td>
 				
 					<td>

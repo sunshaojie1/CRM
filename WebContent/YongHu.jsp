@@ -5,8 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="js/jquery-easyui-1.4.3/themes/icon.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/jquery-easyui-1.4.3/themes/metro-green/easyui.css" />
+<script type="text/javascript"
+	src="js/jquery-easyui-1.4.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
+
 </head>
 <body>
-	这是用户管理的的jsp
+
 </body>
 </html>
