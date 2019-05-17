@@ -13,6 +13,29 @@ public class Tracker {
 	private String t_huiFang;//回访情况
 	private String t_fangShi;//跟踪方式
 	private Student student;
+	
+	public Student getStudent() {
+		return student;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	public Tracker() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Tracker(Integer t_id, String t_useryId, String t_stuId,
+			String t_beginTime, String t_finishTime, String t_huiFang,
+			String t_fangShi) {
+		super();
+		this.t_id = t_id;
+		this.t_useryId = t_useryId;
+		this.t_stuId = t_stuId;
+		this.t_beginTime = t_beginTime;
+		this.t_finishTime = t_finishTime;
+		this.t_huiFang = t_huiFang;
+		this.t_fangShi = t_fangShi;
+	}
 	public Integer getT_id() {
 		return t_id;
 	}
@@ -54,12 +77,6 @@ public class Tracker {
 	}
 	public void setT_fangShi(String t_fangShi) {
 		this.t_fangShi = t_fangShi;
-	}
-	public Student getStudent() {
-		return student;
-	}
-	public void setStudent(Student student) {
-		this.student = student;
 	}
 	@Override
 	public String toString() {

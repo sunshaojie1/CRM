@@ -5,19 +5,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.ssj.dao.TrackerMapper">
 	<select id="selectTrackerCount" parameterType="fenye"
 		resultType="int">
-		select count(*) tracker
+		select count(t_id) from tracker
+		<where>
+			<if test="sname !='' and sname !=null">
+				and student.stu_name like "%"#{sname}"%"
+			</if>
+			<if test="t_huiFang !='' and t_huiFang !=null">
+				and t_huiFang like "%"#{t_huiFang}"%"
+			</if>
+            <if test="t_fangShi !='' and t_fangShi !=null">
+				and t_fangShi like "%"#{t_fangShi}"%"
+			</if>
+			<if test="startt_beginTime !='' and startt_beginTime !=null">
+				and t_beginTime =#{startt_beginTime}
+			</if>
+			<if test="endt_beginTime !='' and endt_beginTime !=null">
+				and t_beginTime =#{endt_beginTime}
+			</if>
+			<if test="startt_finishTime !='' and startt_finishTime !=null">
+				and t_finishTime =#{startt_finishTime}
+			</if>
+			<if test="endt_finishTime !='' and endt_finishTime !=null">
+				and t_finishTime =#{endt_finishTime}
+			</if>
+			
+		</where>
 	</select>
-	<resultMap type="tracker" id="Map">
-		<result column="tracker.student.stu_name" property="stu_name" />
+	<resultMap type="tracker" id="trackerMap">
+		<id column="t_id" property="t_id" />
+		<result column="stu_name" property="student.stu_name" />
+		<result column="t_useryId" property="t_useryId" />
 		<result column="t_beginTime" property="t_beginTime" />
 		<result column="t_finishTime" property="t_finishTime" />
 		<result column="t_huiFang" property="t_huiFang" />
 		<result column="t_fangShi" property="t_fangShi" />
-		<result column="tracker.student.stu_id" property="stu_id" />
+
 	</resultMap>
-	<select id="selectTracker" parameterType="fenye" resultMap="Map">
-		select s.stu_name,t.t_beginTime,t.t_finishTime,t.t_huiFang,t.t_fangShi,
-		s.stu_id from tracker t,student s where t.t_stuId=s.stu_id
+	<select id="selectTracker" parameterType="fenye" resultMap="trackerMap">
+		<!-- select s.stu_id,s.stu_name,t.t_beginTime,t.t_finishTime,t.t_huiFang,t.t_fangShi 
+			from tracker t,student s where t.t_stuId=s.stu_id -->
+
+		select t.*,s.stu_name from student s,tracker t WHERE s.stu_id =
+		t.t_stuId
+		<where>
+			<if test="sname !='' and sname !=null">
+				and student.stu_name like "%"#{sname}"%"
+			</if>
+			<if test="t_huiFang !='' and t_huiFang !=null">
+				and t_huiFang =#{t_huiFang}
+			</if>
+            <if test="t_fangShi !='' and t_fangShi !=null">
+				and t_fangShi =#{t_fangShi}
+			</if>
+			<if test="startt_beginTime !='' and startt_beginTime !=null">
+				and t_beginTime =#{startt_beginTime}
+			</if>
+			<if test="endt_beginTime !='' and endt_beginTime !=null">
+				and t_beginTime =#{endt_beginTime}
+			</if>
+			<if test="startt_finishTime !='' and startt_finishTime !=null">
+				and t_finishTime =#{startt_finishTime}
+			</if>
+			<if test="endt_finishTime !='' and endt_finishTime !=null">
+				and t_finishTime =#{endt_finishTime}
+			</if>
+			
+		</where>
 		limit #{page},#{pageSize}
 
 	</select>

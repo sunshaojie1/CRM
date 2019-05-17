@@ -30,6 +30,7 @@
 		var row=datas.rows[index];
 		$("#frmStu").form("load",row)
 		 $("#updateStu").dialog("open");
+		
 	}
 
 </script>

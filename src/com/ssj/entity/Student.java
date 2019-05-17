@@ -44,6 +44,9 @@ public class Student {
 	private String stu_keCheng;//课程方向
 	private String stu_daFen;//打分
 	private String stu_luRu;//录入人 
+	
+	
+	
 	public Integer getStu_id() {
 		return stu_id;
 	}
@@ -310,5 +313,6 @@ public class Student {
 				+ stu_keCheng + ", stu_daFen=" + stu_daFen + ", stu_luRu="
 				+ stu_luRu + "]";
 	}
+	
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssj.dao.TrackerMapper;
 import com.ssj.entity.Fenye;
+import com.ssj.entity.Student;
 import com.ssj.entity.Tracker;
 @Service
 public class TrackerServiceImpl implements TrackerService{
@@ -21,5 +22,7 @@ public Fenye<Tracker> selectTracker(Fenye<Tracker> fenye) {
 	fenye.setRows(selectTracker);
 	return fenye;
 }
+
+
 	
 }
