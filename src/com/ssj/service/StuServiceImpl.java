@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ssj.dao.StuMapper;
 import com.ssj.entity.Fenye;
 import com.ssj.entity.Student;
+import com.ssj.entity.Usery;
 
 @Service
 public class StuServiceImpl implements StuService{
@@ -41,6 +42,13 @@ public class StuServiceImpl implements StuService{
 	public Integer addStu(Student student) {
 		// TODO Auto-generated method stub
 		return stuMapper.addStu(student);
+	}
+
+	@Override
+	public List<Usery> getU_loginName() {
+		// TODO Auto-generated method stub
+		return stuMapper.getU_loginName()
+				;
 	}
 
 }

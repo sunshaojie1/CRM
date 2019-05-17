@@ -1,6 +1,8 @@
 package com.ssj.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ssj.entity.Fenye;
 import com.ssj.entity.Student;
+import com.ssj.entity.Usery;
 import com.ssj.service.StuService;
 
 @Controller
@@ -21,7 +24,7 @@ public class StuController {
 	@RequestMapping(value="/selectStu1",method=RequestMethod.POST)
 	@ResponseBody
 public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String stu_phone,Integer stu_money,
-		Integer stu_youXiao,Integer stu_huiFang,String stu_qq,String stu_creatorTime){
+		Integer stu_youXiao,Integer stu_huiFang,String stu_qq,String startTime,String endTime){
 	fenye.setPage((page-1)*rows);
 	fenye.setPageSize(rows);
 	fenye.setStu_name(stu_name);
@@ -30,7 +33,8 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 	fenye.setStu_youXiao(stu_youXiao);
 	fenye.setStu_huiFang(stu_huiFang);
 	fenye.setStu_qq(stu_qq);
-	fenye.setStu_creatorTime(stu_creatorTime);
+	fenye.setStartTime(startTime);
+	fenye.setEndTime(endTime);
 	
 	fenye = stuService.selectStu(fenye);
 	return fenye;
@@ -57,6 +61,14 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 	public Integer addStu(Student student){
 		
 		return stuService.addStu(student);
+		
+	}
+	
+	@RequestMapping(value="/getU_loginName",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Usery> getU_loginName(){
+		
+		return stuService.getU_loginName();
 		
 	}
 	

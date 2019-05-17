@@ -1,7 +1,10 @@
 package com.ssj.service;
 
+import java.util.List;
+
 import com.ssj.entity.Fenye;
 import com.ssj.entity.Student;
+import com.ssj.entity.Usery;
 
 public interface StuService {
 	//∑÷“≥≤È—Ø
@@ -13,6 +16,9 @@ public interface StuService {
 		Integer delStu(Integer stu_id);
 //		//ÃÌº”
 		Integer addStu(Student student);
+		
+		
+		List<Usery> getU_loginName();
 
 
 }

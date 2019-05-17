@@ -32,8 +32,8 @@ function initUsery(){
 		queryParams:{
 			u_loginName:$("#u_loginName").val(),
 			u_isQianDao:$("#u_isQianDao").combobox("getValue"),
-			u_clockinTime:$('#u_clockinTime').datetimebox('getValue'),
-			u_clockoutTime:$('#u_clockoutTime').datetimebox('getValue'),
+			/* u_clockinTime:$('#u_clockinTime').datetimebox('getValue'),
+			u_clockoutTime:$('#u_clockoutTime').datetimebox('getValue'), */
 			
 			}
 
@@ -72,10 +72,10 @@ function formattercaozuo(value,row,index){
 
 		  <label for="name">用户名:</label>   
           <input class="easyui-validatebox" type="text" id="u_loginName" /> 
-            <label for="name">打卡时间:</label>   
+         <!--    <label for="name">打卡时间:</label>   
           <input class="easyui-datetimebox" name="u_clockinTime"  id="u_clockinTime" >——
         	<input class="easyui-datetimebox" name="u_clockoutTime"  id="u_clockoutTime" >
-        	 
+        	  -->
             <label for="name">是否签到:</label>   
 	       <select class="easyui-combobox" id="u_isQianDao" name="u_isQianDao">   
 			    <option value="">--请选择--</option>

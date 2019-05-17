@@ -27,6 +27,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="u_clockoutTime !=null and u_clockoutTime !=''">
 				and u_clockoutTime &lt; =#{u_clockoutTime}
 			</if>
+			<if test="startTime !='' and startTime !=null">
+			and stu_creatorTime &gt;=  #{startTime}
+			</if>
+			<if test="endTime !='' and startTime !=null">
+				and stu_creatorTime  &lt;= #{startTime}
+			</if>
 			<!-- where u_clockinTime not between u_clockinTime and u_clockoutTime
 
 			and u_clockoutTime not between u_clockinTime and u_clockoutTime
@@ -58,13 +64,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="u_isQianDao !=null and u_isQianDao !=''">
 				and u_isQianDao =#{u_isQianDao}
 			</if>
-			<if test="u_clockinTime !=null and u_clockinTime !=''">
-				and u_clockinTime &gt; =#{u_clockinTime}
+
+			  <if test="startTime !='' and startTime !=null">
+				and stu_creatorTime &gt;=  #{startTime}
 			</if>
-			<if test="u_clockoutTime !=null and u_clockoutTime !=''">
-				and u_clockoutTime &lt; =#{u_clockoutTime}
+			<if test="endTime !='' and startTime !=null">
+				and stu_creatorTime  &lt;= #{startTime}
 			</if>
-			  
 			 
 			
 

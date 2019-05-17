@@ -44,6 +44,16 @@ public class Student {
 	private String stu_keCheng;//课程方向
 	private String stu_daFen;//打分
 	private String stu_luRu;//录入人 
+	
+	private Usery usery;
+	
+	
+	public Usery getUsery() {
+		return usery;
+	}
+	public void setUsery(Usery usery) {
+		this.usery = usery;
+	}
 	public Integer getStu_id() {
 		return stu_id;
 	}
@@ -308,7 +318,7 @@ public class Student {
 				+ ", stu_ziXunBeiZhu=" + stu_ziXunBeiZhu + ", stu_quYu="
 				+ stu_quYu + ", stu_buMen=" + stu_buMen + ", stu_keCheng="
 				+ stu_keCheng + ", stu_daFen=" + stu_daFen + ", stu_luRu="
-				+ stu_luRu + "]";
+				+ stu_luRu + ", usery=" + usery + "]";
 	}
 	
 }

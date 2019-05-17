@@ -3,46 +3,106 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssj.dao.StuMapper">
+<resultMap id="stuList" type="student">
+		<id column="stu_id" property="stu_id"></id>
+		<result column="stu_name" property="stu_name"></result>
+		<result column="stu_sex" property="stu_sex"></result>
+		<result column="stu_age" property="stu_age"></result>
+		<result column="stu_phone" property="stu_phone"></result>
+		<result column="stu_state" property="stu_state"></result>
+		<result column="stu_xueLi" property="stu_xueLi"></result>
+		<result column="stu_quDao" property="stu_quDao"></result>
+		<result column="stu_wangZhan" property="stu_wangZhan"></result>
+		<result column="stu_guanZhu" property="stu_guanZhu"></result>
+		<result column="stu_guanJian" property="stu_guanJian"></result>
+		<result column="stu_wx" property="stu_wx"></result>
+		<result column="stu_qq" property="stu_qq"></result>
+		<result column="stu_baoBei" property="stu_baoBei"></result>
+		<result column="stu_beiZhu" property="stu_beiZhu"></result>
+		<result column="stu_useryId" property="usery.u_id"></result>
+		<result column="stu_youXiao" property="stu_youXiao"></result>
+		<result column="stu_wuXiaoYuanYin" property="stu_wuXiaoYuanYin"></result>
+		<result column="stu_huiFang" property="stu_huiFang"></result>
+		<result column="stu_creatorTime" property="stu_creatorTime"></result>
+		<result column="stu_visit" property="stu_visit"></result>
+		<result column="stu_visitTime" property="stu_visitTime"></result>
+		<result column="stu_payTime" property="stu_payTime"></result>
+		<result column="stu_money" property="stu_money"></result>
+		<result column="stu_moneyTime" property="stu_moneyTime"></result>
+		<result column="stu_jinE" property="stu_jinE"></result>
+		<result column="stu_tui" property="stu_tui"></result>
+		<result column="stu_tuiYin" property="stu_tuiYin"></result>
+		<result column="stu_dingJinE" property="stu_dingJinE"></result>
+		<result column="stu_dingTime" property="stu_dingTime"></result>
+		<result column="stu_class" property="stu_class"></result>
+		<result column="stu_classTime" property="stu_classTime"></result>
+		<result column="stu_classBeiZhu" property="stu_classBeiZhu"></result>
+		<result column="stu_ziXun" property="stu_ziXun"></result>
+		<result column="stu_ziXunBeiZhu" property="stu_ziXunBeiZhu"></result>
+		<result column="stu_quYu" property="stu_quYu"></result>
+		<result column="stu_buMen" property="stu_buMen"></result>
+		<result column="stu_keCheng" property="stu_keCheng"></result>
+		<result column="stu_daFen" property="stu_daFen"></result>
+		<result column="stu_luRu" property="stu_luRu"></result>
+		
+		<result column="u_loginName" property="usery.u_loginName"></result>
+		<result column="u_password" property="usery.u_password"></result>
+		<result column="u_isLockout" property="usery.u_isLockout"></result>
+		<result column="u_loginTime" property="usery.u_loginTime"></result>
+		<result column="u_logoutTime" property="usery.u_logoutTime"></result>
+		<result column="u_isQianDao" property="usery.u_isQianDao"></result>
+		<result column="u_clockinTime" property="usery.u_clockinTime"></result>
+		<result column="u_clockoutTime" property="usery.u_clockoutTime"></result>
+		<result column="u_creationTime" property="usery.u_creationTime"></result>
+		<result column="u_email" property="usery.u_email"></result>
+		<result column="u_phone" property="usery.u_phone"></result>
+
+
+
+	</resultMap>
+
 <!-- 查询总条数 -->
 		<select id="selectStuCount" parameterType="fenye" resultType="int">
 		SELECT COUNT(stu_id) FROM student
 			<where>
-			<if test="stu_name !='' and stu_name !=null">
-			and stu_name like "%"#{stu_name}"%"
-		</if>
-		<if test="stu_phone !='' and stu_phone !=null">
-			and stu_phone like "%"#{stu_phone}"%"
-		</if>
-		<if test="stu_name !='' and stu_name !=null">
-			and stu_name like "%"#{stu_name}"%"
-		</if>
-		<if test="stu_money !='' and stu_money !=null">
-			and stu_money like "%"#{stu_money}"%"
-		</if>
-		<if test="stu_youXiao !='' and stu_youXiao !=null">
-			and stu_youXiao like "%"#{stu_youXiao}"%"
-		</if>
-		<if test="stu_huiFang !='' and stu_huiFang !=null">
-			and stu_huiFang like "%"#{stu_huiFang}"%"
-		</if>
-		<if test="stu_qq !='' and stu_qq !=null">
-			and stu_qq like "%"#{stu_qq}"%"
-		</if>
-		<if test="stu_creatorTime !='' and stu_creatorTime !=null">
-			and stu_creatorTime like "%"#{stu_creatorTime}"%"
-		</if>
-		</where> 
-		 
+				<if test="stu_name !='' and stu_name !=null">
+				and stu_name like "%"#{stu_name}"%"
+				</if>
+				<if test="stu_phone !='' and stu_phone !=null">
+					and stu_phone like "%"#{stu_phone}"%"
+				</if>
+				<if test="stu_name !='' and stu_name !=null">
+					and stu_name like "%"#{stu_name}"%"
+				</if>
+				<if test="stu_money !='' and stu_money !=null">
+					and stu_money like "%"#{stu_money}"%"
+				</if>
+				<if test="stu_youXiao !='' and stu_youXiao !=null">
+					and stu_youXiao like "%"#{stu_youXiao}"%"
+				</if>
+				<if test="stu_huiFang !='' and stu_huiFang !=null">
+					and stu_huiFang like "%"#{stu_huiFang}"%"
+				</if>
+				<if test="stu_qq !='' and stu_qq !=null">
+					and stu_qq like "%"#{stu_qq}"%"
+				</if>
+				<if test="startTime !='' and startTime !=null">
+					and stu_creatorTime &gt;=  #{startTime}
+				</if>
+				<if test="endTime !='' and startTime !=null">
+					and stu_creatorTime  &lt;= #{startTime}
+				</if>
+			</where> 
 		</select>
 		<!--模糊查询  -->
-		<select id="selectStu" parameterType="fenye" resultType="student">
+		<select id="selectStu" parameterType="fenye" resultMap="stuList">
 	  	SELECT s.stu_id, s.stu_name,s.stu_sex,s.stu_age,s.stu_phone,s.stu_state,s.stu_xueLi,s.stu_quDao,
-				s.stu_wangZhan,s.stu_guanZhu,s.stu_guanJian,s.stu_wx,s.stu_qq,s.stu_baoBei,s.stu_beiZhu,s.stu_useryId,
+				s.stu_wangZhan,s.stu_guanZhu,s.stu_guanJian,s.stu_wx,s.stu_qq,s.stu_baoBei,s.stu_beiZhu,u.u_loginName,
 				s.stu_youXiao,s.stu_wuXiaoYuanYin,s.stu_huiFang,s.stu_creatorTime,s.stu_visit,s.stu_visitTime,s.stu_payTime,
 				s.stu_money,s.stu_moneyTime,s.stu_jinE,s.stu_tui,s.stu_tuiYin,s.stu_dingJinE,s.stu_dingTime,
 				s.stu_class,s.stu_classTime,s.stu_classBeiZhu,s.stu_ziXun,s.stu_ziXunBeiZhu,s.stu_quYu,
 				s.stu_buMen,s.stu_keCheng,s.stu_daFen,s.stu_luRu
- 				FROM student s
+ 				FROM student s, usery u
  				<where>
 			<if test="stu_name !='' and stu_name !=null">
 			and stu_name like "%"#{stu_name}"%"
@@ -65,12 +125,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="stu_qq !='' and stu_qq !=null">
 			and stu_qq like "%"#{stu_qq}"%"
 		</if>
-		<if test="stu_creatorTime !='' and stu_creatorTime !=null">
-			and stu_creatorTime like "%"#{stu_creatorTime}"%"
+		<if test="startTime !='' and startTime !=null">
+			and stu_creatorTime &gt;=  #{startTime}
 		</if>
+		<if test="endTime !='' and startTime !=null">
+			and stu_creatorTime  &lt;= #{startTime}
+		</if>
+		and stu_useryId =u_id
 		</where> 
  				limit #{page},#{pageSize}
 		</select>
+		
+		
+		
+		<select id="getU_loginName" resultType="usery">
+		SELECT u_id,u_loginName,u_password,u_isLockout,u_loginTime,u_logoutTime,u_isQianDao,u_clockinTime,
+		u_clockoutTime,u_creationTime,u_email,u_phone
+  			 FROM usery 
+	
+
+	</select>
+		
+		
 	<!--修改  -->
 		<update id="updateStu" parameterType="student">
 			UPDATE student 
@@ -144,8 +220,9 @@ DELETE FROM student WHERE stu_id=#{stu_id}
 		insert into student(stu_name,stu_sex,stu_age,stu_phone,stu_state,stu_xueLi,stu_quDao,stu_wangZhan,stu_guanZhu,stu_guanJian,stu_wx,stu_qq,stu_baoBei,stu_beiZhu,stu_useryId)
 		values(#{stu_name},#{stu_sex},#{stu_age},#{stu_phone},#{stu_state},#{stu_xueLi},#{stu_quDao},#{stu_wangZhan},#{stu_guanZhu},#{stu_guanJian,#{stu_wx},#{stu_qq},#{stu_baoBei},#{stu_beiZhu},#{stu_useryId})
 	</insert> -->
-<!-- <insert id="addStu" parameterType="student" >
-insert into student(stu_name,stu_sex,stu_age,stu_phone,stu_state,stu_xueLi,stu_quDao,stu_wangZhan,stu_guanZhu,stu_guanJian,stu_wx,stu_qq,stu_baoBei,stu_beiZhu,stu_useryId)
-		values(#{stu_name},#{stu_sex},#{stu_age},#{stu_phone},#{stu_state},#{stu_xueLi},#{stu_quDao},#{stu_wangZhan},#{stu_guanZhu},#{stu_guanJian,#{stu_wx},#{stu_qq},#{stu_baoBei},#{stu_beiZhu},#{stu_useryId})
-</insert> -->
+	<insert id="addStu" parameterType="student" >
+		insert into 
+		student(stu_name,stu_sex,stu_age,stu_phone,stu_state,stu_xueLi,stu_quDao,stu_wangZhan,stu_guanZhu,stu_guanJian,stu_wx,stu_qq,stu_baoBei,stu_beiZhu,stu_useryId)
+		values(#{stu_name},#{stu_sex},#{stu_age},#{stu_phone},#{stu_state},#{stu_xueLi},#{stu_quDao},#{stu_wangZhan},#{stu_guanZhu},#{stu_guanJian},#{stu_wx},#{stu_qq},#{stu_baoBei},#{stu_beiZhu},#{stu_useryId})
+	</insert>
 </mapper>

@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.ssj.entity.Fenye;
 import com.ssj.entity.Student;
+import com.ssj.entity.Usery;
+
 
 public interface StuMapper {
 	//分页查询总条数
@@ -16,5 +18,9 @@ public interface StuMapper {
 		Integer addStu(Student student);
 		//删除
 		Integer delStu(Integer stu_id);
+		
+		
+		
+		List<Usery> getU_loginName();
 
 }

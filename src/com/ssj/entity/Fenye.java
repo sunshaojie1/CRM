@@ -13,14 +13,28 @@ public class Fenye<T> {
 	
 	private String stu_name;
 	private String stu_phone;
-	//private String stu_name;
 	private Integer stu_money;
 	private Integer stu_youXiao;
 	private Integer stu_huiFang;
 	private String stu_qq;
 	private String stu_creatorTime;
+	private String startTime;
+	private String endTime;
 	
 	
+	
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
 	private String u_loginName;
 	private String u_isLockout;
 	private String u_isQianDao;
@@ -134,8 +148,12 @@ public class Fenye<T> {
 	@Override
 	public String toString() {
 		return "Fenye [page=" + page + ", pageSize=" + pageSize + ", total="
-				+ total + ", rows=" + rows + ", usery=" + usery
-				+ ", u_loginName=" + u_loginName + ", u_isLockout="
+				+ total + ", rows=" + rows + ", usery=" + usery + ", stu_name="
+				+ stu_name + ", stu_phone=" + stu_phone + ", stu_money="
+				+ stu_money + ", stu_youXiao=" + stu_youXiao + ", stu_huiFang="
+				+ stu_huiFang + ", stu_qq=" + stu_qq + ", stu_creatorTime="
+				+ stu_creatorTime + ", startTime=" + startTime + ", endTime="
+				+ endTime + ", u_loginName=" + u_loginName + ", u_isLockout="
 				+ u_isLockout + ", u_isQianDao=" + u_isQianDao
 				+ ", u_clockinTime=" + u_clockinTime + ", u_clockoutTime="
 				+ u_clockoutTime + "]";

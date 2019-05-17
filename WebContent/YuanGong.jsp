@@ -32,7 +32,9 @@
 				toolbar:"#bar",
 				queryParams:{
 					u_loginName:$("#u_loginName").val(),
-					u_isLockout:$("#u_isLockout").combobox("getValue")
+					u_isLockout:$("#u_isLockout").combobox("getValue"),
+					startTime:$("#startTime").val(),
+		    		endTime:$("#endTime").val(),
 
 					}
 
@@ -41,7 +43,7 @@
 			
 		}
 		function formattercaozuo(value,row,index){
-			return "<a href='javascript:void(0)' onclick='updateUsery("+index+")'>修改</a>  <a href='javascript:void(0)' onclick='addUsery("+index+")'>添加</a>  <a href='javascript:void(0)' onclick='delUsery("+index+")'>删除</a>"
+			return "<a href='javascript:void(0)' onclick='updateUsery("+index+")'>修改</a>  <a href='javascript:void(0)' onclick='delUsery("+index+")'>删除</a>"
 		}
 		
 	 	//修改
@@ -91,7 +93,9 @@
 	 	function delUsery(index){
 			 var data=$("#selUsery").datagrid("getData");
 		 	var row=data.rows[index];
-			alert(row.u_id);
+			//alert(row.u_id);
+			$.messager.confirm("提示","确认删除么？",function(r){
+				if(r){
 			$.post("delUsery",{
 				u_id:row.u_id,		
 			},function(res){
@@ -105,7 +109,8 @@
 				}
 			},"json")
 			
-		
+				}
+			})
 		} 
 		
 		//添加
@@ -178,6 +183,10 @@
 
 		  <label for="name">用户名:</label>   
           <input class="easyui-validatebox" type="text" id="u_loginName" /> 
+          
+          <label for="email">创建时间:</label>   
+        <input class="easyui-datebox" id="startTime" />——
+        <input class="easyui-datebox" id="endTime"  />
             <label for="name">是否锁定:</label>   
 	       <select class="easyui-combobox" id="u_isLockout" name="u_isLockout" >   
 			    <option value="">--请选择--</option>
@@ -186,6 +195,7 @@
 			<select>
           
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="initUsery()">搜索</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addUsery()">添加</a> 
 		</form>
 	</div>
 	
