@@ -61,9 +61,53 @@ public class Fenye<T> {
 	public String getU_clockoutTime() {
 		return u_clockoutTime;
 	}
-	public void setU_clockoutTime(String u_clockoutTime) {
-		this.u_clockoutTime = u_clockoutTime;
+
+	private String startcreatorTime;
+	private String endcreatorTime;
+	
+	//跟踪表搜索
+	private String sname;
+	private String t_huiFang;
+	private String t_fangShi;
+	private String startt_beginTime;
+	private String endt_beginTime;
+	private String startt_finishTime;
+	private String endt_finishTime;
+	
+	public String getSname() {
+		return sname;
 	}
+	public void setSname(String sname) {
+		this.sname = sname;
+	}
+	public String getT_huiFang() {
+		return t_huiFang;
+	}
+	public void setT_huiFang(String t_huiFang) {
+		this.t_huiFang = t_huiFang;
+	}
+	public String getStartt_beginTime() {
+		return startt_beginTime;
+	}
+	public void setStartt_beginTime(String startt_beginTime) {
+		this.startt_beginTime = startt_beginTime;
+	}
+	public String getEndt_beginTime() {
+		return endt_beginTime;
+	}
+	public void setEndt_beginTime(String endt_beginTime) {
+		this.endt_beginTime = endt_beginTime;
+	}
+	public String getStartt_finishTime() {
+		return startt_finishTime;
+	}
+	public void setStartt_finishTime(String startt_finishTime) {
+		this.startt_finishTime = startt_finishTime;
+	}
+	public String getEndt_finishTime() {
+		return endt_finishTime;
+	}
+
 	public Integer getPage() {
 		return page;
 	}
@@ -106,11 +150,7 @@ public class Fenye<T> {
 	public void setU_isLockout(String u_isLockout) {
 		this.u_isLockout = u_isLockout;
 	}
-	
-//我的学生
-	public String getStu_name() {
-		return stu_name;
-	}
+
 	public void setStu_name(String stu_name) {
 		this.stu_name = stu_name;
 	}
@@ -126,6 +166,7 @@ public class Fenye<T> {
 	public void setStu_money(Integer stu_money) {
 		this.stu_money = stu_money;
 	}
+
 	public Integer getStu_youXiao() {
 		return stu_youXiao;
 	}
@@ -154,22 +195,21 @@ public class Fenye<T> {
 	public String getEddstu_creatorTime() {
 		return eddstu_creatorTime;
 	}
-	public void setEddstu_creatorTime(String eddstu_creatorTime) {
-		this.eddstu_creatorTime = eddstu_creatorTime;
+	 
+	public String getStartcreatorTime() {
+		return startcreatorTime;
 	}
-	@Override
-	public String toString() {
-		return "Fenye [page=" + page + ", pageSize=" + pageSize + ", total="
-				+ total + ", rows=" + rows + ", usery=" + usery + ", stu_name="
-				+ stu_name + ", stu_phone=" + stu_phone + ", stu_money="
-				+ stu_money + ", stu_youXiao=" + stu_youXiao + ", stu_huiFang="
-				+ stu_huiFang + ", stu_qq=" + stu_qq + ", stu_creatorTime="
-				+ stu_creatorTime + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", u_loginName=" + u_loginName + ", u_isLockout="
-				+ u_isLockout + ", u_isQianDao=" + u_isQianDao
-				+ ", u_clockinTime=" + u_clockinTime + ", u_clockoutTime="
-				+ u_clockoutTime + "]";
+	public void setStartcreatorTime(String startcreatorTime) {
+		this.startcreatorTime = startcreatorTime;
 	}
-	
+	public String getEndcreatorTime() {
+		return endcreatorTime;
+	}
+	public void setEndcreatorTime(String endcreatorTime) {
+		this.endcreatorTime = endcreatorTime;
+	}
+	public String getT_fangShi() {
+		return t_fangShi;
+	}
 
 }
