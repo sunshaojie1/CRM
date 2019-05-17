@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssj.dao.RolesMapper">
+ <select id="selectRolesCount" parameterType="roles" resultType="int">
+ SELECT count(r_id) FROM roles
+ <where>
+ 			<if test="stu_name !='' and stu_name !=null">
+			and r_name like "%"#{stu_name}"%"
+		</if>
+ </where>
+ </select>
+<select id="selectRoles" parameterType="roles" resultType="roles">
+	SELECT r_id,r_name FROM roles 
+	 <where>
+ 			<if test="stu_name !='' and stu_name !=null">
+			and r_name like "%"#{stu_name}"%"
+		</if>
+ </where>
+ limit #{page},#{pageSize}
+</select>
+<update id="updateRoles" parameterType="roles"> 
+			UPDATE roles  
+			
+			<set>
+			<if test="r_name!=null and r_name!=''">
+			 r_name=#{r_name}		
+			</if>
+			
+			</set>
+<where>
+r_id=#{r_id}
+</where>
+
+</update>
+<insert id="addRoles" parameterType="int">
+INSERT INTO roles(r_name) VALUES(#{r_name})
+</insert> 
+<delete id="delRoles" parameterType="int">
+DELETE FROM student WHERE stu_id=#{stu_id}
+</delete> 
+</mapper>

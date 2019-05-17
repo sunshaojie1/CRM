@@ -33,4 +33,11 @@ public interface UseryService {
 	 * @return
 	 */
 	public Integer updateCz(Usery usery);
+	/**
+	 * ĞŞ¸ÄÃÜÂë
+	 * @param CzName
+	 * @param CzPhone
+	 * @return
+	 */
+	Integer updateXiugai(Usery usery);
 }

@@ -17,19 +17,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and stu_name like "%"#{stu_name}"%"
 		</if> -->
 		<if test="stu_money !='' and stu_money !=null">
-			and stu_money like "%"#{stu_money}"%"
+			and stu_money =#{stu_money}
 		</if>
 		<if test="stu_youXiao !='' and stu_youXiao !=null">
-			and stu_youXiao like "%"#{stu_youXiao}"%"
+			and stu_youXiao =#{stu_youXiao}
 		</if>
 		<if test="stu_huiFang !='' and stu_huiFang !=null">
-			and stu_huiFang like "%"#{stu_huiFang}"%"
+			and stu_huiFang =#{stu_huiFang}
 		</if>
 		<if test="stu_qq !='' and stu_qq !=null">
 			and stu_qq like "%"#{stu_qq}"%"
 		</if>
-		<if test="stu_creatorTime !='' and stu_creatorTime !=null">
-			and stu_creatorTime like "%"#{stu_creatorTime}"%"
+		<if test="startstu_creatorTime >0">
+			and stu_creatorTime &gt;=#{startstu_creatorTime}
+		</if>
+		<if test="eddstu_creatorTime >0">
+			and stu_creatorTime &lt;=#{eddstu_creatorTime}
 		</if>
 		</where> 
 		 
@@ -54,19 +57,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and stu_name like "%"#{stu_name}"%"
 		</if> -->
 		<if test="stu_money !='' and stu_money !=null">
-			and stu_money like "%"#{stu_money}"%"
+			and stu_money =#{stu_money}
 		</if>
 		<if test="stu_youXiao !='' and stu_youXiao !=null">
-			and stu_youXiao like "%"#{stu_youXiao}"%"
+			and stu_youXiao =#{stu_youXiao}
 		</if>
 		<if test="stu_huiFang !='' and stu_huiFang !=null">
-			and stu_huiFang like "%"#{stu_huiFang}"%"
+			and stu_huiFang =#{stu_huiFang}
 		</if>
 		<if test="stu_qq !='' and stu_qq !=null">
 			and stu_qq like "%"#{stu_qq}"%"
 		</if>
-		<if test="stu_creatorTime !='' and stu_creatorTime !=null">
-			and stu_creatorTime like "%"#{stu_creatorTime}"%"
+	<if test="startstu_creatorTime>0">
+			and stu_creatorTime &gt;=#{startstu_creatorTime}
+		</if>
+		<if test="eddstu_creatorTime >0">
+			and stu_creatorTime &lt;=#{eddstu_creatorTime}
 		</if>
 		</where> 
  				limit #{page},#{pageSize}
@@ -135,8 +141,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="stu_dingTime != null and stu_dingTime !=''">
 				 stu_dingTime=#{stu_dingTime},
 			</if>
-</set>
-<where>
+	</set>
+		<where>
 			stu_id=#{stu_id}
 		</where>
 </update>

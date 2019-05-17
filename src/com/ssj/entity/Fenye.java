@@ -18,7 +18,8 @@ public class Fenye<T> {
 	private Integer stu_youXiao;
 	private Integer stu_huiFang;
 	private String stu_qq;
-	private String stu_creatorTime;
+	private String startstu_creatorTime;
+	private String eddstu_creatorTime;
 	
 	
 	private String u_loginName;
@@ -125,11 +126,18 @@ public class Fenye<T> {
 	public void setStu_qq(String stu_qq) {
 		this.stu_qq = stu_qq;
 	}
-	public String getStu_creatorTime() {
-		return stu_creatorTime;
+ 
+	public String getStartstu_creatorTime() {
+		return startstu_creatorTime;
 	}
-	public void setStu_creatorTime(String stu_creatorTime) {
-		this.stu_creatorTime = stu_creatorTime;
+	public void setStartstu_creatorTime(String startstu_creatorTime) {
+		this.startstu_creatorTime = startstu_creatorTime;
+	}
+	public String getEddstu_creatorTime() {
+		return eddstu_creatorTime;
+	}
+	public void setEddstu_creatorTime(String eddstu_creatorTime) {
+		this.eddstu_creatorTime = eddstu_creatorTime;
 	}
 	@Override
 	public String toString() {
