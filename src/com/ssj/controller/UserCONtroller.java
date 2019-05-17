@@ -31,7 +31,6 @@ public class UserCONtroller {
 	 @RequestMapping(value="/updateXiugai",method=RequestMethod.POST)
 	 @ResponseBody
 	 public Integer updateXiugai(Usery usery){
-		 System.out.println(useryService.updateXiugai(usery));
 		return useryService.updateXiugai(usery);
 	 
 	 }

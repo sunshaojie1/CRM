@@ -10,6 +10,7 @@
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="js/jquery-easyui-1.4.3/datagrid-export.js"></script>
 <script type="text/javascript">
 	$(function(){
 		initWodeStu();
@@ -33,6 +34,7 @@
 
 		}
 
+	
 		});  
 	}
 	function formattercaozuo(value,row,index) {
@@ -141,6 +143,10 @@
 			}
 		})
 	} 
+	//导出excel
+	function exportExcel(){
+		$('#ltab').datagrid('toExcel','dg.xls');	// export to excel
+	} 
 </script>
 </head>
 <body>
@@ -225,6 +231,9 @@
         <input class="easyui-datebox" id="startstu_creatorTime" name="startstu_creatorTime" required="true"/>~
         <input class="easyui-datebox" id="eddstu_creatorTime" name="eddstu_creatorTime" required="true"/>
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="initWodeStu()">搜索</a> 
+          <a
+						class="easyui-linkbutton" plain="true" onclick="exportExcel()"
+						id="serach" data-options="iconCls:'icon-print'">导出excel</a>
 </form> 
 </div>
 

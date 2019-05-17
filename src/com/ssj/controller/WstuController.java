@@ -15,7 +15,7 @@ public class WstuController {
 private Fenye<Student> fenye;
 @Autowired
 private WstuService wstuService;
-@RequestMapping(value = "/showStu", method = RequestMethod.POST)
+@RequestMapping(value = "/showStu2", method = RequestMethod.POST)
 @ResponseBody
 public Fenye<Student> showWstu(Integer page,Integer rows,String stu_name,String stu_phone,Integer stu_money,
 		Integer stu_youXiao,Integer stu_huiFang,String stu_qq,String endcreatorTime,String startcreatorTime){
@@ -37,13 +37,13 @@ public Fenye<Student> showWstu(Integer page,Integer rows,String stu_name,String 
 	
 }
 //É¾³ý
-@RequestMapping(value = "/delStu", method = RequestMethod.POST)
+@RequestMapping(value = "/delStu2", method = RequestMethod.POST)
 @ResponseBody
 public Integer delStu(Integer stu_id){
 	return wstuService.delWstu(stu_id); 
 }
 //ÐÞ¸Ä
-@RequestMapping(value = "/updateStu", method = RequestMethod.POST)
+@RequestMapping(value = "/updateStu2", method = RequestMethod.POST)
 @ResponseBody
 public Integer updateWstu(Student student){
 	return wstuService.updateWstu(student);

@@ -15,6 +15,7 @@
 	src="js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.4.3/datagrid-export.js"></script>
 <script type="text/javascript">
 	$(function() {
 		init();
@@ -22,7 +23,7 @@
 	});
 	function init() {
 		$("#showstu").datagrid({
-			url : "showStu",
+			url : "showStu2",
 			method : "post",
 			pagination : true,
 			fitColumns : true,
@@ -108,7 +109,7 @@
 	}
 	 
 	function updateStu() {
-		$.post("updateStu",{
+		$.post("updateStu2",{
 			stu_id:$("#stu_id1").val(),
 			stu_ziXun:$("#stu_ziXun1").val(),
 			stu_keCheng:$("#stu_keCheng1").val(),
@@ -149,7 +150,7 @@
 		var data = $("#showstu").datagrid("getData");
 		var row = data.rows[index];
 		alert(row.stu_id)
-		$.post("delStu", {
+		$.post("delStu2", {
 			stu_id : row.stu_id,
 		}, function(res) {
 			if (res > 0) {
@@ -162,6 +163,10 @@
 			}
 		}, "json");
 	}
+	//导出excel
+	function exportExcel(){
+		$('#showstu').datagrid('toExcel','dg.xls');	// export to excel
+	} 
 </script>
 
 </head>
@@ -243,7 +248,9 @@
         <input class="easyui-datebox" id="startcreatorTime" name="stu_creatorTime" required="true"/>~
         <input class="easyui-datebox" id="endcreatorTime" name="stu_creatorTime" required="true"/>
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="init()">搜索</a> 
-         
+           <a
+						class="easyui-linkbutton" plain="true" onclick="exportExcel()"
+						id="serach" data-options="iconCls:'icon-print'">导出excel</a>
 </form> 
 </div>
 <!-- 查看 -->
