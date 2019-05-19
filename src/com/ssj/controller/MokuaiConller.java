@@ -23,38 +23,38 @@ public class MokuaiConller {
 	private ModulesService modulesService;
 	
 	/**
-	 * ²éÑ¯Ã¿¸ö½ÇÉ«¶ÔÓ¦µÄÄ£¿é
+	 * æŸ¥è¯¢æ¯ä¸ªè§’è‰²å¯¹åº”çš„æ¨¡å—
 	 * @return
 	 */
 	@RequestMapping(value="/rolesTree",method=RequestMethod.POST)
 	@ResponseBody
 	public List<RolesTree> rolesTree(){
-		//²éÑ¯ËùÓĞ½ÇÉ«
+		//æŸ¥è¯¢æ‰€æœ‰è§’è‰²
 			List<Roles> selectRoles = modulesService.selectRoles();
-		//²é¿´Êı¾İ
+		//æŸ¥çœ‹æ•°æ®
 			//System.out.println("selectRoles"+selectRoles);
-		//´´½¨Ò»¸ö·ûºÏ¹æÔòµÄ½ÇÉ«list
+		//åˆ›å»ºä¸€ä¸ªç¬¦åˆè§„åˆ™çš„è§’è‰²list
 			List<RolesTree> rolestree=new ArrayList<RolesTree>();
-		//Ñ­»·²éÑ¯½ÇÉ«ÏÂµÄÄ£¿é
+		//å¾ªç¯æŸ¥è¯¢è§’è‰²ä¸‹çš„æ¨¡å—
 			for(int i=0;i<selectRoles.size();i++){
-				//´´½¨Ò»¸ö·ûºÏ¹æÔòµÄ½ÇÉ«list
+				//åˆ›å»ºä¸€ä¸ªç¬¦åˆè§„åˆ™çš„è§’è‰²list
 					List<ModulesTree> modulesTree=new ArrayList<ModulesTree>();
-				//Ñ­»·²éÑ¯
+				//å¾ªç¯æŸ¥è¯¢
 					List<Modules> selectModules = modulesService.selectModulesTree(selectRoles.get(i).getR_name());
-				//Êä³ö²âÊÔ
+				//è¾“å‡ºæµ‹è¯•
 					//System.out.println("selectModules"+selectModules);
 					for(int j=0;j<selectModules.size();j++){
 						modulesTree.add(new ModulesTree(selectModules.get(j).getM_id(),selectModules.get(j).getM_name()));
 					}
-				//´æÈërolestree
+				//å­˜å…¥rolestree
 					rolestree.add(new RolesTree(selectRoles.get(i).getR_id(),selectRoles.get(i).getR_name(),modulesTree));
 			}
-		//Êä³ö
+		//è¾“å‡º
 			//System.out.println(rolestree);
 		return rolestree;
 	}
 	/**
-	 * ²éÑ¯ËùÓĞÄ£¿é
+	 * æŸ¥è¯¢æ‰€æœ‰æ¨¡å—
 	 * @return
 	 */
 	@RequestMapping(value="/modulesSelect",method=RequestMethod.POST)
@@ -64,7 +64,7 @@ public class MokuaiConller {
 		return modulesService.modulesSelect();
 	}
 	/**
-	 * ½ÇÉ«ÏÂµÄÄ£¿é
+	 * è§’è‰²ä¸‹çš„æ¨¡å—
 	 * @param r_name
 	 * @return
 	 */
@@ -74,7 +74,7 @@ public class MokuaiConller {
 		return modulesService.selMo(r_name);
 	}
 	/**
-	 * ¸ø½ÇÉ«Ìí¼ÓÄ£¿é
+	 * ç»™è§’è‰²æ·»åŠ æ¨¡å—
 	 * @param rolemodules
 	 * @return
 	 */
@@ -89,7 +89,7 @@ public class MokuaiConller {
 		}
 	}
 	/**
-	 * ÒÆ³ı½ÇÉ«µÄÄ£¿é
+	 * ç§»é™¤è§’è‰²çš„æ¨¡å—
 	 * @param rolemodules
 	 * @return
 	 */
@@ -108,7 +108,7 @@ public class MokuaiConller {
 	
 	
 	/**
-	 * Ìí¼Ó
+	 * æ·»åŠ 
 	 * @param modules
 	 * @return
 	 */
@@ -119,7 +119,7 @@ public class MokuaiConller {
 		return modulesService.insertMod(modules);
 	}
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 * @param m_id
 	 * @return
 	 */
@@ -130,7 +130,7 @@ public class MokuaiConller {
 		return modulesService.deleteMod(m_id);
 	}
 	/**
-	 * ĞŞ¸Ä
+	 * ä¿®æ”¹
 	 * @param modules
 	 * @return
 	 */

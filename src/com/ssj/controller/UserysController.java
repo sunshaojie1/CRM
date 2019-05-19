@@ -21,7 +21,7 @@ public class UserysController {
 	private UserysService userysService;
 	 
 	 	/**
-		 * ÏÔÊ¾Ô±¹¤ËùÓĞÊı¾İ
+		 * æ˜¾ç¤ºå‘˜å·¥æ‰€æœ‰æ•°æ®
 		 * @param fenye
 		 * @return
 		 */
@@ -45,7 +45,7 @@ public class UserysController {
 	 }
 	
 	 	/**
-		 * ĞŞ¸ÄÔ±¹¤ĞÅÏ¢
+		 * ä¿®æ”¹å‘˜å·¥ä¿¡æ¯
 		 * @param usery
 		 * @return
 		 */
@@ -59,7 +59,7 @@ public class UserysController {
 		
 		
 		/**
-		 * Ìí¼ÓÔ±¹¤
+		 * æ·»åŠ å‘˜å·¥
 		 * @param usery
 		 * @return
 		 */
@@ -73,7 +73,7 @@ public class UserysController {
 		
 		
 		/**
-		 * ¸ù¾İIDÉ¾³ıÔ±¹¤
+		 * æ ¹æ®IDåˆ é™¤å‘˜å·¥
 		 * @param u_id
 		 * @return
 		 */

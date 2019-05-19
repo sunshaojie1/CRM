@@ -36,13 +36,13 @@ public Fenye<Student> showWstu(Integer page,Integer rows,String stu_name,String 
 	return fenye;
 	
 }
-//É¾³ý
+//åˆ é™¤
 @RequestMapping(value = "/delStu2", method = RequestMethod.POST)
 @ResponseBody
 public Integer delStu(Integer stu_id){
 	return wstuService.delWstu(stu_id); 
 }
-//ÐÞ¸Ä
+//ä¿®æ”¹
 @RequestMapping(value = "/updateStu2", method = RequestMethod.POST)
 @ResponseBody
 public Integer updateWstu(Student student){
