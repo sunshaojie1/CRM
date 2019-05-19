@@ -3,41 +3,53 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssj.dao.RolesMapper">
- <select id="selectRolesCount" parameterType="roles" resultType="int">
- SELECT count(r_id) FROM roles
- <where>
- 			<if test="stu_name !='' and stu_name !=null">
-			and r_name like "%"#{stu_name}"%"
-		</if>
- </where>
- </select>
-<select id="selectRoles" parameterType="roles" resultType="roles">
-	SELECT r_id,r_name FROM roles 
-	 <where>
- 			<if test="stu_name !='' and stu_name !=null">
-			and r_name like "%"#{stu_name}"%"
-		</if>
- </where>
- limit #{page},#{pageSize}
-</select>
-<update id="updateRoles" parameterType="roles"> 
-			UPDATE roles  
-			
-			<set>
+<!-- 查询所有角色 -->
+	<select id="selectRoles" parameterType="roles" resultType="roles">
+		select r_id,r_name from roles
+		<where>
 			<if test="r_name!=null and r_name!=''">
-			 r_name=#{r_name}		
+				and r_name like "%"#{r_name}"%"
 			</if>
-			
-			</set>
-<where>
-r_id=#{r_id}
-</where>
-
-</update>
-<insert id="addRoles" parameterType="int">
-INSERT INTO roles(r_name) VALUES(#{r_name})
-</insert> 
-<delete id="delRoles" parameterType="int">
-DELETE FROM student WHERE stu_id=#{stu_id}
-</delete> 
+		</where>
+	</select>
+<!-- 查询用户下的角色 -->
+	<select id="selectUsery" parameterType="String" resultType="roles">
+		SELECT u.u_loginName,r.r_name,r.r_id FROM usery u,userroles ru,roles r
+		WHERE u.u_id=ru.user_id AND r.r_id=ru.roles_id AND u.u_loginName=#{u_name}
+	</select>
+<!-- 给用户添加角色 -->
+	<insert id="inserRoles" parameterType="userroles">
+		insert into userroles(user_id,roles_id)
+		values(#{user_id},#{roles_id})
+	</insert>
+<!-- 判断 -->
+	<select id="RolesCount" parameterType="userroles"  resultType="int">
+		SELECT COUNT(*) from userroles 
+		WHERE user_id=#{user_id} AND roles_id=#{roles_id}
+	</select>
+<!-- 移除用户下的模块 -->
+	<delete id="delRoles" parameterType="userroles">
+		delete from userroles
+		where user_id=#{user_id} AND roles_id=#{roles_id}
+	</delete>
+<!-- 删除角色 -->
+	<delete id="delro" parameterType="int">
+		delete from roles
+		where r_id=#{r_id}
+	</delete>
+<!-- 添加角色 -->
+	<insert id="insertro" parameterType="roles">
+		insert into roles(r_name)
+		values(#{r_name})
+	</insert>
+<!-- 修改角色 -->
+	<update id="updro" parameterType="roles">
+		update roles
+		<set>
+			<if test="r_name!=null and r_name!=''">
+				r_name =#{r_name},
+			</if>
+		</set>
+		where r_id=#{r_name}
+	</update>
 </mapper>

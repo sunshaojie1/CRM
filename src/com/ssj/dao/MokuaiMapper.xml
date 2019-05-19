@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssj.dao.MokuaiMapper">
+	<!-- 查询所有角色 -->
+	<select id="selectRoles" resultType="roles">
+		select r_id,r_name from roles
+	</select>
+	<!-- 查询所有角色的模块 -->
+	<select id="selectModulesTree" parameterType="String" resultType="Modules">
+		SELECT m.m_name,r.r_name,m.m_id FROM roles r,rolemodules rm,modules m
+		WHERE r.r_id=rm.role_id and m.m_id=rm.module_id AND r.r_name=#{name}
+	</select>
+	<!-- 查询所有模块 -->
+	<select id="modulesSelect" resultType="modules">
+		SELECT m_id,m_name FROM modules
+	</select>
+	<!-- 新增加 -->
+	<insert id="insertMod" parameterType="modules">
+		insert into modules(m_name)
+		values(#{m_name})
+	</insert>
+	<!--删除  -->
+	<delete id="deleteMod" parameterType="int">
+		delete from modules where m_id=#{m_id}
+	</delete>
+	<update id="updateMod" parameterType="modules">
+		update modules
+		<set>
+			<if test="m_name!=null and m_name!=''">
+				m_name=#{m_name}
+			</if>
+		</set>
+		where m_id=#{m_id}
+	</update>
+	<!-- 查询角色下的模块 -->
+	<select id="selMo" parameterType="String" resultType="modules">
+		SELECT m_id,m.m_name FROM roles r,modules m,rolemodules rm
+		WHERE r.r_id=rm.role_id and m.m_id=rm.module_id AND r.r_name=#{r_name}
+	</select>
+	<!-- 给角色添加模块 -->
+	<insert id="insertMo" parameterType="rolemodules">
+		insert into rolemodules(role_id,module_id)
+		values(#{role_id},#{module_id})
+	</insert>
+	<!-- 删除角色的模块 -->
+	<delete id="deleteMo" parameterType="rolemodules">
+		delete from rolemodules
+		where role_id=#{role_id} AND module_id=#{module_id}
+	</delete>
+	<!-- 判断 -->
+	<select id="MoCount" parameterType="rolemodules" resultType="int">
+		SELECT count(*) FROM rolemodules
+		WHERE role_id=#{role_id} and module_id=#{module_id}
+	</select>
+</mapper>

@@ -1,7 +1,6 @@
 package com.ssj.controller;
 
-
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,33 +8,94 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ssj.entity.Fenye;
 import com.ssj.entity.Roles;
-import com.ssj.entity.Student;
+import com.ssj.entity.Userroles;
 import com.ssj.service.RolesService;
-import com.ssj.service.WodeStuService;
+
 @Controller
 public class RolesController {
 	@Autowired
-	private Fenye<Roles> fenye;
-	@Autowired
 	private RolesService rolesService;
-	@RequestMapping(value="/selectRoleser",method=RequestMethod.POST)
+	
+	/**
+	   * 查询所有角色
+	 * @return
+	 */
+	@RequestMapping(value="/selectRol",method=RequestMethod.POST)
 	@ResponseBody
-		 public Fenye<Roles> selectRoles(Integer page,Integer rows,String r_name){
-		 fenye.setPage((page-1)*rows);
-		 fenye.setPageSize(rows);
-		 fenye.setStu_name(r_name);
-		 fenye = rolesService.selectRoles(fenye);
-		return fenye;
-		
+	public List<Roles> selectRol(Roles roles){
+		return rolesService.selectRol(roles);
 	}
-	@RequestMapping(value="/updateRoleser",method=RequestMethod.POST)
+	/**
+	 * 查询用户下的角色
+	 * @param u_name 查询条件，用户名
+	 * @return
+	 */
+	@RequestMapping(value="/userRoles",method=RequestMethod.POST)
 	@ResponseBody
-	public Integer updateRoles(Roles roles){
-		Integer i = rolesService.updateRoles(roles);
-		System.out.println(i);
-		return i;
-		
+	public List<Roles> userRoles(String u_name){
+		return rolesService.selectUser(u_name);
 	}
+	/**
+	 * 给用户添加角色
+	 * @param u_id
+	 * @param r_id
+	 * @return
+	 */
+	@RequestMapping(value="/inserRoles",method=RequestMethod.POST)
+	@ResponseBody
+	public Integer inserRoles(Userroles userroles){
+		//判断
+			Integer a = rolesService.RolesCount(userroles);
+			if(a!=0){
+				return -1;
+			}else{
+				Integer b = rolesService.inserRoles(userroles);
+				return b;
+			}
+	}
+	/**
+	 * 删除用户的角色
+	 * @param userroles
+	 * @return
+	 */
+	@RequestMapping(value="/delRoles",method=RequestMethod.POST)
+	@ResponseBody
+	public Integer delRoles(Userroles userroles){
+		return rolesService.delRoles(userroles);
+	}
+	/**
+	 * 删除
+	 * @param r_id
+	 * @return
+	 */
+	@RequestMapping(value="/delro",method=RequestMethod.POST)
+	@ResponseBody
+	public Integer delro(Integer r_id) {
+		
+		return rolesService.delro(r_id);
+	}
+	/**
+	 * 添加
+	 * @param roles
+	 * @return
+	 */
+	@RequestMapping(value="/insertro",method=RequestMethod.POST)
+	@ResponseBody
+	public Integer insertro(Roles roles) {
+		
+		return rolesService.insertro(roles);
+	}
+	/**
+	 * 修改
+	 * @param roles
+	 * @return
+	 */
+	@RequestMapping(value="/updro",method=RequestMethod.POST)
+	@ResponseBody
+	public Integer updro(Roles roles) {
+		
+		return rolesService.updro(roles);
+	}
+	
 }
