@@ -15,6 +15,11 @@ public class UserysServiceImpl implements UserysService {
 	private UserysMapper userysMapper;
 	
 
+	/**
+	 * 查询所有数据
+	 * @param fenye
+	 * @return
+	 */
 	@Override
 	public Fenye<Usery> selUsery(Fenye<Usery> fenye) {
 		Integer selUseryCount = userysMapper.selUseryCount(fenye);
@@ -25,18 +30,33 @@ public class UserysServiceImpl implements UserysService {
 		return fenye;
 	}
 	
+	/**
+	 * 修改员工信息
+	 * @param Usery
+	 * @return
+	 */
 	@Override
 	public Integer updateUsery(Usery usery) {
 		// TODO Auto-generated method stub
 		return userysMapper.updateUsery(usery);
 	}
 
+	/**
+	 * 添加员工
+	 * @param Usery
+	 * @return
+	 */
 	@Override
 	public Integer addUsery(Usery usery) {
 		// TODO Auto-generated method stub
 		return userysMapper.addUsery(usery);
 	}
 
+	/**
+	 * 根据删除员工
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Integer delUsery(Integer u_id) {
 		// TODO Auto-generated method stub

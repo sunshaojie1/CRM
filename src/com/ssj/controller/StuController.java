@@ -16,31 +16,35 @@ import com.ssj.service.StuService;
 
 @Controller
 public class StuController {
+	
+	//学生管理
+	
 	@Autowired
 	private Fenye<Student> fenye;
 	@Autowired
 	private StuService stuService;
 	
+	/**
+	 * 查询所有学生
+	 * @param fenye
+	 * @return
+	 */	
 	@RequestMapping(value="/selectStu1",method=RequestMethod.POST)
 	@ResponseBody
-public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String stu_phone,Integer stu_money,
-		Integer stu_youXiao,Integer stu_huiFang,String stu_qq,String startTime,String endTime){
+	public Fenye<Student> selectStu(Integer page,Integer rows,Student stu){
 	fenye.setPage((page-1)*rows);
 	fenye.setPageSize(rows);
-	fenye.setStu_name(stu_name);
-	fenye.setStu_phone(stu_phone);
-	fenye.setStu_money(stu_money);
-	fenye.setStu_youXiao(stu_youXiao);
-	fenye.setStu_huiFang(stu_huiFang);
-	fenye.setStu_qq(stu_qq);
-	fenye.setStartTime(startTime);
-	fenye.setEndTime(endTime);
-	
+	fenye.setStudent(stu);
 	fenye = stuService.selectStu(fenye);
 	return fenye;
 	
 }
-	//修改
+	
+	/**
+	 * 修改学生信息
+	 * @param student
+	 * @return
+	 */
 	@RequestMapping(value="/updateStu1",method=RequestMethod.POST)
 	@ResponseBody
 	public  Integer updateStu(Student student){
@@ -48,14 +52,24 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 		return stuService.updateStu(student);
 		
 	}
-	//删除
+	
+	/**
+	 * 根据ID删除学生
+	 * @param stu_id
+	 * @return
+	 */
 	@RequestMapping(value="/delStu1",method=RequestMethod.POST)
 	@ResponseBody
 	public Integer delStu(Integer stu_id){
 		return stuService.delStu(stu_id);
 		
 	}
-	//添加
+	
+	/**
+	 * 添加学生
+	 * @param student
+	 * @return
+	 */
 	@RequestMapping(value="/addStu1",method=RequestMethod.POST)
 	@ResponseBody
 	public Integer addStu(Student student){
@@ -64,6 +78,10 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 		
 	}
 	
+	/**
+	 *  连表（学生表和用户表）查询所有的用户返回前台为json
+	 * @return
+	 */
 	@RequestMapping(value="/getU_loginName",method=RequestMethod.POST)
 	@ResponseBody
 	public List<Usery> getU_loginName(){

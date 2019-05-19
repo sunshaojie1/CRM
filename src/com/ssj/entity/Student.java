@@ -54,7 +54,7 @@ public class Student {
 	public void setUsery(Usery usery) {
 		this.usery = usery;
 	}
- 
+
 	public Integer getStu_id() {
 		return stu_id;
 	}

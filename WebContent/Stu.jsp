@@ -22,13 +22,12 @@
 		    pagination:true,
 		    toolbar: '#tb',
 		    //多条件查询
-		    	queryParams: {
+		    queryParams: {
 		    		stu_name:$("#stu_name").val(),
 		    		stu_phone:$("#stu_phone").val(),
-		    		//sid:$("#sid").val(),
-		    		stu_money:$("#stu_money").val(),
-		    		stu_youXiao:$("#stu_youXiao").val(),
-		    		stu_huiFang:$("#stu_huiFang").val(),
+		    		stu_money:$("#stu_money").combobox("getValue"),
+		    		stu_youXiao:$("#stu_youXiao").combobox("getValue"),
+		    		stu_huiFang:$("#stu_huiFang").combobox("getValue"),
 		    		stu_qq:$("#stu_qq").val(),
 		    		startTime:$("#startTime").val(),
 		    		endTime:$("#endTime").val(),
@@ -55,6 +54,17 @@
 	function update(index) {
 		var datas=$("#ltab").datagrid("getData");
 		var row=datas.rows[index];
+		
+		$("#updatett").combobox({
+			url:'getU_loginName',
+			method:'post',
+			valueField:'u_id',//填充进 <option value='id'>text</option>    
+			textField:'u_loginName'//标签中间（<option>text</option>）   
+			
+		})
+		$("#updatett").combobox('setValue',row.usery.u_id)
+	
+		
 		$("#updatefrmStu").form("load",row);
 		
 		//打开弹窗
@@ -66,20 +76,20 @@
 		$.post("updateStu1",{
 			stu_id:$("#updatestu_id").val(),
 			stu_name:$("#updatestu_name").val(),
-			stu_sex:$("#updatestu_sex").val(),
+			stu_sex:$("#updatestu_sex").combobox('getValue'),
 			stu_age:$("#updatestu_age").val(),
 			stu_phone:$("#updatestu_phone").val(),
 			stu_state:$("#updatestu_state").val(),
-			stu_xueLi:$("#updatestu_xueLi").val(),
+			stu_xueLi:$("#updatestu_xueLi").combobox('getValue'),
 			stu_quDao:$("#updatestu_quDao").val(),
 			stu_wangZhan:$("#updatestu_wangZhan").val(),
 			stu_guanZhu:$("#updatestu_guanZhu").val(),
 			stu_guanJian:$("#updatestu_guanJian").val(),
 			stu_wx:$("#updatestu_wx").val(),
 			stu_qq:$("#updatestu_qq").val(),
-			stu_baoBei:$("#updatestu_baoBei").val(),
+			stu_baoBei:$("#updatestu_baoBei").combobox('getValue'),
 			stu_beiZhu:$("#updatestu_beiZhu").val(),
-			stu_useryId:$("#updatestu_useryId").val(),
+			stu_useryId:$("#updatett").combobox('getValue'),
 			stu_luRu:$("#updatestu_luRu").val(),
 		},function(res){
 			if(res>0){
@@ -97,13 +107,13 @@
 		/* var datas=$("#ltab").datagrid("getData");
 		var row=datas.rows[index];
 		$("#addfrmStu").form("load",row) */
-		/*  $("#addtt").combobox({
-			url:'getBookType',
-			method:'post', 
-			valueField:'stu_xueLi',//填充进 <option value='id'>text</option>    
-			textField:'stu_xueLi'//标签中间（<option>text</option>）   
+		$("#addtt").combobox({
+			url:'getU_loginName',
+			method:'post',
+			valueField:'u_id',//填充进 <option value='id'>text</option>    
+			textField:'u_loginName'//标签中间（<option>text</option>）   
 			
-		})  */ 
+		})
 		 $("#add-dialog").dialog("open");
 	}
 	 
@@ -111,20 +121,20 @@
 		$.post("addStu1",{
 			stu_id:$("#addstu_id").val(), 
 			stu_name:$("#addstu_name").val(),
-			stu_sex:$("#addstu_sex").val(),
+			stu_sex:$("#addstu_sex").combobox('getValue'),
 			stu_age:$("#addstu_age").val(),
 			stu_phone:$("#addstu_phone").val(),
 			stu_state:$("#addstu_state").val(),
-			stu_xueLi:$("#addstu_xueLi").val(),
+			stu_xueLi:$("#addstu_xueLi").combobox('getValue'),
 			stu_quDao:$("#addstu_quDao").val(),
 			stu_wangZhan:$("#addstu_wangZhan").val(),
 			stu_guanZhu:$("#addstu_guanZhu").val(),
 			stu_guanJian:$("#addstu_guanJian").val(),
 			stu_wx:$("#addstu_wx").val(),
 			stu_qq:$("#addstu_qq").val(),
-			stu_baoBei:$("#addstu_baoBei").val(),
+			stu_baoBei:$("#addstu_baoBei").combobox('getValue'),
 			stu_beiZhu:$("#addstu_beiZhu").val(),
-			stu_useryId:$("#addstu_useryId").val(),
+			stu_useryId:$("#addtt").combobox('getValue'),
 		},function(res){
 			if(res>0){
 				$("#ltab").datagrid("reload");
@@ -164,7 +174,7 @@
 	} 
 	//性别
 	function formatterstu_sex(value,row,index) {
-		return row.stu_sex==1? "男":"否";
+		return row.stu_sex==1? "男":"女";
 	}
 	
  	 //是否报备
@@ -190,12 +200,16 @@
 		return row.stu_class==1? "是":"否";
 	}   
 
-	
+
 	
 	//导出excel
 	function exportExcel(){
 		$('#ltab').datagrid('toExcel','dg.xls');	// export to excel
 	} 
+	 //是否回访
+	function formatterstu_huiFang(value,row,index) {
+		return row.stu_huiFang==1? "是":"否";
+	}  
 	
 </script>
 </head>
@@ -224,7 +238,7 @@
             <th data-options="field:'stu_youXiao',title:'是否有效',formatter:formatterstu_youXiao"></th>    
 			
 			<th data-options="field:'stu_wuXiaoYuanYin',title:'无效原因'"></th>
-         <!--    <th data-options="field:'stu_huiFang',title:'是否回访'"></th>  -->
+             <th data-options="field:'stu_huiFang',title:'是否回访',formatter:formatterstu_huiFang""></th>  
             <th data-options="field:'stu_creatorTime',title:'创建时间'"></th>    
          <!--    <th data-options="field:'stu_visit',title:'是否上门'"></th>   
             <th data-options="field:'stu_visitTime',title:'上门时间'"></th>    
@@ -283,7 +297,11 @@
 							</select>   
         
            <label for="email">是否回访:</label>   
-        <input class="easyui-validatebox" type="text" id="stu_huiFang" name="stu_huiFang" />       
+        <select class="easyui-combobox" id="stu_huiFang" name="stu_huiFang">   
+			    <option value="">--请选择--</option>
+			    <option value="1">是</option>   
+			    <option value="2">否</option>   
+			<select>          
         
            <label for="email">QQ:</label>   
         <input class="easyui-validatebox" type="text" id="stu_qq" name="stu_qq" />       
@@ -325,7 +343,7 @@
 						<input class="easyui-validatebox" type="text" id="updatestu_name" name="stu_name" />
 					<br>
 						<label for="easyui-validatebox">性别:</label> 
-						  <select class="easyui-combobox" id="stu_sex" name="stu_sex" >   
+						  <select class="easyui-combobox" id="updatestu_sex" name="stu_sex" >   
 							    <option value="">--请选择--</option>
 							    <option value="1">男</option>   
 							    <option value="2">女</option>
@@ -341,7 +359,14 @@
 						<input class="easyui-validatebox" type="text" id="updatestu_state" name="stu_state" />
 			<br>
 						<label for="name">学历:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_xueLi" name="stu_xueLi" />
+						<select class="easyui-combobox" id="updatestu_xueLi" name="stu_xueLi" >   
+							    <option value="">--请选择--</option>
+							    <option value="高中">高中</option>
+							    <option value="初中">初中</option>
+							    <option value="小学">小学</option>  
+							    <option value="其他">其他</option>   
+							    
+							</select> 
 			<br>
 						<label for="name">来源渠道:</label> 
 						<input class="easyui-validatebox" type="text" id="updatestu_quDao" name="stu_quDao" />
@@ -362,7 +387,7 @@
 						<input class="easyui-validatebox" type="text" id="updatestu_qq" name="stu_qq" />
 			<br>
 						<label for="name">是否报备:</label> 
-						 <select class="easyui-combobox" id="stu_baoBei" name="stu_baoBei" >   
+						 <select class="easyui-combobox" id="updatestu_baoBei" name="stu_baoBei" >   
 							    <option value="">--请选择--</option>
 							    <option value="1">是</option>   
 							    <option value="2">否</option>
@@ -371,8 +396,11 @@
 						<label for="name">在线备注:</label> 
 						<input class="easyui-validatebox" type="text" id="updatestu_beiZhu" name="stu_beiZhu" />
 				<br>
-						<label for="name">员工ID:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_useryId" name="stu_useryId" />
+						<label for="name">负责人:</label> 
+							     <!-- 下拉列表 -->
+			<select id="updatett" class="easyui-combobox">
+				<option selected="selected" >--请选择--</option>
+			</select>
 				<br>
 						<label for="name">录入人:</label> 
 						<input class="easyui-validatebox" type="text" id="updatestu_useryId" name="stu_luRu" />
@@ -392,7 +420,11 @@
 					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_name" name="stu_name" />
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
 						<label for="easyui-validatebox">性别:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_sex" name="stu_sex" />
+					 <select class="easyui-combobox" id="updatestu_sex" name="stu_sex" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">男</option>   
+							    <option value="2">女</option>
+							</select>
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 				
 				<br>	
@@ -429,30 +461,48 @@
 					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_qq" name="stu_qq" />
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 						<label for="name">是否报备:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_baoBei" name="stu_baoBei" />
+					<select class="easyui-combobox" id="updatestu_baoBei" name="stu_baoBei" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select>
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
 						<label for="name">在线备注</label> 
 					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_beiZhu" name="stu_beiZhu" />
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 				<br>	
-						<label for="name">员工ID:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_useryId" name="stu_useryId" />
+						<label for="name">负责人:</label> 
+					<select class="easyui-combobox" id="updatett" name="stu_useryId" disabled="disabled" >   
+							    <option value="">--请选择--</option>	 
+							</select>
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 						<label for="name">是否有效:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_youXiao" name="stu_youXiao" />
+					<select class="easyui-combobox" id="updatestu_youXiao" name="stu_youXiao" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select>
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
 						<label for="name">无效原因:</label> 
 					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_wuXiaoYuanYin" name="stu_wuXiaoYuanYin" />
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 				<br>	
 						<label for="name">是否回访:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_huiFang" name="stu_huiFang" />
+					<select class="easyui-combobox" id="updatestu_huiFang" name="stu_huiFang" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select>
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 						<label for="name">创建时间:</label> 
 					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_creatorTime" name="stu_creatorTime" />
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
 						<label for="name">是否上门:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_visit" name="stu_visit" />
+					<select class="easyui-combobox" id="updatestu_visit" name="stu_visit" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select>
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
 				<br>
 						<label for="name">上门时间:</label> 
@@ -462,7 +512,11 @@
 					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_payTime" name="stu_payTime" />
 					&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 						<label for="name">是否缴费:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_money" name="stu_money" />
+					<select class="easyui-combobox" id="updatestu_money" name="stu_money" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select>
 				<br>
 						<label for="name">缴费时间:</label> 
 					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_moneyTime" name="stu_moneyTime" />
@@ -471,7 +525,11 @@
 					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_jinE" name="stu_jinE" />
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 						<label for="name">是否退费:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_tui" name="stu_tui" />
+					<select class="easyui-combobox" id="updatestu_tui" name="stu_tui" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select>
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 				<br>
 						<label for="name">退费原因:</label> 
@@ -485,7 +543,11 @@
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 				<br>	
 						<label for="name">是否进班:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_class" name="stu_class" />
+					<select class="easyui-combobox" id="updatestu_class" name="stu_class" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select>
 				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 				
 						<label for="name">进班时间:</label> 
@@ -551,7 +613,7 @@
 					</td>
 					<td>
 						<label for="easyui-validatebox">性别:</label> 
-						<select class="easyui-combobox" id="stu_sex" name="stu_sex" >   
+						<select class="easyui-combobox" id="addstu_sex" name="stu_sex" >   
 							    <option value="">--请选择--</option>
 							    <option value="1">男</option>   
 							    <option value="2">女</option>
@@ -575,11 +637,12 @@
 					</td>
 					<td>
 						<label for="name">学历:</label> 
-					<select class="easyui-combobox" id="stu_xueLi" name="stu_xueLi" >   
+					<select class="easyui-combobox" id="addstu_xueLi" name="stu_xueLi" >   
 							    <option value="">--请选择--</option>
-							    <option value="">高中</option>
-							    <option value="">初中</option>
-							    <option value="">小学</option>   
+							    <option value="高中">高中</option>
+							    <option value="初中">初中</option>
+							    <option value="小学">小学</option>  
+							    <option value="其他">其他</option>   
 							    
 							</select> 
 					</td>
@@ -619,12 +682,10 @@
 				<tr>
 					<td>
 						<label for="name">是否报备:</label> 
-					<select class="easyui-combobox" id="stu_baoBei" name="stu_baoBei" >   
+					<select class="easyui-combobox" id="addstu_baoBei" name="stu_baoBei" >   
 							    <option value="">--请选择--</option>
 							    <option value="1">是</option>
-							    <option value="2">否</option>
-							 
-							    
+							    <option value="2">否</option>	    
 							</select> 
 					</td>
 				
@@ -634,8 +695,11 @@
 					</td>
 				
 					<td>
-						<label for="name">员工ID:</label> 
-				<input class="easyui-validatebox" type="text" id="addstu_useryId" name="stu_useryId" />
+						<label for="name">负责人:</label> 
+				     <!-- 下拉列表 -->
+			<select id="addtt" class="easyui-combobox">
+				<option selected="selected" >--请选择--</option>
+			</select>
 					</td>
 				</tr>
 				

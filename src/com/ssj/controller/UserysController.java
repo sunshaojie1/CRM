@@ -20,7 +20,11 @@ public class UserysController {
 	 @Autowired
 	private UserysService userysService;
 	 
-	 
+	 	/**
+		 * 显示员工所有数据
+		 * @param fenye
+		 * @return
+		 */
 	 @RequestMapping(value="/selUsery",method=RequestMethod.POST)
 	 @ResponseBody
 	 public Fenye<Usery> selUsery(Integer page,Integer rows,String u_loginName,String u_isLockout,String u_isQianDao
@@ -39,7 +43,12 @@ public class UserysController {
 		 return fenye;
 		 
 	 }
-	//修改
+	
+	 	/**
+		 * 修改员工信息
+		 * @param usery
+		 * @return
+		 */
 		@RequestMapping(value="/updateUsery",method=RequestMethod.POST)
 		@ResponseBody
 		public Integer updateUsery(Usery usery){
@@ -49,8 +58,11 @@ public class UserysController {
 		}
 		
 		
-		
-		//添加
+		/**
+		 * 添加员工
+		 * @param usery
+		 * @return
+		 */
 		@RequestMapping(value="/addUsery",method=RequestMethod.POST)
 		@ResponseBody
 		public Integer addUsery(Usery usery){
@@ -59,7 +71,12 @@ public class UserysController {
 			return userysService.addUsery(usery);
 		}
 		
-		//删除
+		
+		/**
+		 * 根据ID删除员工
+		 * @param u_id
+		 * @return
+		 */
 		@RequestMapping(value="/delUsery",method=RequestMethod.POST)
 		@ResponseBody
 		public Integer delUsery( Integer u_id){
