@@ -27,6 +27,7 @@ public Fenye<Student> showWstu(Integer page,Integer rows,String stu_name,String 
 	fenye.setStu_phone(stu_phone);
 	fenye.setStu_money(stu_money);
 	fenye.setStu_qq(stu_qq);
+	fenye.setStu_youXiao(stu_youXiao);
 	fenye.setStu_huiFang(stu_huiFang);
 	fenye.setStu_qq(stu_qq);
 	fenye.setStartcreatorTime(startcreatorTime);

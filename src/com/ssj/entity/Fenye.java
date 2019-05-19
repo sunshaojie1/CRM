@@ -10,6 +10,7 @@ public class Fenye<T> {
 	private Integer total;
 	private List<T> rows;
 	private Usery usery;
+
 	private Student student; 
 	
 	
@@ -19,6 +20,7 @@ public class Fenye<T> {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+
 	private String stu_name;
 	private String stu_phone;
 	private Integer stu_money;
@@ -41,6 +43,7 @@ public class Fenye<T> {
 	private String u_clockoutTime;//打卡下班 
 	
 
+    //网络学生的时间搜索
 
 	private String startcreatorTime;
 	private String endcreatorTime;
@@ -53,11 +56,8 @@ public class Fenye<T> {
 	private String endt_beginTime;
 	private String startt_finishTime;
 	private String endt_finishTime;
-	
-	public Fenye() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+
+
 	public Integer getPage() {
 		return page;
 	}
@@ -211,7 +211,9 @@ public class Fenye<T> {
 	public String getT_fangShi() {
 		return t_fangShi;
 	}
-
+	public void setT_fangShi(String t_fangShi) {
+		this.t_fangShi = t_fangShi;
+	}
 	public String getStartt_beginTime() {
 		return startt_beginTime;
 	}
@@ -236,9 +238,6 @@ public class Fenye<T> {
 	public void setEndt_finishTime(String endt_finishTime) {
 		this.endt_finishTime = endt_finishTime;
 	}
-	public void setT_fangShi(String t_fangShi) {
-		this.t_fangShi = t_fangShi;
-	}
 	@Override
 	public String toString() {
 		return "Fenye [page=" + page + ", pageSize=" + pageSize + ", total="
@@ -261,7 +260,6 @@ public class Fenye<T> {
 				+ startt_finishTime + ", endt_finishTime=" + endt_finishTime
 				+ "]";
 	}
+
 	
-
-
 }
