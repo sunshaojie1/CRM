@@ -22,7 +22,7 @@
 	});
 	function init() {
 		$("#showstu").datagrid({
-			url : "showStu",
+			url : "showStu2",
 			method : "post",
 			pagination : true,
 			fitColumns : true,
@@ -108,7 +108,7 @@
 	}
 	 
 	function updateStu() {
-		$.post("updateStu",{
+		$.post("updateStu2",{
 			stu_id:$("#stu_id1").val(),
 			stu_ziXun:$("#stu_ziXun1").val(),
 			stu_keCheng:$("#stu_keCheng1").val(),
@@ -149,7 +149,7 @@
 		var data = $("#showstu").datagrid("getData");
 		var row = data.rows[index];
 		alert(row.stu_id)
-		$.post("delStu", {
+		$.post("delStu2", {
 			stu_id : row.stu_id,
 		}, function(res) {
 			if (res > 0) {
