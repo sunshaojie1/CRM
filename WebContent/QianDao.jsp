@@ -15,9 +15,72 @@
 	src="js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/echarts/dist/echarts.min.js"></script>
+	<script type="text/javascript" src="js/echarts/dist/echarts.js"></script>
 <script type="text/javascript">
 $(function(){
 	initUsery();
+	
+	
+	  // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    
+
+    // 指定图表的配置项和数据
+// app.title = '环形图';
+
+option = {
+		 title: {
+		        text: '签到统计'
+		    },
+tooltip: {
+    trigger: 'item',
+    formatter: "{a} <br/>{b}: {c} ({d}%)"
+},
+legend: {
+    orient: 'vertical',
+    x: 'right',
+    data:['已签到','未签到']
+},
+series: [
+    {
+        name:'访问来源',
+        type:'pie',
+        radius: ['50%', '70%'],
+        avoidLabelOverlap: false,
+        label: {
+            normal: {
+                show: false,
+                position: 'center'
+            },
+            emphasis: {
+                show: true,
+                textStyle: {
+                    fontSize: '30',
+                    fontWeight: 'bold'
+                }
+            }
+        },
+        labelLine: {
+            normal: {
+                show: false
+            }
+        },
+        data:[
+            {value:335, name:'已签到'},
+            {value:310, name:'未签到'},
+        ]
+    }
+]
+};
+
+                
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+	
+	
+	
 	
 })
 
@@ -65,6 +128,8 @@ function formattercaozuo(value,row,index){
 				 <th data-options="field:'caozuo',title:'操作',formatter:formattercaozuo">操作</th>
 			</tr>
 		</thead>
+		
+		<div id="main" style="width: 600px;height:400px;"></div> 
 			<!-- 搜索 -->
 	
 	<div id="bar">

@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!--    员工jsp显示           -->
 	
+	<!--查询分页总条数  -->
 	 <select id="selUseryCount" parameterType="fenye" resultType="int">
 	
 	SELECT count(u_id) FROM usery
@@ -21,33 +22,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="u_isQianDao !=null and u_isQianDao !=''">
 				and u_isQianDao =#{u_isQianDao}
 			</if>
-			<if test="u_clockinTime !=null and u_clockinTime !=''">
+			<!-- <if test="u_clockinTime !=null and u_clockinTime !=''">
 				and u_clockinTime &gt; =#{u_clockinTime}
 			</if>
 			<if test="u_clockoutTime !=null and u_clockoutTime !=''">
 				and u_clockoutTime &lt; =#{u_clockoutTime}
-			</if>
+			</if> -->
 			<if test="startTime !='' and startTime !=null">
-			and stu_creatorTime &gt;=  #{startTime}
+			and stu_creatorTime &gt;=STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')  
 			</if>
-			<if test="endTime !='' and startTime !=null">
-				and stu_creatorTime  &lt;= #{startTime}
+			<if test="endTime !='' and endTime !=null">
+				and stu_creatorTime  &lt;= STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')  
 			</if>
-			<!-- where u_clockinTime not between u_clockinTime and u_clockoutTime
-
-			and u_clockoutTime not between u_clockinTime and u_clockoutTime
-			
-			where 开始时间 not between 开始时间 and 结束时间
-
-			and 结束时间 not between 开始时间 and 结束时间
-			 -->
+		
 			
 		</where> 
 	
 	
 	</select>
 	
-	
+	<!--查询所有用户信息  -->
 	<select id="selUsery" parameterType="fenye" resultType="usery">
 	
 	SELECT u_id,u_loginName,u_password,u_isLockout,u_loginTime,u_logoutTime,u_isQianDao,u_clockinTime,
@@ -66,20 +60,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 
 			  <if test="startTime !='' and startTime !=null">
-				and stu_creatorTime &gt;=  #{startTime}
+			and stu_creatorTime &gt;=STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')  
 			</if>
-			<if test="endTime !='' and startTime !=null">
-				and stu_creatorTime  &lt;= #{startTime}
+			<if test="endTime !='' and endTime !=null">
+				and stu_creatorTime  &lt;= STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')  
 			</if>
-			 
-			
-
 			
 		</where>
 	 
 	 limit #{page},#{pageSize}; 
 	</select>
 	
+	<!--修改员工信息  -->
 		<update id="updateUsery" parameterType="usery">
 		update usery
 		<set>
@@ -126,6 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 
+	<!-- 根据ID删除员工 -->
 	<delete id="delUsery" parameterType="int">
 		delete from Usery where
 		u_id=#{u_id}
@@ -133,6 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
+	<!-- 添加员工 -->
 	<insert id="addUsery" parameterType="Usery">
 		insert into Usery
 		(u_loginName,u_password,u_isLockout,u_email,u_phone)

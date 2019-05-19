@@ -15,7 +15,13 @@ public class StuServiceImpl implements StuService{
 	
 	@Autowired
 	private StuMapper stuMapper;
-
+	
+	
+	/**
+	 * 查询所有学生信息
+	 * @param fenye
+	 * @return
+	 */	
 	@Override
 	public Fenye<Student> selectStu(Fenye<Student> fenye) {
 		// TODO Auto-generated method stub
@@ -26,24 +32,43 @@ public class StuServiceImpl implements StuService{
 		return fenye;
 	}
 
+	/**
+	 * 修改学生信息
+	 * @param student
+	 * @return
+	 */
 	@Override
 	public Integer updateStu(Student student) {
 		// TODO Auto-generated method stub
 		return stuMapper.updateStu(student);
 	}
 
+	/**
+	 * 根据ID删除学生
+	 * @param stu_id
+	 * @return
+	 */
 	@Override
 	public Integer delStu(Integer stu_id) {
 		// TODO Auto-generated method stub
 		return stuMapper.delStu(stu_id);
 	}
 
+	/**
+	 * 添加学生
+	 * @param student
+	 * @return
+	 */
 	@Override
 	public Integer addStu(Student student) {
 		// TODO Auto-generated method stub
 		return stuMapper.addStu(student);
 	}
 
+	/**
+	 * 连表查询（学生表和用户表）
+	 * @return
+	 */
 	@Override
 	public List<Usery> getU_loginName() {
 		// TODO Auto-generated method stub

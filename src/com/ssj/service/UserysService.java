@@ -17,7 +17,7 @@ public interface UserysService {
 	Fenye<Usery> selUsery(Fenye<Usery> fenye);
 	
 	/**
-	 * 修改
+	 * 修改员工信息
 	 * @param Usery
 	 * @return
 	 */
@@ -25,7 +25,7 @@ public interface UserysService {
 	
 	
 	/**
-	 * 添加
+	 * 添加员工
 	 * @param Usery
 	 * @return
 	 */
@@ -35,7 +35,7 @@ public interface UserysService {
 	
 	
 	/**
-	 * 删除
+	 * 根据删除员工
 	 * @param id
 	 * @return
 	 */

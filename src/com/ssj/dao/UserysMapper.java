@@ -40,7 +40,7 @@ public interface UserysMapper {
 		
 		
 		/**
-		 * 删除员工
+		 * 根据ID删除员工
 		 * @param u_id
 		 * @return
 		 */
