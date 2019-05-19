@@ -46,6 +46,11 @@ public Integer updateCz(Usery usery) {
 	// TODO Auto-generated method stub
 	return useryMapper.updateCz(usery);
 }
+	@Override
+	public Integer updateXiugai(Usery usery) {
+		// TODO Auto-generated method stub
+		return useryMapper.updateXiugai(usery);
+	}
 
 	
 }

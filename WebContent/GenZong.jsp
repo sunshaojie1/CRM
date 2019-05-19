@@ -38,9 +38,7 @@ function init(){
 function formatterXue(value,row,index){
 	return row.student.stu_name;
 }
-function formatterSname(value,row,index){
-	return row.student.stu_name;
-}
+
 function formattercaozuo(value,row,index){
 	return "<a href='javascript:void(0)' onclick='look("+index+")'>查看</a> "
 }
@@ -49,6 +47,7 @@ function formattercaozuo(value,row,index){
 function look(index){
 	var data=$("#showT").datagrid("getData");
 	var row=data.rows[index];
+    $("#stu_name").textbox("setValue",row.student.stu_name);//把类别单独写入
 	$("#lookfrm").form("load",row);
 	$("#lookdialog").dialog("open")
 	$('#lookdialog').dialog({    
@@ -77,14 +76,14 @@ function close(){
             <th data-options="field:'stu_name',title:'学生姓名',formatter:formatterXue"></th>
             <th data-options="field:'t_useryId',title:'用户'"></th>      
             <th data-options="field:'t_beginTime',title:'跟踪开始时间'"></th>
-            <th data-options="field:'t_finishTime',title:'跟踪结束时间'"></th>
+              <th data-options="field:'t_finishTime',title:'跟踪结束时间'"></th>
             <th data-options="field:'t_huiFang',title:'回访情况'"></th>
             <th data-options="field:'t_fangShi',title:'跟踪方式'"></th>
             <th data-options="field:'caozuo',title:'操作',formatter:formattercaozuo"></th>
         </tr>   
     </thead>   
 </table> 
-<!-- 搜索 -->
+<!-- 搜索 -->  
 <div id="Tbar">
 <form class="easyui-form" id="barfrm">
 			<label for="stu_name">学生姓名:</label>   
@@ -120,7 +119,7 @@ function close(){
 		<form id="lookfrm" class="easyui-form">
 		      <div>
 			  <label for="name">学生姓名:</label>   
-	          <input class="easyui-validatebox" disabled="disabled" name="stu_name" type="text" data-options="required:true,formatter:formatterSname " />   
+	          <input class="easyui-textbox" name="stu_name" id="stu_name" type="text"  />   
 			  </div>
 			  <div>
 			  <label for="name">跟踪开始时间:</label>   

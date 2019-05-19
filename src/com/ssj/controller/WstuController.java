@@ -27,6 +27,7 @@ public Fenye<Student> showWstu(Integer page,Integer rows,String stu_name,String 
 	fenye.setStu_phone(stu_phone);
 	fenye.setStu_money(stu_money);
 	fenye.setStu_qq(stu_qq);
+	fenye.setStu_youXiao(stu_youXiao);
 	fenye.setStu_huiFang(stu_huiFang);
 	fenye.setStu_qq(stu_qq);
 	fenye.setStartcreatorTime(startcreatorTime);
@@ -37,13 +38,13 @@ public Fenye<Student> showWstu(Integer page,Integer rows,String stu_name,String 
 	
 }
 //É¾³ý
-@RequestMapping(value = "/delStu", method = RequestMethod.POST)
+@RequestMapping(value = "/delStu2", method = RequestMethod.POST)
 @ResponseBody
 public Integer delStu(Integer stu_id){
 	return wstuService.delWstu(stu_id); 
 }
 //ÐÞ¸Ä
-@RequestMapping(value = "/updateStu", method = RequestMethod.POST)
+@RequestMapping(value = "/updateStu2", method = RequestMethod.POST)
 @ResponseBody
 public Integer updateWstu(Student student){
 	return wstuService.updateWstu(student);

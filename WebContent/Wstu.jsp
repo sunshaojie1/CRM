@@ -50,9 +50,7 @@
     function formattersex(value,row,index){
 	return value == 1 ? '男' : '女';
     }
-    function formatterBaoBei(value,row,index){
-    	return value == 1 ? '是' : '否';
-        }
+  
     function formatteryouXiao(value,row,index){
     	return value == 1 ? '是' : '否';
         }
@@ -77,8 +75,8 @@
 	function chakan(index) {
 		var datas=$("#showstu").datagrid("getData");
 		var row=datas.rows[index];
-		$("#frmStuck").form("load",row)
-		$("#chakanStu").dialog("open");
+		$("#frm").form("load",row)
+		$("#lookStu").dialog("open");
 		$('#chakanStu').dialog({    
 		    title: '查看学生信息',    
 		    width: 800,    
@@ -108,7 +106,7 @@
 	}
 	 
 	function updateStu() {
-		$.post("updateStu",{
+		$.post("updateStu2",{
 			stu_id:$("#stu_id1").val(),
 			stu_ziXun:$("#stu_ziXun1").val(),
 			stu_keCheng:$("#stu_keCheng1").val(),
@@ -149,7 +147,7 @@
 		var data = $("#showstu").datagrid("getData");
 		var row = data.rows[index];
 		alert(row.stu_id)
-		$.post("delStu", {
+		$.post("delStu2", {
 			stu_id : row.stu_id,
 		}, function(res) {
 			if (res > 0) {
@@ -180,7 +178,7 @@
             <th data-options="field:'stu_wangZhan',title:'来源网址'"></th>   
             <th data-options="field:'stu_guanJian',title:'来源关键词'"></th>   
             <th data-options="field:'stu_wx',title:'微信'"></th>   
-            <th data-options="field:'stu_baoBei',title:'是否报备',formatter:formatterBaoBei"></th>   
+            <th data-options="field:'stu_baoBei',title:'是否报备'"></th>   
             <th data-options="field:'stu_keCheng',title:'课程方向'"></th>   
             <th data-options="field:'stu_youXiao',title:'是否有效',formatter:formatteryouXiao"></th>   
             <th data-options="field:'stu_daFen',title:'打分'"></th>   
@@ -247,8 +245,8 @@
 </form> 
 </div>
 <!-- 查看 -->
-	<div id="chakanStu" class="easyui-window" data-options="modal:true,closed:true,resizable:true,collapsible:true,draggable:true">
-		<form id="frmStuck" class="easyui-form" >
+	<div id="lookStu" class="easyui-window" data-options="modal:true,closed:true,resizable:true,collapsible:true,draggable:true">
+		<form id="frm" class="easyui-form" >
 			<table>
 			<tr>
 					<td>
