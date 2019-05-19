@@ -10,7 +10,6 @@
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="js/jquery-easyui-1.4.3/datagrid-export.js"></script>
 <script type="text/javascript">
 	$(function(){
 		initStu();
@@ -36,6 +35,79 @@
 		});  
 			$("#bar-ff").form("reset");
 	}
+	
+	//打开设置隐藏列对话框
+	function lookstu() {
+		$("#hiddenColumn_dialog").dialog("open");
+	}
+	function saveColumn() {
+		var cbx = $("#hiddenColumn_form input[type='checkbox']"); //获取Form里面是checkbox的Object
+		var checkedValue = "";
+		var unCheckValue = "";
+		for (var i = 0; i < cbx.length; i++) {
+			if (cbx[i].checked) {//获取已经checked的Object
+				if (checkedValue.length > 0) {
+					checkedValue += "," + cbx[i].value; //获取已经checked的value
+					 
+
+				} else {
+					checkedValue = cbx[i].value;
+				}
+			}
+			if (!cbx[i].checked) {//获取没有checked的Object
+				if (unCheckValue.length > 0) {
+					unCheckValue += "," + cbx[i].value; //获取没有checked的value
+					 
+				} else {
+					unCheckValue = cbx[i].value;
+				}
+			}
+		}
+		var checkeds = new Array();
+		if (checkedValue != null && checkedValue != "") {
+			checkeds = checkedValue.split(',');
+			for (var i = 0; i < checkeds.length; i++) {
+				$('#ltab').datagrid('hideColumn', checkeds[i]); //隐藏相应的列
+			}
+
+		}
+		var unChecks = new Array();
+
+		if (unCheckValue != null && unCheckValue != "") {
+			unChecks = unCheckValue.split(',');
+			for (var i = 0; i < unChecks.length; i++) {
+				$('#ltab').datagrid('showColumn', unChecks[i]); //显示相应的列
+			}
+		}
+		$('#hiddenColumn_dialog').dialog('close');
+	}
+	//关闭设置隐藏列弹框
+	function closed_hiddenColumn() {
+		$('#hiddenColumn_dialog').dialog('close');
+	}
+	//全选按钮
+	function ChooseAll() {
+
+		var a = $("#isQuanXuan").text();//获取按钮的值
+		if ("全选" == a.trim()) {
+			$("#hiddenColumn_form input[type='checkbox']")
+					.prop("checked", true);//全选
+			$('#isQuanXuan').linkbutton({
+				text : '全不选'
+			});
+		} else {
+			$("#hiddenColumn_form input[type='checkbox']").removeAttr(
+					"checked", "checked");//取消全选
+			$('#isQuanXuan').linkbutton({
+				text : '全选'
+			});
+		}
+
+	}
+
+	
+	
+	
 	function formattercaozuo(value,row,index) {
 		return "<a href='javascript:void(0)' onclick='update("+index+")'>修改</a> <a href='javascript:void(0)' onclick='del("+index+")'>删除</a>   <a href='javascript:void(0)' onclick='chakan("+index+")'>查看</a> "
 	}
@@ -202,10 +274,6 @@
 
 
 	
-	//导出excel
-	function exportExcel(){
-		$('#ltab').datagrid('toExcel','dg.xls');	// export to excel
-	} 
 	 //是否回访
 	function formatterstu_huiFang(value,row,index) {
 		return row.stu_huiFang==1? "是":"否";
@@ -224,49 +292,41 @@
             <th data-options="field:'stu_phone',title:'电话'"></th>  
             <th data-options="field:'stu_state',title:'个人状态'"></th>   
             <th data-options="field:'stu_xueLi',title:'学历'"></th>   
-           <!--  <th data-options="field:'stu_quDao',title:'来源渠道'"></th>   
-            <th data-options="field:'stu_wangZhan',title:'来源网站'"></th>   
-            <th data-options="field:'stu_guanJian',title:'来源关键词'"></th>    -->
+             <th data-options="field:'stu_quDao',title:'来源渠道'"></th>
+             <th data-options="field:'stu_wangZhan',title:'来源网站'"></th>
+             <th data-options="field:'stu_guanZhu',title:'学员关注'"></th>       
+            <th data-options="field:'stu_guanJian',title:'来源关键词'"></th>   
             <th data-options="field:'stu_wx',title:'微信'"></th>  
-            <th data-options="field:'stu_qq',title:'QQ'"></th>  
-             
-            <th data-options="field:'stu_baoBei',title:'是否报备',formatter:formatterstu_baoBei"></th> 
-            
+            <th data-options="field:'stu_qq',title:'QQ'"></th>              
+            <th data-options="field:'stu_baoBei',title:'是否报备',formatter:formatterstu_baoBei"></th>     
             <th data-options="field:'stu_beiZhu',title:'在线备注'"></th>           
-            <th data-options="field:'usery',title:'负责人',formatter:formatteryuangong"></th>                
-           
-            <th data-options="field:'stu_youXiao',title:'是否有效',formatter:formatterstu_youXiao"></th>    
-			
+            <th data-options="field:'usery',title:'负责人',formatter:formatteryuangong"></th>                           
+            <th data-options="field:'stu_youXiao',title:'是否有效',formatter:formatterstu_youXiao"></th>   		
 			<th data-options="field:'stu_wuXiaoYuanYin',title:'无效原因'"></th>
              <th data-options="field:'stu_huiFang',title:'是否回访',formatter:formatterstu_huiFang""></th>  
             <th data-options="field:'stu_creatorTime',title:'创建时间'"></th>    
-         <!--    <th data-options="field:'stu_visit',title:'是否上门'"></th>   
+           <th data-options="field:'stu_visit',title:'是否上门'"></th>   
             <th data-options="field:'stu_visitTime',title:'上门时间'"></th>    
-            <th data-options="field:'stu_payTime',title:'首次回访时间'"></th>    -->   
-             
-              <th data-options="field:'stu_money',title:'是否缴费',formatter:formatterstu_money"></th>   
-          
-           <!--  <th data-options="field:'stu_moneyTime',title:'缴费时间'"></th>   
-            <th data-options="field:'stu_jinE',title:'缴费金额'"></th>    -->
-           
-             <th data-options="field:'stu_tui',title:'是否退费',formatter:formatterstu_tui"></th>
-           
-            <th data-options="field:'stu_tuiYin',title:'退费原因'"></th>
-           <!--  <th data-options="field:'stu_dingJinE',title:'定金金额'"></th>   
-            <th data-options="field:'stu_dingTime',title:'定金时间'"></th>     -->
-            
-           <th data-options="field:'stu_class',title:'是否进班',formatter:formatterstu_class"></th>   
-        
-        <!--     <th data-options="field:'stu_classTime',title:'进班时间'"></th>    -->
-          <!--   <th data-options="field:'stu_classBeiZhu',title:'进班备注'"></th>   
-            <th data-options="field:'stu_ziXun',title:'咨询姓名'"></th> -->
-            <th data-options="field:'stu_ziXunBeiZhu',title:'咨询师备注'"></th>  
-         <!--    <th data-options="field:'stu_quYu',title:'所在区域'"></th>   
+            <th data-options="field:'stu_payTime',title:'首次回访时间'"></th>               
+             <th data-options="field:'stu_money',title:'是否缴费',formatter:formatterstu_money"></th>            
+            <th data-options="field:'stu_moneyTime',title:'缴费时间'"></th>   
+            <th data-options="field:'stu_jinE',title:'缴费金额'"></th>             
+             <th data-options="field:'stu_tui',title:'是否退费',formatter:formatterstu_tui"></th>          
+            <th data-options="field:'stu_tuiYin',title:'退费原因'"></th>            
+           <th data-options="field:'stu_dingJinE',title:'定金金额'"></th>   
+            <th data-options="field:'stu_dingTime',title:'定金时间'"></th>               
+           <th data-options="field:'stu_class',title:'是否进班',formatter:formatterstu_class"></th>          
+           <th data-options="field:'stu_classTime',title:'进班时间'"></th>   
+            <th data-options="field:'stu_classBeiZhu',title:'进班备注'"></th>   
+            <th data-options="field:'stu_ziXun',title:'咨询姓名'"></th>
+            <th data-options="field:'stu_ziXunBeiZhu',title:'咨询师备注'"></th>             
+            <th data-options="field:'stu_quYu',title:'所在区域'"></th>   
             <th data-options="field:'stu_buMen',title:'来源部门'"></th>   
             <th data-options="field:'stu_keCheng',title:'课程方向'"></th>
-            <th data-options="field:'stu_daFen',title:'打分'"></th>  -->
-            <th data-options="field:'stu_luRu',title:'录入人'"></th>  
+            <th data-options="field:'stu_daFen',title:'打分'"></th>  
+            <th data-options="field:'stu_luRu',title:'录入人'"></th>     
             <th data-options="field:'操作',title:'操作',formatter:formattercaozuo"></th> 
+            
         </tr>   
     </thead>   
 </table>  
@@ -301,7 +361,7 @@
 			    <option value="">--请选择--</option>
 			    <option value="1">是</option>   
 			    <option value="2">否</option>   
-			<select>          
+			</select>          
         
            <label for="email">QQ:</label>   
         <input class="easyui-validatebox" type="text" id="stu_qq" name="stu_qq" />       
@@ -312,9 +372,12 @@
        
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="initStu()">搜索</a> 
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="add()">添加</a> 
-  <a
-						class="easyui-linkbutton" plain="true" onclick="exportExcel()"
-						id="serach" data-options="iconCls:'icon-print'">导出excel</a>
+		<a
+				id="btn" href="javascript:lookstu()" class="easyui-linkbutton"
+				data-options="iconCls:'icon-edit'">设置隐藏列</a>
+		
+
+
 </form> 
 </div>
 
@@ -711,5 +774,135 @@
 			</table>
 		</form>
 	</div>
+	
+	
+	
+	
+	
+	<!-- 设置 -->
+	
+	<!-- 设置隐藏列 -->
+	<div id="hiddenColumn_dialog" class="easyui-dialog"
+		data-options="title:'设置隐藏列',modal:true,closed:'true',
+			buttons:[{
+				text:'保存',
+				handler:function(){
+				saveColumn();<!-- 保存 -->
+				initStu();<!-- 刷新 -->
+				closed_hiddenColumn();<!-- 关闭弹窗 -->
+				}
+			},{
+				text:'关闭',
+				handler:function(){
+				closed_hiddenColumn();
+				}
+			}]">
+		<form style="width: 450px; height: 300px;" id="hiddenColumn_form"
+			class="easyui-form">
+			<a href="javascript:void()" class="easyui-linkbutton" id="isQuanXuan"
+				onclick="ChooseAll()" data-options="iconCls:'icon-edit'">全选</a>
+			<table>
+			<!--  -->
+				<tr>
+					<td><input type="checkbox" value="stu_id" />编号</td>
+
+					<td><input type="checkbox" value="stu_name" />姓名</td>
+
+					<td><input type="checkbox" value="stu_sex" />性别</td>
+
+					<td><input type="checkbox" value="stu_age" />年龄</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" value="stu_phone" />电话</td>
+
+					<td><input type="checkbox" value="stu_state" />状态</td>
+
+					<td><input type="checkbox" value="stu_xueLi" />学历</td>
+
+					<td><input type="checkbox" value="stu_quDao" />来源渠道</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" value="stu_wangZhan" />来源渠道</td>
+
+					<td><input type="checkbox" value="stu_guanZhu" />学员关注</td>
+
+					<td><input type="checkbox" value="stu_guanJian" />来源关键词</td>
+
+					 <td><input type="checkbox" value="stu_wx" />微信</td>
+				</tr>
+				<tr>
+					 <td><input type="checkbox" value="stu_qq" />QQ</td>
+
+					<td><input type="checkbox" value="stu_baoBei" />/是否报备</td> 
+
+					<td><input type="checkbox" value="stu_beiZhu" />在线备注</td>
+
+					<td><input type="checkbox" value="stu_useryId" />负责人</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" value="stu_youXiao" />是否有效</td>
+
+					<td><input type="checkbox" value="stu_wuXiaoYuanYin" />无效原因</td>
+
+					<td><input type="checkbox" value="stu_huiFang" />是否回访</td>
+					<td><input type="checkbox" value="stu_creatorTime" />创建时间</td>
+
+				</tr>
+				<tr>
+
+
+
+					<td><input type="checkbox" value="stu_visit" />是否上门</td>
+					<td><input type="checkbox" value="stu_visitTime" />上门时间</td>
+					<td><input type="checkbox" value="stu_payTime" />首次回访时间</td>
+					<td><input type="checkbox" value="stu_money" />是否缴费</td>
+				</tr>
+				<tr>
+
+
+
+					<td><input type="checkbox" value="stu_moneyTime" />缴费时间</td>
+					<td><input type="checkbox" value="stu_jinE" />金额</td>
+
+					<td><input type="checkbox" value="stu_tui" />是否退费</td>
+
+					<td><input type="checkbox" value="stu_tuiYin" />退费原因</td>
+				</tr>
+				<tr>
+
+
+					<td><input type="checkbox" value="stu_dingJinE" />定金金额</td>
+					<td><input type="checkbox" value="stu_dingTime" />定金时间</td>
+
+					<td><input type="checkbox" value="stu_class" />是否进班</td>
+
+					<td><input type="checkbox" value="stu_classTime" />进班时间</td>
+				</tr>
+				<tr>
+
+
+
+					<td><input type="checkbox" value="stu_classBeiZhu" />进班备注</td>
+					<td><input type="checkbox" value="stu_ziXun" />咨询姓名</td>
+
+					<td><input type="checkbox" value="stu_ziXunBeiZhu" />咨询师备注</td>
+
+					<td><input type="checkbox" value="stu_quYu" />所在区域</td>
+				</tr>
+				<tr>
+
+
+					<td><input type="checkbox" value="stu_buMen" />来源部门</td>
+					<td><input type="checkbox" value="stu_keCheng" />课程方向</td>
+
+					<td><input type="checkbox" value="stu_daFen" />打分</td>
+
+					<td><input type="checkbox" value="stu_luRu" />录入人 </td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	
 </body>
 </html>
