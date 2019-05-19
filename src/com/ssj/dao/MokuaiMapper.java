@@ -1,13 +1,14 @@
-package com.ssj.service;
+package com.ssj.dao;
 
 import java.util.List;
 
 import com.ssj.entity.Modules;
+import com.ssj.entity.ModulesTree;
 import com.ssj.entity.Rolemodules;
 import com.ssj.entity.Roles;
+import com.ssj.entity.RolesTree;
 
-public interface ModulesService {
-	
+public interface MokuaiMapper {
 	/**
 	 * 查询所有角色
 	 * @return
@@ -24,34 +25,6 @@ public interface ModulesService {
 	 * @return
 	 */
 	List<Modules> modulesSelect();
-	/**
-	 * 角色下的模块
-	 * @param r_name
-	 * @return
-	 */
-	List<Modules> selMo(String r_name);
-	/**
-	 * 给角色添加模块
-	 * @param rolemodules
-	 * @return
-	 */
-	Integer insertMo(Rolemodules rolemodules);
-	/**
-	 * 删除角色下的模块
-	 * @param rolemodules
-	 * @return
-	 */
-	Integer deleteMo(Rolemodules rolemodules);
-	/**
-	 * 判断是否有重复
-	 * @param rolemodules
-	 * @return
-	 */
-	Integer MoCount(Rolemodules rolemodules);
-	
-	
-	
-	
 	/**
 	 * 新增加一个模块
 	 * @param modules
@@ -70,5 +43,29 @@ public interface ModulesService {
 	 * @return
 	 */
 	Integer updateMod(Modules modules);
+	/**
+	 * 角色下的模块
+	 * @param r_name
+	 * @return
+	 */
+	List<Modules> selMo(String r_name);
 	
+	/**
+	 * 给角色添加模块
+	 * @param rolemodules
+	 * @return
+	 */
+	Integer insertMo(Rolemodules rolemodules);
+	/**
+	 * 删除角色下的模块
+	 * @param rolemodules
+	 * @return
+	 */
+	Integer deleteMo(Rolemodules rolemodules);
+	/**
+	 * 判断是否有重复
+	 * @param rolemodules
+	 * @return
+	 */
+	Integer MoCount(Rolemodules rolemodules);
 }

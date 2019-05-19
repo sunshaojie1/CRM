@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssj.dao.UserMapper">
+
+	<select id="selectUsery" parameterType="fenyea" resultType="usery">
+		select u_id,u_loginName,u_password,u_isLockout,u_loginTime,u_logoutTime,u_clockinTime,
+		u_clockoutTime,u_creationTime,u_email,u_phone from usery
+		<where>
+			<if test="t.u_loginName!=null and t.u_loginName!=''">
+				and u_loginName like "%"#{t.u_loginName}"%"
+			</if>
+			<if test="t.u_isLockout!=null and t.u_isLockout!=''">
+				and u_isLockout=#{t.u_isLockout}
+			</if>
+		</where>
+		limit #{page},#{pageSize}
+	</select>
+	<!-- 总条数 -->
+	<select id="selectUseruCount" parameterType="fenyea" resultType="int">
+		select count(u_id) from usery
+	</select>
+	<!-- 删除 -->
+	<delete id="delUsery" parameterType="int">
+		delete from usery 
+		<where>
+			u_id=#{u_id}
+		</where>
+	</delete>
+	<!-- 添加 -->
+	<insert id="insertUser" parameterType="usery">
+		INSERT INTO usery(u_loginName,u_password,u_isLockout,u_creationTime,u_email,u_phone)
+		value(#{u_loginName},#{u_password},#{u_isLockout},#{u_creationTime},#{u_email},#{u_phone})
+	</insert>
+	<!-- 修改 -->
+	<update id="updateUser" parameterType="usery">
+		update usery 
+		<set>
+			<if test="u_loginName!=null and u_loginName!=''">
+				u_loginName=#{u_loginName},
+			</if>
+			<if test="u_password!=null and u_password!=''">
+				u_password=#{u_password},
+			</if>
+			<if test="u_isLockout!=null and u_isLockout!=''">
+				u_isLockout=#{u_isLockout},
+			</if>
+			<if test="u_email!=null and u_email!=''">
+				u_email=#{u_email},
+			</if>
+			<if test="u_phone!=null and u_phone!=''">
+				u_phone=#{u_phone},
+			</if>
+		</set>
+		where u_id=#{u_id}
+	</update>
+</mapper>

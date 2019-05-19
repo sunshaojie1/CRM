@@ -15,6 +15,7 @@
 	src="js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.4.3/datagrid-export.js"></script>
 <script type="text/javascript">
 	$(function() {
 		init();
@@ -162,6 +163,10 @@
 			}
 		}, "json");
 	}
+	//导出excel
+	function exportExcel(){
+		$('#showstu').datagrid('toExcel','dg.xls');	// export to excel
+	} 
 </script>
 
 </head>
@@ -243,7 +248,9 @@
         <input class="easyui-datebox" id="startcreatorTime" name="stu_creatorTime" required="true"/>~
         <input class="easyui-datebox" id="endcreatorTime" name="stu_creatorTime" required="true"/>
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="init()">搜索</a> 
-         
+           <a
+						class="easyui-linkbutton" plain="true" onclick="exportExcel()"
+						id="serach" data-options="iconCls:'icon-print'">导出excel</a>
 </form> 
 </div>
 <!-- 查看 -->

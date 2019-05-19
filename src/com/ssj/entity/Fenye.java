@@ -12,28 +12,7 @@ public class Fenye<T> {
 	private Usery usery;
 	private Student student; 
 	
-	@Override
-	public String toString() {
-		return "Fenye [page=" + page + ", pageSize=" + pageSize + ", total="
-				+ total + ", rows=" + rows + ", usery=" + usery + ", student="
-				+ student + ", stu_name=" + stu_name + ", stu_phone="
-				+ stu_phone + ", stu_money=" + stu_money + ", stu_youXiao="
-				+ stu_youXiao + ", stu_huiFang=" + stu_huiFang + ", stu_qq="
-				+ stu_qq + ", stu_creatorTime=" + stu_creatorTime
-				+ ", startTime=" + startTime + ", endTime=" + endTime
-				+ ", startstu_creatorTime=" + startstu_creatorTime
-				+ ", eddstu_creatorTime=" + eddstu_creatorTime
-				+ ", u_loginName=" + u_loginName + ", u_isLockout="
-				+ u_isLockout + ", u_isQianDao=" + u_isQianDao
-				+ ", u_clockinTime=" + u_clockinTime + ", u_clockoutTime="
-				+ u_clockoutTime + ", startcreatorTime=" + startcreatorTime
-				+ ", endcreatorTime=" + endcreatorTime + ", sname=" + sname
-				+ ", t_huiFang=" + t_huiFang + ", t_fangShi=" + t_fangShi
-				+ ", startt_beginTime=" + startt_beginTime
-				+ ", endt_beginTime=" + endt_beginTime + ", startt_finishTime="
-				+ startt_finishTime + ", endt_finishTime=" + endt_finishTime
-				+ "]";
-	}
+	
 	public Student getStudent() {
 		return student;
 	}
@@ -74,6 +53,11 @@ public class Fenye<T> {
 	private String endt_beginTime;
 	private String startt_finishTime;
 	private String endt_finishTime;
+	
+	public Fenye() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Integer getPage() {
 		return page;
 	}
@@ -227,9 +211,7 @@ public class Fenye<T> {
 	public String getT_fangShi() {
 		return t_fangShi;
 	}
-	public void setT_fangShi(String t_fangShi) {
-		this.t_fangShi = t_fangShi;
-	}
+
 	public String getStartt_beginTime() {
 		return startt_beginTime;
 	}
@@ -254,6 +236,32 @@ public class Fenye<T> {
 	public void setEndt_finishTime(String endt_finishTime) {
 		this.endt_finishTime = endt_finishTime;
 	}
+	public void setT_fangShi(String t_fangShi) {
+		this.t_fangShi = t_fangShi;
+	}
+	@Override
+	public String toString() {
+		return "Fenye [page=" + page + ", pageSize=" + pageSize + ", total="
+				+ total + ", rows=" + rows + ", usery=" + usery + ", student="
+				+ student + ", stu_name=" + stu_name + ", stu_phone="
+				+ stu_phone + ", stu_money=" + stu_money + ", stu_youXiao="
+				+ stu_youXiao + ", stu_huiFang=" + stu_huiFang + ", stu_qq="
+				+ stu_qq + ", stu_creatorTime=" + stu_creatorTime
+				+ ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", startstu_creatorTime=" + startstu_creatorTime
+				+ ", eddstu_creatorTime=" + eddstu_creatorTime
+				+ ", u_loginName=" + u_loginName + ", u_isLockout="
+				+ u_isLockout + ", u_isQianDao=" + u_isQianDao
+				+ ", u_clockinTime=" + u_clockinTime + ", u_clockoutTime="
+				+ u_clockoutTime + ", startcreatorTime=" + startcreatorTime
+				+ ", endcreatorTime=" + endcreatorTime + ", sname=" + sname
+				+ ", t_huiFang=" + t_huiFang + ", t_fangShi=" + t_fangShi
+				+ ", startt_beginTime=" + startt_beginTime
+				+ ", endt_beginTime=" + endt_beginTime + ", startt_finishTime="
+				+ startt_finishTime + ", endt_finishTime=" + endt_finishTime
+				+ "]";
+	}
+	
 
 
 }
