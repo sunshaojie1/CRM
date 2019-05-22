@@ -17,7 +17,7 @@ import com.ssj.service.StuService;
 @Controller
 public class StuController {
 	
-	//Ñ§Éú¹ÜÀí
+	//Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	@Autowired
 	private Fenye<Student> fenye;
@@ -25,7 +25,7 @@ public class StuController {
 	private StuService stuService;
 	
 	/**
-	 * ²éÑ¯ËùÓÐÑ§Éú
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½
 	 * @param fenye
 	 * @return
 	 */	
@@ -43,7 +43,7 @@ public class StuController {
 }
 	
 	/**
-	 * ÐÞ¸ÄÑ§ÉúÐÅÏ¢
+	 * ï¿½Þ¸ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param student
 	 * @return
 	 */
@@ -56,7 +56,7 @@ public class StuController {
 	}
 	
 	/**
-	 * ¸ù¾ÝIDÉ¾³ýÑ§Éú
+	 * ï¿½ï¿½ï¿½ï¿½IDÉ¾ï¿½ï¿½Ñ§ï¿½ï¿½
 	 * @param stu_id
 	 * @return
 	 */
@@ -68,7 +68,7 @@ public class StuController {
 	}
 	
 	/**
-	 * Ìí¼ÓÑ§Éú
+	 * ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½
 	 * @param student
 	 * @return
 	 */
@@ -81,7 +81,7 @@ public class StuController {
 	}
 	
 	/**
-	 *  Á¬±í£¨Ñ§Éú±íºÍÓÃ»§±í£©²éÑ¯ËùÓÐµÄÓÃ»§·µ»ØÇ°Ì¨Îªjson
+	 *  ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Ì¨Îªjson
 	 * @return
 	 */
 	@RequestMapping(value="/getU_loginName",method=RequestMethod.POST)

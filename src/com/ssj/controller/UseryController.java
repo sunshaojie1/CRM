@@ -48,6 +48,7 @@ public class UseryController {
 		return userService.delUsery(u_id);
 	}
 	/**
+
 	 * 添加一个用户
 	 * @param usery
 	 * @return
@@ -55,6 +56,7 @@ public class UseryController {
 	@RequestMapping(value="/insertUsery1",method=RequestMethod.POST)
 	@ResponseBody
 	public Integer insertUsery(Usery usery){
+
 		//格式化时间
 			SimpleDateFormat smf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		//获取本机时间
@@ -65,6 +67,7 @@ public class UseryController {
 		return userService.insertUser(usery);
 	}
 	/**
+
 	 * 修改用户
 	 * @param usery
 	 * @return

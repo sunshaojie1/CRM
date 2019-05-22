@@ -44,7 +44,7 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 	return fenye;
 	
 }
-	//ÐÞ¸Ä
+	//ä¿®æ”¹
 	@RequestMapping(value="/updateStu",method=RequestMethod.POST)
 	@ResponseBody
 	public  Integer updateStu(Student student){
@@ -52,7 +52,7 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 		return i;
 		
 	}
-	//É¾³ý
+	//åˆ é™¤
 	@RequestMapping(value="/delStu",method=RequestMethod.POST)
 	@ResponseBody
 	public Integer delStu(Integer stu_id){
@@ -60,7 +60,7 @@ public Fenye<Student> selectStu(Integer page,Integer rows,String stu_name,String
 		
 	}
 
-	//Ìí¼Ó
+	//æ·»åŠ 
 	@RequestMapping(value="/addStu",method=RequestMethod.POST)
 	@ResponseBody
 	public Integer delStu(Student student){

@@ -26,11 +26,11 @@ public class LoginFilter {
 	@Autowired
 	private UseryService useryService;
 
-	// true: Èç¹ûsession´æÔÚ£¬Ôò·µ»Ø¸Ãsession£¬·ñÔò´´½¨Ò»¸öĞÂµÄsession£»
-	// false: Èç¹ûsession´æÔÚ£¬Ôò·µ»Ø¸Ãsession£¬·ñÔò·µ»Ønull.
+	// true: å¦‚æœsessionå­˜åœ¨ï¼Œåˆ™è¿”å›è¯¥sessionï¼Œå¦åˆ™åˆ›å»ºä¸€ä¸ªæ–°çš„sessionï¼›
+	// false: å¦‚æœsessionå­˜åœ¨ï¼Œåˆ™è¿”å›è¯¥sessionï¼Œå¦åˆ™è¿”å›null.
 	// session = request.getSession(true);
 	/**
-	 * µÇÂ¼
+	 * ç™»å½•
 	 * 
 	 * @param session
 	 * @param u
@@ -39,30 +39,30 @@ public class LoginFilter {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Integer login(HttpSession session, Usery u) {
-		List<Usery> su = useryService.selectUsery(u);// Êı¾İÒ»Ìõ
-		if (su.size() > 0 && su != null) {// ²éÑ¯¼¯ºÏÀïÃæÓĞÃ»ÓĞÊı¾İ
+		List<Usery> su = useryService.selectUsery(u);// æ•°æ®ä¸€æ¡
+		if (su.size() > 0 && su != null) {// æŸ¥è¯¢é›†åˆé‡Œé¢æœ‰æ²¡æœ‰æ•°æ®
 			if (u.getU_password().equals(su.get(0).getU_password())) {
 				if (su.get(0).getU_isLockout() == 0) {
 					session.setAttribute("uname", u.getU_loginName());
-					// System.out.println("³É¹¦");
+					// System.out.println("æˆåŠŸ");
 					return 1;
 				} else if (su.get(0).getU_isLockout() == 1) {
-					// System.out.println("Ëø¶¨");
+					// System.out.println("é”å®š");
 					return 2;
 				}
 			} else {
-				// System.out.println("ÃÜÂë´íÎó");
+				// System.out.println("å¯†ç é”™è¯¯");
 				return 3;
 			}
 		} else {
-			 System.out.println("ÕËºÅ´íÎó");
+			 System.out.println("è´¦å·é”™è¯¯");
 			return 4;
 		}
 		return 0;
 	}
 
 	/**
-	 * ²éÑ¯ÓÃ»§ËùµÇÂ¼µÄ½ÇÉ«¶ÔÓ¦µÄtree
+	 * æŸ¥è¯¢ç”¨æˆ·æ‰€ç™»å½•çš„è§’è‰²å¯¹åº”çš„tree
 	 * 
 	 * @param session
 	 * @return
@@ -71,15 +71,15 @@ public class LoginFilter {
 	@ResponseBody
 	public List<RolesTree> selectRoles(HttpSession session) {
 		String u_loginName = (String) session.getAttribute("uname");
-		// ²éÑ¯ÓÃ»§½ÇÉ« -- ¸ù¾İÓÃ»§ÃûÀ´²éÑ¯¸ÃÓÃ»§ÏÂÃæµÄ½ÇÉ«
+		// æŸ¥è¯¢ç”¨æˆ·è§’è‰² -- æ ¹æ®ç”¨æˆ·åæ¥æŸ¥è¯¢è¯¥ç”¨æˆ·ä¸‹é¢çš„è§’è‰²
 		List<Roles> selectRoles = useryService.selectRoles(u_loginName);
-		// °Ñ²éÑ¯³öÀ´µÄtree´æµ½¹Ì¶¨¸ñÊ½µÄtreeÀàÖĞ
-		List<RolesTree> rt = new ArrayList<RolesTree>();// ½ÇÉ«tree
-		Integer rolesid = 1;// ½ÇÉ«treeµÄid
-		Integer modules = 100;// Ä£¿étreeµÄid
+		// æŠŠæŸ¥è¯¢å‡ºæ¥çš„treeå­˜åˆ°å›ºå®šæ ¼å¼çš„treeç±»ä¸­
+		List<RolesTree> rt = new ArrayList<RolesTree>();// è§’è‰²tree
+		Integer rolesid = 1;// è§’è‰²treeçš„id
+		Integer modules = 100;// æ¨¡å—treeçš„id
 		for (int i = 0; i < selectRoles.size(); i++) {
-			List<ModulesTree> mt = new ArrayList<ModulesTree>();// Ä£¿étree
-			// ²éÑ¯ÓÃ»§½ÇÉ«Ä£¿é--¸ù¾İ½ÇÉ«ÃûÀ´²éÑ¯¸Ã½ÇÉ«ÏÂÃæµÄÄ£¿é
+			List<ModulesTree> mt = new ArrayList<ModulesTree>();// æ¨¡å—tree
+			// æŸ¥è¯¢ç”¨æˆ·è§’è‰²æ¨¡å—--æ ¹æ®è§’è‰²åæ¥æŸ¥è¯¢è¯¥è§’è‰²ä¸‹é¢çš„æ¨¡å—
 			List<Modules> selectModules = useryService.selectModules(selectRoles.get(i).getR_name());
 			for (int j = 0; j < selectModules.size(); j++) {
 				mt.add(new ModulesTree(selectModules.get(j).getM_treeid(), selectModules.get(j).getM_name()));
@@ -93,7 +93,7 @@ public class LoginFilter {
 	}
 
 	/**
-	 * ÍË³ö
+	 * é€€å‡º
 	 * 
 	 * @param session
 	 * @return
@@ -105,7 +105,7 @@ public class LoginFilter {
 	}
 
 	/**
-	 * ÖØÖÃÃÜÂë
+	 * é‡ç½®å¯†ç 
 	 * 
 	 * @param CzName
 	 * @param CzPhone
@@ -117,26 +117,26 @@ public class LoginFilter {
 		Usery u = new Usery();
 		u.setU_loginName(CzName);
 		u.setU_phone(CzPhone);
-		List<Usery> usCz = useryService.selectUsery(u);// ÊÇ·ñÓĞ¸ÃÓÃ»§
+		List<Usery> usCz = useryService.selectUsery(u);// æ˜¯å¦æœ‰è¯¥ç”¨æˆ·
 		if (usCz.size() > 0 && usCz != null) {
 			System.out.println(123);
 			if (CzPhone.equals(usCz.get(0).getU_phone())) {
-				// System.out.println("µç»°ºÅÕıÈ·");
+				// System.out.println("ç”µè¯å·æ­£ç¡®");
 				if (usCz.get(0).getU_isLockout() == 0) {
-					// System.out.println("ÖØÖÃ³É¹¦");
-					Integer i = useryService.updateCz(u);// µ±ÓÃ»§Ãûµç»°¶¼ÕıÈ·µÄÊ±ºò
+					// System.out.println("é‡ç½®æˆåŠŸ");
+					Integer i = useryService.updateCz(u);// å½“ç”¨æˆ·åç”µè¯éƒ½æ­£ç¡®çš„æ—¶å€™
 					// System.out.println(i);
 					return i;
 				} else if (usCz.get(0).getU_isLockout() == 1) {
-					// System.out.println("Ëø¶¨²»ÄÜÖØÖÃÃÜÂë");
+					// System.out.println("é”å®šä¸èƒ½é‡ç½®å¯†ç ");
 					return -1;
 				}
 			} else {
-				// System.out.println("µç»°ºÅ²»ÕıÈ·");
+				// System.out.println("ç”µè¯å·ä¸æ­£ç¡®");
 				return -2;
 			}
 		} else {
-			// System.out.println("ÓÃ»§Ãû²»ÕıÈ·");
+			// System.out.println("ç”¨æˆ·åä¸æ­£ç¡®");
 			return -3;
 		}
 		return 0;

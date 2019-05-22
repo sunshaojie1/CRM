@@ -18,7 +18,7 @@ public class RolesController {
 	private RolesService rolesService;
 	
 	/**
-	   * ²éÑ¯ËùÓĞ½ÇÉ«
+	   * æŸ¥è¯¢æ‰€æœ‰è§’è‰²
 	 * @return
 	 */
 	@RequestMapping(value="/selectRol",method=RequestMethod.POST)
@@ -27,8 +27,8 @@ public class RolesController {
 		return rolesService.selectRol(roles);
 	}
 	/**
-	 * ²éÑ¯ÓÃ»§ÏÂµÄ½ÇÉ«
-	 * @param u_name ²éÑ¯Ìõ¼ş£¬ÓÃ»§Ãû
+	 * æŸ¥è¯¢ç”¨æˆ·ä¸‹çš„è§’è‰²
+	 * @param u_name æŸ¥è¯¢æ¡ä»¶ï¼Œç”¨æˆ·å
 	 * @return
 	 */
 	@RequestMapping(value="/userRoles",method=RequestMethod.POST)
@@ -37,7 +37,7 @@ public class RolesController {
 		return rolesService.selectUser(u_name);
 	}
 	/**
-	 * ¸øÓÃ»§Ìí¼Ó½ÇÉ«
+	 * ç»™ç”¨æˆ·æ·»åŠ è§’è‰²
 	 * @param u_id
 	 * @param r_id
 	 * @return
@@ -45,7 +45,7 @@ public class RolesController {
 	@RequestMapping(value="/inserRoles",method=RequestMethod.POST)
 	@ResponseBody
 	public Integer inserRoles(Userroles userroles){
-		//ÅĞ¶Ï
+		//åˆ¤æ–­
 			Integer a = rolesService.RolesCount(userroles);
 			if(a!=0){
 				return -1;
@@ -55,7 +55,7 @@ public class RolesController {
 			}
 	}
 	/**
-	 * É¾³ıÓÃ»§µÄ½ÇÉ«
+	 * åˆ é™¤ç”¨æˆ·çš„è§’è‰²
 	 * @param userroles
 	 * @return
 	 */
@@ -65,7 +65,7 @@ public class RolesController {
 		return rolesService.delRoles(userroles);
 	}
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 * @param r_id
 	 * @return
 	 */
@@ -76,7 +76,7 @@ public class RolesController {
 		return rolesService.delro(r_id);
 	}
 	/**
-	 * Ìí¼Ó
+	 * æ·»åŠ 
 	 * @param roles
 	 * @return
 	 */
@@ -87,7 +87,7 @@ public class RolesController {
 		return rolesService.insertro(roles);
 	}
 	/**
-	 * ĞŞ¸Ä
+	 * ä¿®æ”¹
 	 * @param roles
 	 * @return
 	 */
