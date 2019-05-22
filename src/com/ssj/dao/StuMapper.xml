@@ -85,10 +85,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					and stu_qq =#{stu_qq}
 				</if>
 				<if test="startTime !='' and startTime !=null">
-			and stu_creatorTime &gt;=  #{startTime}
+					and stu_creatorTime &gt;=  #{startTime}
 				</if>
-				<if test="endTime !='' and startTime !=null">
-					and stu_creatorTime  &lt;= #{startTime}
+				<if test="endTime !='' and endTime !=null">
+					and stu_creatorTime  &lt;= #{endTime}
 				</if>
 			</where> 
 		</select>
@@ -122,10 +122,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and s.stu_qq =#{student.stu_qq}
 		</if>
 		<if test="startTime !='' and startTime !=null">
-			and stu_creatorTime &gt;=  #{startTime}
+			and s.stu_creatorTime &gt;=  #{startTime}
 		</if>
-		<if test="endTime !='' and startTime !=null">
-			and stu_creatorTime  &lt;= #{startTime}
+		<if test="endTime !='' and endTime !=null">
+			and s.stu_creatorTime  &lt;= #{endTime}
+	
 		</if>
 		and s.stu_useryId =u.u_id
 		</where> 
@@ -194,6 +195,86 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="stu_useryId != null and stu_useryId !=''">
 				 stu_useryId=#{stu_useryId},
 			</if>
+			
+			
+			<if test="stu_youXiao != null and stu_youXiao !=''">
+				 stu_youXiao=#{stu_youXiao},
+			</if>
+			
+			<if test="stu_wuXiaoYuanYin != null and stu_wuXiaoYuanYin !=''">
+				 stu_wuXiaoYuanYin=#{stu_wuXiaoYuanYin},
+			</if>
+			<if test="stu_huiFang != null and stu_huiFang !=''">
+				 stu_huiFang=#{stu_huiFang},
+			</if>
+			<!-- <if test="stu_creatorTime != null and stu_creatorTime !=''">
+				 stu_creatorTime=#{stu_creatorTime},
+			</if> -->
+			
+			<if test="stu_visit != null and stu_visit !=''">
+				 stu_visit=#{stu_visit},
+			</if>
+			<if test="stu_visitTime != null and stu_visitTime !=''">
+				 stu_visitTime=#{stu_visitTime},
+			</if>
+			<if test="stu_payTime != null and stu_payTime !=''">
+				 stu_payTime=#{stu_payTime},
+			</if>
+			<if test="stu_money != null and stu_money !=''">
+				 stu_money=#{stu_money},
+			</if>
+			<if test="stu_moneyTime != null and stu_moneyTime !=''">
+				 stu_moneyTime=#{stu_moneyTime},
+			</if>
+			<if test="stu_jinE != null and stu_jinE !=''">
+				 stu_jinE=#{stu_jinE},
+			</if>
+			<if test="stu_tui != null and stu_tui !=''">
+				 stu_tui=#{stu_tui},
+			</if>
+			<if test="stu_tuiYin != null and stu_tuiYin !=''">
+				 stu_tuiYin=#{stu_tuiYin},
+			</if>
+			<if test="stu_dingJinE != null and stu_dingJinE !=''">
+				 stu_dingJinE=#{stu_dingJinE},
+			</if>
+			<if test="stu_dingTime != null and stu_dingTime !=''">
+				 stu_dingTime=#{stu_dingTime},
+			</if>
+			<if test="stu_class != null and stu_class !=''">
+				 stu_class=#{stu_class},
+			</if>
+			<if test="stu_classTime != null and stu_classTime !=''">
+				 stu_classTime=#{stu_classTime},
+			</if>
+			
+			<if test="stu_classBeiZhu != null and stu_classBeiZhu !=''">
+				 stu_classBeiZhu=#{stu_classBeiZhu},
+			</if>
+			<if test="stu_ziXun != null and stu_ziXun !=''">
+				 stu_ziXun=#{stu_ziXun},
+			</if>
+			<if test="stu_ziXunBeiZhu != null and stu_ziXunBeiZhu !=''">
+				 stu_ziXunBeiZhu=#{stu_ziXunBeiZhu},
+			</if>
+			<if test="stu_quYu != null and stu_quYu !=''">
+				 stu_quYu=#{stu_quYu},
+			</if>
+			<if test="stu_buMen != null and stu_buMen !=''">
+				 stu_buMen=#{stu_buMen},
+			</if>
+			<if test="stu_keCheng != null and stu_keCheng !=''">
+				 stu_keCheng=#{stu_keCheng},
+			</if>
+			<if test="stu_daFen != null and stu_daFen !=''">
+				 stu_daFen=#{stu_daFen},
+			</if>
+			
+			
+			
+			
+			
+			
 			<if test="stu_luRu != null and stu_luRu !=''">
 				 stu_luRu=#{stu_luRu},
 			</if>

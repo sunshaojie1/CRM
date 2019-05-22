@@ -30,7 +30,7 @@ a {
 	//初始化
 	function initUsery() {
 		$("#useryTab").datagrid({
-			url : "selectUsery",
+			url : "selectUsery1",
 			method : "post",
 			pagination : true,//开分页
 			fitColumns : true,//自动扩
@@ -102,7 +102,7 @@ a {
 		var row = $("#useryTab").datagrid("getData").rows[index];
 		$.messager.confirm('确认', '您确认想要该用户么', function(r) {
 			if (r) {
-				$.post("delUsery", {
+				$.post("delUsery1", {
 					u_id : row.u_id
 				}, function(res) {
 					if (res > 0) {
@@ -125,7 +125,7 @@ a {
 	}
 //修改确定
 	function updYes() {
-		$.post("updateUser",{
+		$.post("updateUser1",{
 			u_id:$("#updu_id").val(),
 			u_loginName:$("#updu_loginName").val(),
 			u_password:$("#updu_password").val(),
@@ -152,7 +152,7 @@ a {
 	}
 //添加确定
 	function addYes(){
-		$.post("insertUsery",{
+		$.post("insertUsery1",{
 			u_loginName:$("#addName").val(),
 			u_password:$("#addPwd").val(),
 			u_isLockout:$("#addSuo").combobox("getValue"),

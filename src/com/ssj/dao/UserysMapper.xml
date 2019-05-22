@@ -29,10 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and u_clockoutTime &lt; =#{u_clockoutTime}
 			</if> -->
 			<if test="startTime !='' and startTime !=null">
-			and stu_creatorTime &gt;=STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')  
+			and u_creationTime &gt;=#{startTime}
 			</if>
 			<if test="endTime !='' and endTime !=null">
-				and stu_creatorTime  &lt;= STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')  
+				and u_creationTime  &lt;= #{endTime}
 			</if>
 		
 			
@@ -59,11 +59,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and u_isQianDao =#{u_isQianDao}
 			</if>
 
-			  <if test="startTime !='' and startTime !=null">
+			<!--   <if test="startTime !='' and startTime !=null">
 			and stu_creatorTime &gt;=STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')  
 			</if>
 			<if test="endTime !='' and endTime !=null">
 				and stu_creatorTime  &lt;= STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')  
+			</if> -->
+			<if test="startTime !='' and startTime !=null">
+			and u_creationTime &gt;=#{startTime}
+			</if>
+			<if test="endTime !='' and endTime !=null">
+				and u_creationTime  &lt;= #{endTime}
 			</if>
 			
 		</where>

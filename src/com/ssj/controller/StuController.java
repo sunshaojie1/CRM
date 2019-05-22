@@ -31,10 +31,12 @@ public class StuController {
 	 */	
 	@RequestMapping(value="/selectStu1",method=RequestMethod.POST)
 	@ResponseBody
-	public Fenye<Student> selectStu(Integer page,Integer rows,Student stu){
+	public Fenye<Student> selectStu(Integer page,Integer rows,Student stu,String startTime,String endTime){
 	fenye.setPage((page-1)*rows);
 	fenye.setPageSize(rows);
 	fenye.setStudent(stu);
+	fenye.setStartTime(startTime);
+	fenye.setEndTime(endTime);
 	fenye = stuService.selectStu(fenye);
 	return fenye;
 	
@@ -48,7 +50,7 @@ public class StuController {
 	@RequestMapping(value="/updateStu1",method=RequestMethod.POST)
 	@ResponseBody
 	public  Integer updateStu(Student student){
-		System.out.println(student);
+	
 		return stuService.updateStu(student);
 		
 	}
@@ -85,7 +87,7 @@ public class StuController {
 	@RequestMapping(value="/getU_loginName",method=RequestMethod.POST)
 	@ResponseBody
 	public List<Usery> getU_loginName(){
-		
+	
 		return stuService.getU_loginName();
 		
 	}

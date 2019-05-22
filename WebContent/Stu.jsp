@@ -10,6 +10,7 @@
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="js/jquery-easyui-1.4.3/datagrid-export.js"></script>
 <script type="text/javascript">
 	$(function(){
 		initStu();
@@ -28,8 +29,8 @@
 		    		stu_youXiao:$("#stu_youXiao").combobox("getValue"),
 		    		stu_huiFang:$("#stu_huiFang").combobox("getValue"),
 		    		stu_qq:$("#stu_qq").val(),
-		    		startTime:$("#startTime").val(),
-		    		endTime:$("#endTime").val(),
+		    		startTime:$("#startTime").datetimebox("getValue"),
+		    		endTime:$("#endTime").datetimebox("getValue"),
 		}
 
 		});  
@@ -105,7 +106,10 @@
 
 	}
 
-	
+	//导出excel
+	function exportExcel(){
+		$('#ltab').datagrid('toExcel','dg.xls');	// export to excel
+	} 
 	
 	
 	function formattercaozuo(value,row,index) {
@@ -117,10 +121,30 @@
 	}
 	//查看
 	function chakan(index) {
-		var datas=$("#ltab").datagrid("getData");
-		var row=datas.rows[index];
-		$("#frmStuck").form("load",row)
+		var datas=$("#ltab").datagrid("getData"); 
+
+		var row=datas.rows[index]; 
+		
+		$("#ttt").combobox({
+			url:'getU_loginName',
+			method:'post',
+			valueField:'u_id',//填充进 <option value='id'>text</option>    
+			textField:'u_loginName'//标签中间（<option>text</option>）   			
+		})
+		
+		/* $("#ttt").combobox('setValue',row.usery.u_loginName);	 */
+		
 		 $("#chakanStu").dialog("open");
+		 
+		
+		$("#frmStuck").form("load",row);
+		 /* var str =  */JSON.stringify($("#ttt").combobox('setValue',row.usery.u_loginName));  
+			/*  alert(str);   */
+		
+		
+	 /*  alert($("#ttt").combobox('setValue',row.usery.u_loginName)) */
+	 	
+	 
 	}
 	 //修改
 	function update(index) {
@@ -134,17 +158,18 @@
 			textField:'u_loginName'//标签中间（<option>text</option>）   
 			
 		})
-		$("#updatett").combobox('setValue',row.usery.u_id)
-	
+		$("#updatett").combobox('setValue',row.usery.u_loginName)	
 		
 		$("#updatefrmStu").form("load",row);
 		
 		//打开弹窗
 		$("#updatedialog").dialog("open")
+	
 	}
 	 
 	function saveUpdate() {
-		
+
+		alert($("#updatestu_youXiao").combobox("getValue"));
 		$.post("updateStu1",{
 			stu_id:$("#updatestu_id").val(),
 			stu_name:$("#updatestu_name").val(),
@@ -162,7 +187,34 @@
 			stu_baoBei:$("#updatestu_baoBei").combobox('getValue'),
 			stu_beiZhu:$("#updatestu_beiZhu").val(),
 			stu_useryId:$("#updatett").combobox('getValue'),
+		
+			stu_youXiao:$("#updatestu_youXiao").combobox('getValue'),
+			stu_wuXiaoYuanYin:$("#updatestu_wuXiaoYuanYin").val(),
+			stu_huiFang:$("#updatestu_huiFang").combobox('getValue'),
+		/* 	stu_creatorTime:$("#updatestu_creatorTime").val(), */
+			stu_visit:$("#updatestu_visit").combobox('getValue'),
+			stu_visitTime:$("#updatestu_visitTime").val(),
+			stu_payTime:$("#updatestu_payTime").val(),
+			stu_money:$("#updatestu_money").combobox('getValue'),
+			stu_moneyTime:$("#updatestu_moneyTime").val(),
+			stu_jinE:$("#updatestu_jinE").val(),
+			stu_tui:$("#updatestu_tui").combobox('getValue'),
+			stu_tuiYin:$("#updatestu_tuiYin").val(),
+			stu_dingJinE:$("#updatestu_dingJinE").val(),
+			stu_dingTime:$("#updatestu_dingTime").val(),
+			stu_class:$("#updatestu_class").combobox('getValue'),
+			stu_classTime:$("#updatestu_classTime").val(),
+			stu_classBeiZhu:$("#updatestu_classBeiZhu").val(),
+			stu_ziXun:$("#updatestu_ziXun").val(),
+			stu_ziXunBeiZhu:$("#updatestu_ziXunBeiZhu").val(),
+			stu_quYu:$("#updatestu_quYu").val(),
+			stu_buMen:$("#updatestu_buMen").val(),
+			stu_keCheng:$("#updatestu_keCheng").val(),
+			stu_daFen:$("#updatestu_daFen").val(),
+		
+			
 			stu_luRu:$("#updatestu_luRu").val(),
+			
 		},function(res){
 			if(res>0){
 				$("#ltab").datagrid("reload");
@@ -172,6 +224,12 @@
 				$.messager.alert("提示","修改失败");
 			}
 		},"json");
+	}
+	function closeAdd(){
+		$("#add-dialog").dialog("close") 
+	}
+	function closeUpdate(){
+		$("#updatedialog").dialog("close") 
 	}
 	
 	//添加
@@ -207,6 +265,8 @@
 			stu_baoBei:$("#addstu_baoBei").combobox('getValue'),
 			stu_beiZhu:$("#addstu_beiZhu").val(),
 			stu_useryId:$("#addtt").combobox('getValue'),
+			
+			
 		},function(res){
 			if(res>0){
 				$("#ltab").datagrid("reload");
@@ -278,6 +338,13 @@
 	function formatterstu_huiFang(value,row,index) {
 		return row.stu_huiFang==1? "是":"否";
 	}  
+	 //是否上门
+	 
+	 function formatterstu_visit(value,row,index) {
+			return row.stu_visit==1? "是":"否";
+		} 
+	 
+	 
 	
 </script>
 </head>
@@ -303,9 +370,9 @@
             <th data-options="field:'usery',title:'负责人',formatter:formatteryuangong"></th>                           
             <th data-options="field:'stu_youXiao',title:'是否有效',formatter:formatterstu_youXiao"></th>   		
 			<th data-options="field:'stu_wuXiaoYuanYin',title:'无效原因'"></th>
-             <th data-options="field:'stu_huiFang',title:'是否回访',formatter:formatterstu_huiFang""></th>  
+             <th data-options="field:'stu_huiFang',title:'是否回访',formatter:formatterstu_huiFang"></th>  
             <th data-options="field:'stu_creatorTime',title:'创建时间'"></th>    
-           <th data-options="field:'stu_visit',title:'是否上门'"></th>   
+           <th data-options="field:'stu_visit',title:'是否上门',formatter:formatterstu_visit"></th>   
             <th data-options="field:'stu_visitTime',title:'上门时间'"></th>    
             <th data-options="field:'stu_payTime',title:'首次回访时间'"></th>               
              <th data-options="field:'stu_money',title:'是否缴费',formatter:formatterstu_money"></th>            
@@ -325,7 +392,7 @@
             <th data-options="field:'stu_keCheng',title:'课程方向'"></th>
             <th data-options="field:'stu_daFen',title:'打分'"></th>  
             <th data-options="field:'stu_luRu',title:'录入人'"></th>     
-            <th data-options="field:'操作',title:'操作',formatter:formattercaozuo"></th> 
+            <th data-options="field:'caozuo',title:'操作',formatter:formattercaozuo"></th> 
             
         </tr>   
     </thead>   
@@ -365,18 +432,23 @@
         
            <label for="email">QQ:</label>   
         <input class="easyui-validatebox" type="text" id="stu_qq" name="stu_qq" />       
-        
+        </br>
        <label for="email">创建时间:</label>   
-        <input class="easyui-datebox" id="startTime" />——
-        <input class="easyui-datebox" id="endTime"  />
+        <input class="easyui-datetimebox" id="startTime" />——
+        <input class="easyui-datetimebox" id="endTime"  />
        
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="initStu()">搜索</a> 
-          <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="add()">添加</a> 
+         
 		<a
 				id="btn" href="javascript:lookstu()" class="easyui-linkbutton"
 				data-options="iconCls:'icon-edit'">设置隐藏列</a>
-		
-
+				
+				<a
+						class="easyui-linkbutton" plain="true" onclick="exportExcel()"
+						id="serach" data-options="iconCls:'icon-print'">导出excel</a>
+				
+	<br>	
+ <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="add()">添加</a> 
 
 </form> 
 </div>
@@ -384,7 +456,8 @@
 
 <!--修改  -->
 
-<div  id="updatedialog" class="easyui-dialog" data-options="modal:true,closed:true,buttons:[
+<div  id="updatedialog"  title="修改当前学生信息"  style="width:650px; height: 500px;"
+ class="easyui-dialog" data-options="modal:true,closed:true,buttons:[
 	{
 	text:'保存',
 	handler:function(){
@@ -393,262 +466,379 @@
 	},{
 	text:'取消',
 	handler:function(){
-		
+		closeUpdate();
 		}
 	}
 	]">
-		<form id="updatefrmStu" class="easyui-form"  >
-			
-						<label for="easyui-validatebox" >学生编号:</label> 
-						<input class="easyui-validatebox" disabled="disabled" type="text" id="updatestu_id" name="stu_id" />
-					<br>
-						<label for="easyui-validatebox">学生姓名:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_name" name="stu_name" />
-					<br>
-						<label for="easyui-validatebox">性别:</label> 
-						  <select class="easyui-combobox" id="updatestu_sex" name="stu_sex" >   
+		<form id="updatefrmStu"  >
+		
+			<table  cellpadding="7">
+				<tr>
+						<td><label for="easyui-validatebox" >学生编号:</label></td> 
+						<td><input class="easyui-validatebox" disabled="disabled" type="text" id="updatestu_id" name="stu_id" /></td> 
+					
+						<td><label for="easyui-validatebox">学生姓名:</label> </td> 
+						<td><input class="easyui-validatebox" type="text" id="updatestu_name" name="stu_name" /></td> 
+				</tr>
+				<tr>	
+						<td> <label for="easyui-validatebox">性别:</label></td> 
+						 <td> <select class="easyui-combobox" id="updatestu_sex" name="stu_sex" >   
 							    <option value="">--请选择--</option>
 							    <option value="1">男</option>   
 							    <option value="2">女</option>
-							</select> 
-					<br>
-						<label for="easyui-validatebox">年龄:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_age" name="stu_age" />
-				<br>
-						<label for="name">电话:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_phone" name="stu_phone" />
-			<br>
-						<label for="name">个人状态:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_state" name="stu_state" />
-			<br>
-						<label for="name">学历:</label> 
-						<select class="easyui-combobox" id="updatestu_xueLi" name="stu_xueLi" >   
+							</select> </td>
+					
+						<td><label for="easyui-validatebox">年龄:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_age" name="stu_age" /></td>
+				</tr>
+				<tr>
+						<td><label for="name">电话:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_phone" name="stu_phone" /></td>
+			
+						<td><label for="name">个人状态:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_state" name="stu_state" /></td>
+			</tr>
+			<tr>
+						<td><label for="name">学历:</label></td> 
+						<td><select class="easyui-combobox" id="updatestu_xueLi" name="stu_xueLi" >   
 							    <option value="">--请选择--</option>
 							    <option value="高中">高中</option>
 							    <option value="初中">初中</option>
 							    <option value="小学">小学</option>  
 							    <option value="其他">其他</option>   
 							    
-							</select> 
-			<br>
-						<label for="name">来源渠道:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_quDao" name="stu_quDao" />
-		<br>
-						<label for="name">来源网站:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_wangZhan" name="stu_wangZhan" />
-			<br>
-						<label for="name">学员关注:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_guanZhu" name="stu_guanZhu" />
-			<br>
-						<label for="name">来源关键字:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_guanJian" name="stu_guanJian" />
-				<br>
-						<label for="name">微信:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_wx" name="stu_wx" />
-					<br>
-						<label for="name">QQ:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_qq" name="stu_qq" />
-			<br>
-						<label for="name">是否报备:</label> 
-						 <select class="easyui-combobox" id="updatestu_baoBei" name="stu_baoBei" >   
+							</select> </td>
+			
+						<td><label for="name">来源渠道:</label></td> 
+						<td><input class="easyui-validatebox" type="text" id="updatestu_quDao" name="stu_quDao" /></td>
+		</tr>
+		<tr>
+						<td><label for="name">来源网站:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_wangZhan" name="stu_wangZhan" /></td>
+			
+						<td><label for="name">学员关注:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_guanZhu" name="stu_guanZhu" /></td>
+		</tr>
+		<tr>	
+						<td><label for="name">来源关键字:</label></td> 
+						<td><input class="easyui-validatebox" type="text" id="updatestu_guanJian" name="stu_guanJian" /></td>
+				
+						<td><label for="name">微信:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_wx" name="stu_wx" /></td>
+			</tr>
+			<tr>		
+						<td><label for="name">QQ:</label></td> 
+						<td><input class="easyui-validatebox" type="text" id="updatestu_qq" name="stu_qq" /></td>
+			
+						<td><label for="name">是否报备:</label> </td>
+						<td> <select class="easyui-combobox" id="updatestu_baoBei" name="stu_baoBei" >  
 							    <option value="">--请选择--</option>
 							    <option value="1">是</option>   
 							    <option value="2">否</option>
-							</select> 
-			<br>
-						<label for="name">在线备注:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_beiZhu" name="stu_beiZhu" />
-				<br>
-						<label for="name">负责人:</label> 
+							</select> </td>
+			</tr>
+			<tr>
+						<td><label for="name">在线备注:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_beiZhu" name="stu_beiZhu" /></td>
+				
+						<td><label for="name">负责人:</label> </td>
 							     <!-- 下拉列表 -->
-			<select id="updatett" class="easyui-combobox">
-				<option selected="selected" >--请选择--</option>
-			</select>
-				<br>
-						<label for="name">录入人:</label> 
-						<input class="easyui-validatebox" type="text" id="updatestu_useryId" name="stu_luRu" />
-			<br>
+							<td><select id="updatett" class="easyui-combobox">
+								<option selected="selected" >--请选择--</option>
+							</select></td>
+			</tr>	
 			
+			
+
+			<tr>			
+						<td><label for="name">是否有效:</label> </td>
+						<td> <select class="easyui-combobox" id="updatestu_youXiao" name="stu_youXiao" >  
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select> </td>
+						<td><label for="name">无效原因:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_wuXiaoYuanYin" name="stu_wuXiaoYuanYin" /></td>			
+			</tr>
+			<tr>			
+						<td><label for="name">是否回访:</label> </td>
+						<td> <select class="easyui-combobox" id="updatestu_huiFang" name="stu_huiFang" >  
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select> </td>
+						<td><label for="name">创建时间:</label> </td>
+						<td><input class="easyui-validatebox" disabled="disabled" type="text" id="updatestu_creatorTime" name="stu_creatorTime" /></td>			
+			</tr>
+			<tr>			
+						<td><label for="name">是否上门:</label> </td>
+						<td> <select class="easyui-combobox" id="updatestu_visit" name="stu_visit" >  
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select> </td>
+						<td><label for="name">上门时间:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_visitTime" name="stu_visitTime" /></td>			
+			</tr>
+			<tr>			
+						<td><label for="name">首次回访时间:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_payTime" name="stu_payTime" /></td>	
+						<td><label for="name">是否缴费:</label> </td>
+						<td> <select class="easyui-combobox" id="updatestu_money" name="stu_money" >  
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select> </td>								
+			</tr>
+			<tr>			
+						<td><label for="name">缴费时间:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_moneyTime" name="stu_moneyTime" /></td>	
+						<td><label for="name">缴费金额:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_jinE" name="stu_jinE" /></td>								
+			</tr>
+			<tr>			
+						<td><label for="name">是否退费:</label> </td>
+						<td> <select class="easyui-combobox" id="updatestu_tui" name="stu_tui" >  
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select> </td>
+						<td><label for="name">退费原因:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_tuiYin" name="stu_tuiYin" /></td>			
+			</tr>
+			<tr>			
+						<td><label for="name">定金金额:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_dingJinE" name="stu_dingJinE" /></td>	
+						<td><label for="name">定金时间:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_dingTime" name="stu_dingTime" /></td>								
+			</tr>
+			<tr>			
+						<td><label for="name">是否进班:</label> </td>
+						<td> <select class="easyui-combobox" id="updatestu_class" name="stu_class" >  
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select> </td>
+						<td><label for="name">进班时间:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_classTime" name="stu_classTime" /></td>			
+			</tr>
+			<tr>			
+						<td><label for="name">进班备注:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_classBeiZhu" name="stu_classBeiZhu" /></td>	
+						<td><label for="name">咨询姓名:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_ziXun" name="stu_ziXun" /></td>								
+			</tr>
+			<tr>			
+						<td><label for="name">咨询师备注:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_ziXunBeiZhu" name="stu_ziXunBeiZhu" /></td>	
+						<td><label for="name">所在区域:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_quYu" name="stu_quYu" /></td>								
+			</tr>
+			<tr>			
+						<td><label for="name">来源部门:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_buMen" name="stu_buMen" /></td>	
+						<td><label for="name">课程方向:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="updatestu_keCheng" name="stu_keCheng" /></td>								
+			</tr>
+			
+			
+			
+				
+			<tr>
+						<td><label for="name">打分:</label></td> 
+						<td><input class="easyui-validatebox" type="text" id="updatestu_daFen" name="stu_daFen" /></td>
+						<td><label for="name">录入人:</label></td> 
+						<td><input class="easyui-validatebox" type="text" id="updatestu_luRu" name="stu_luRu" /></td>
+			</tr>
+			</table>
 		</form>
 	</div>
 	
 	<!-- 查看 -->
-	<div id="chakanStu" class="easyui-window" data-options="modal:true,closed:true,resizable:true,collapsible:true,draggable:true">
-		<form id="frmStuck" class="easyui-form" >
+	<div id="chakanStu" title="查看当前学生信息" class="easyui-window" data-options="modal:true,closed:true,resizable:true,collapsible:true,draggable:true">
+		<form id="frmStuck" >
+		
+		<table>
 			
-						<label for="easyui-validatebox">学生编号:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_id" name="stu_id" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="easyui-validatebox">学生姓名:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_name" name="stu_name" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="easyui-validatebox">性别:</label> 
-					 <select class="easyui-combobox" id="updatestu_sex" name="stu_sex" disabled="disabled" >   
+			<tr>
+						<td><label for="easyui-validatebox">学生编号:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_id" name="stu_id" /></td>
+				
+						<td><label for="easyui-validatebox">学生姓名:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_name" name="stu_name" /></td>
+					
+						<td><label for="easyui-validatebox">性别:</label> </td>
+					<td> <select class="easyui-combobox" id="stu_sex" name="stu_sex" disabled="disabled" >   
 							    <option value="">--请选择--</option>
 							    <option value="1">男</option>   
 							    <option value="2">女</option>
-							</select>
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+							</select></td>
+
+			</tr>	
+			<tr>	
+						<td><label for="easyui-validatebox">年龄:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_age" name="stu_age" /></td>
 				
-				<br>	
-						<label for="easyui-validatebox">年龄:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_age" name="stu_age" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="easyui-validatebox">电话:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_phone" name="stu_phone" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="easyui-validatebox">个人状态:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_state" name="stu_state" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-				<br>
-						<label for="easyui-validatebox">学历:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_xueLi" name="stu_xueLi" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">来源渠道:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_quDao" name="stu_quDao" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">来源网站:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_wangZhan" name="stu_wangZhan" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-				<br>	
-						<label for="name">学员关注:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_guanZhu" name="stu_guanZhu" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">来源关键字:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_guanJian" name="stu_guanJian" />
-				&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">微信:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_wx" name="stu_wx" />
-				<br>
-						<label for="name">QQ:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_qq" name="stu_qq" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">是否报备:</label> 
-					<select class="easyui-combobox" id="updatestu_baoBei" name="stu_baoBei" disabled="disabled" >   
-							    <option value="">--请选择--</option>
-							    <option value="1">是</option>   
-							    <option value="2">否</option>
-							</select>
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">在线备注</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_beiZhu" name="stu_beiZhu" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-				<br>	
-						<label for="name">负责人:</label> 
-					<select class="easyui-combobox" id="updatett" name="stu_useryId" disabled="disabled" >   
-							    <option value="">--请选择--</option>	 
-							</select>
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">是否有效:</label> 
-					<select class="easyui-combobox" id="updatestu_youXiao" name="stu_youXiao" disabled="disabled" >   
-							    <option value="">--请选择--</option>
-							    <option value="1">是</option>   
-							    <option value="2">否</option>
-							</select>
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">无效原因:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_wuXiaoYuanYin" name="stu_wuXiaoYuanYin" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-				<br>	
-						<label for="name">是否回访:</label> 
-					<select class="easyui-combobox" id="updatestu_huiFang" name="stu_huiFang" disabled="disabled" >   
-							    <option value="">--请选择--</option>
-							    <option value="1">是</option>   
-							    <option value="2">否</option>
-							</select>
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">创建时间:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_creatorTime" name="stu_creatorTime" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">是否上门:</label> 
-					<select class="easyui-combobox" id="updatestu_visit" name="stu_visit" disabled="disabled" >   
-							    <option value="">--请选择--</option>
-							    <option value="1">是</option>   
-							    <option value="2">否</option>
-							</select>
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-				<br>
-						<label for="name">上门时间:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_visitTime" name="stu_visitTime" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">首次回访时间:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_payTime" name="stu_payTime" />
-					&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">是否缴费:</label> 
-					<select class="easyui-combobox" id="updatestu_money" name="stu_money" disabled="disabled" >   
-							    <option value="">--请选择--</option>
-							    <option value="1">是</option>   
-							    <option value="2">否</option>
-							</select>
-				<br>
-						<label for="name">缴费时间:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_moneyTime" name="stu_moneyTime" />
-					&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">缴费金额:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_jinE" name="stu_jinE" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">是否退费:</label> 
-					<select class="easyui-combobox" id="updatestu_tui" name="stu_tui" disabled="disabled" >   
-							    <option value="">--请选择--</option>
-							    <option value="1">是</option>   
-							    <option value="2">否</option>
-							</select>
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-				<br>
-						<label for="name">退费原因:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_tuiYin" name="stu_tuiYin" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-						<label for="name">定金金额:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_dingJinE" name="stu_dingJinE" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">定金时间:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_dingTime" name="stu_dingTime" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-				<br>	
-						<label for="name">是否进班:</label> 
-					<select class="easyui-combobox" id="updatestu_class" name="stu_class" disabled="disabled" >   
-							    <option value="">--请选择--</option>
-							    <option value="1">是</option>   
-							    <option value="2">否</option>
-							</select>
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+						<td><label for="easyui-validatebox">电话:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_phone" name="stu_phone" /></td>
 				
-						<label for="name">进班时间:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_classTime" name="stu_classTime" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">进班备注:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_classBeiZhu" name="stu_classBeiZhu" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-				<br>
-						<label for="name">咨询姓名:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_ziXun" name="stu_ziXun" />
-			&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+						<td><label for="easyui-validatebox">个人状态:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_state" name="stu_state" /></td>
+			</tr>	
+			<tr>	
+						<td><label for="easyui-validatebox">学历:</label></td> 
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_xueLi" name="stu_xueLi" /></td>
 				
-						<label for="name">咨询师备注:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_ziXunBeiZhu" name="stu_ziXunBeiZhu" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">所在区域:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_quYu" name="stu_quYu" />
-				<br>	
-						<label for="name">来源部门:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_buMen" name="stu_buMen" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+						<td><label for="name">来源渠道:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_quDao" name="stu_quDao" /></td>
+				
+						<td><label for="name">来源网站:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_wangZhan" name="stu_wangZhan" /></td>
+			</tr>	
+			<tr>		
+						<td><label for="name">学员关注:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_guanZhu" name="stu_guanZhu" /></td>
+				
+						<td><label for="name">来源关键字:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_guanJian" name="stu_guanJian" /></td>
 					
-						<label for="name">课程方向:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_keCheng" name="stu_keCheng" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;	
-						<label for="name">打分:</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_daFen" name="stu_daFen" />
-				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-				<br>	
-						<label for="name">录入人 :</label> 
-					<input class="easyui-validatebox" type="text" disabled="disabled" id="stu_luRu" name="stu_luRu" />
-				<br>
+						<td><label for="name">微信:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_wx" name="stu_wx" /></td>
+			</tr>
+			<tr>	
+						<td><label for="name">QQ:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_qq" name="stu_qq" /></td>
+				
+						<td><label for="name">是否报备:</label> </td>
+					<td><select class="easyui-combobox" id="stu_baoBei" name="stu_baoBei" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select></td>
+			
+						<td><label for="name">在线备注</label></td> 
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_beiZhu" name="stu_beiZhu" /></td>
+			</tr>
+			<tr>		
+						<td><label for="name">负责人:</label></td> 
+					<td><select class="easyui-combobox" id="ttt" name="usery" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							</select></td>
+				
+						<td><label for="name">是否有效:</label> </td>
+					<td><select class="easyui-combobox" id="stu_youXiao" name="stu_youXiao" disabled="disabled" >  
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select></td> 
+			
+						<td><label for="name">无效原因:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_wuXiaoYuanYin" name="stu_wuXiaoYuanYin" /></td>
+			</tr>	
+			<tr>		
+						<td><label for="name">是否回访:</label> </td>
+					<td><select class="easyui-combobox" id="stu_huiFang" name="stu_huiFang" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select></td>
+				
+						<td><label for="name">创建时间:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_creatorTime" name="stu_creatorTime" /></td>
+					
+						 <td><label for="name">是否上门:</label> </td>
+					<td><select class="easyui-combobox" id="stu_visit" name="stu_visit" disabled="disabled" > 
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select></td> 
+			</tr>		
+			<tr>	
+					<td>	<label for="name">上门时间:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_visitTime" name="stu_visitTime" /></td>
+					
+						<td><label for="name">首次回访时间:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_payTime" name="stu_payTime" /></td>
+					
+						<td><label for="name">是否缴费:</label> </td>
+					<td><select class="easyui-combobox" id="stu_money" name="stu_money" disabled="disabled" > 
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select></td>
+			</tr>
+			<tr>	
+						<td><label for="name">缴费时间:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_moneyTime" name="stu_moneyTime" /></td>
+				
+						<td><label for="name">缴费金额:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_jinE" name="stu_jinE" /></td>
+				
+						<td><label for="name">是否退费:</label> </td>
+					<td><select class="easyui-combobox" id="stu_tui" name="stu_tui" disabled="disabled" >  
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select></td>
+			</tr>	
+			<tr>	
+						<td><label for="name">退费原因:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_tuiYin" name="stu_tuiYin" /></td>
+				
+						<td><label for="name">定金金额:</label></td> 
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_dingJinE" name="stu_dingJinE" /></td>
+					
+						<td><label for="name">定金时间:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_dingTime" name="stu_dingTime" /></td>
+			</tr>	
+			<tr>		
+						<td><label for="name">是否进班:</label> </td>
+					<td><select class="easyui-combobox" id="stu_class" name="stu_class" disabled="disabled" >   
+							    <option value="">--请选择--</option>
+							    <option value="1">是</option>   
+							    <option value="2">否</option>
+							</select></td>
+				
+				
+						<td><label for="name">进班时间:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_classTime" name="stu_classTime" /></td>
+					
+						<td><label for="name">进班备注:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_classBeiZhu" name="stu_classBeiZhu" /></td>
+				
+			</tr>	
+			<tr>			<td><label for="name">咨询姓名:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_ziXun" name="stu_ziXun" /></td>
+			
+				
+						<td><label for="name">咨询师备注:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_ziXunBeiZhu" name="stu_ziXunBeiZhu" /></td>
+				
+						<td><label for="name">所在区域:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_quYu" name="stu_quYu" /></td>
+			</tr>
+			<tr>		
+						<td><label for="name">来源部门:</label></td> 
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_buMen" name="stu_buMen" /></td>
+				
+					
+						<td><label for="name">课程方向:</label></td> 
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_keCheng" name="stu_keCheng" /></td>
+					
+						<td><label for="name">打分:</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_daFen" name="stu_daFen" /></td>
+			</tr>
+			<tr>		
+						<td><label for="name">录入人 :</label> </td>
+					<td><input class="easyui-validatebox" type="text" disabled="disabled" id="stu_luRu" name="stu_luRu" /></td>
+			</tr>	
+				</table>
 		</form>
 	</div>
 	
 	<!--添加  -->
-<div  id="add-dialog" class="easyui-dialog" data-options="modal:true,closed:true,buttons:[
+<div  id="add-dialog" title="添加新的学生信息" class="easyui-dialog" style="width:650px; height: 500px;"
+ data-options="modal:true,closed:true,buttons:[
 	{
 	text:'保存',
 	handler:function(){
@@ -657,120 +847,89 @@
 	},{
 	text:'取消',
 	handler:function(){
-		
+		closeAdd();
 		}
 	}
 	]">
 		<form id="addfrmStu" class="easyui-form" >
-			<table>
-			<tr>
-					<td>
-						<label for="name">学生编号:</label>   
-	          <input class="easyui-validatebox" disabled="disabled" name="u_id" type="text" id="addu_id" data-options="required:true" />     
-					</td>
-					</tr> 
+			<table cellpadding="7">
 				<tr>
-					<td>
-						<label for="easyui-validatebox">学生姓名:</label> 
-						<input class="easyui-validatebox" type="text" id="addstu_name" name="stu_name" />
-					</td>
-					<td>
-						<label for="easyui-validatebox">性别:</label> 
-						<select class="easyui-combobox" id="addstu_sex" name="stu_sex" >   
+						<td><label for="name">学生编号:</label></td>   
+	          			<td><input class="easyui-validatebox" disabled="disabled" name="u_id" type="text" id="addu_id" data-options="required:true" /></td>
+				</tr>
+				<tr>	
+						<td><label for="easyui-validatebox">学生姓名:</label></td> 
+						<td><input class="easyui-validatebox" type="text" id="addstu_name" name="stu_name" data-options="required:true"  />(必填)</td>
+					
+					
+						<td><label for="easyui-validatebox">性别:</label></td> 
+						<td><select class="easyui-combobox" id="addstu_sex" name="stu_sex" >  
 							    <option value="">--请选择--</option>
 							    <option value="1">男</option>   
 							    <option value="2">女</option>
-							</select> 
-					</td>
-					<td>
-						<label for="easyui-validatebox">年龄:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_age" name="stu_age" />
-					</td>
+							</select> </td>
 				</tr>
-				 
-				<tr>
-					<td>
-						<label for="name">电话:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_phone" name="stu_phone" />
-					</td>
+				<tr>	
+						<td><label for="easyui-validatebox">年龄:</label> 
+						<td><input class="easyui-validatebox" type="text" id="addstu_age" name="stu_age" /></td>
 					
-					<td>
-						<label for="name">个人状态:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_state" name="stu_state" />
-					</td>
-					<td>
-						<label for="name">学历:</label> 
-					<select class="easyui-combobox" id="addstu_xueLi" name="stu_xueLi" >   
+						<td><label for="name">电话:</label> 
+						<td><input class="easyui-validatebox" type="text" id="addstu_phone" name="stu_phone" data-options="required:true"  />(必填)</td>
+				</tr>
+				<tr>	
+						<td><label for="name">个人状态:</label> 
+						<td><input class="easyui-validatebox" type="text" id="addstu_state" name="stu_state" /></td>
+					
+						<td><label for="name">学历:</label> </td>
+						<td><select class="easyui-combobox" id="addstu_xueLi" name="stu_xueLi" >   
 							    <option value="">--请选择--</option>
 							    <option value="高中">高中</option>
 							    <option value="初中">初中</option>
 							    <option value="小学">小学</option>  
 							    <option value="其他">其他</option>   
 							    
-							</select> 
-					</td>
+							</select> </td>
 				</tr>
 				<tr>
-					<td>
-						<label for="name">来源渠道:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_quDao" name="stu_quDao" />
-					</td>
-	
-					<td>
-						<label for="name">来源网站:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_wangZhan" name="stu_wangZhan" />
-					</td>
+						<td><label for="name">来源渠道:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="addstu_quDao" name="stu_quDao" /></td>
+					
+						<td><label for="name">来源网站:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="addstu_wangZhan" name="stu_wangZhan" /></td>
+				</tr>
+				<tr>	
+						<td><label for="name">学员关注:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="addstu_guanZhu" name="stu_guanZhu" /></td>
 				
-					<td>
-						<label for="name">学员关注:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_guanZhu" name="stu_guanZhu" />
-					</td>
+						<td><label for="name">来源关键字:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="addstu_guanJian" name="stu_guanJian" /></td>
+				</tr>
+				<tr>	
+						<td><label for="name">微信:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="addstu_wx" name="stu_wx" /></td>
+					
+						<td><label for="name">QQ:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="addstu_qq" name="stu_qq" /></td>
 				</tr>
 				<tr>
-					<td>
-						<label for="name">来源关键字:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_guanJian" name="stu_guanJian" />
-					</td>
-				
-					<td>
-						<label for="name">微信:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_wx" name="stu_wx" />
-					</td>
-				
-					<td>
-						<label for="name">QQ:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_qq" name="stu_qq" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="name">是否报备:</label> 
-					<select class="easyui-combobox" id="addstu_baoBei" name="stu_baoBei" >   
+						<td><label for="name">是否报备:</label> </td>
+						<td><select class="easyui-combobox" id="addstu_baoBei" name="stu_baoBei" >   
 							    <option value="">--请选择--</option>
 							    <option value="1">是</option>
 							    <option value="2">否</option>	    
-							</select> 
-					</td>
-				
-					<td>
-						<label for="name">在线备注:</label> 
-					<input class="easyui-validatebox" type="text" id="addstu_beiZhu" name="stu_beiZhu" />
-					</td>
-				
-					<td>
-						<label for="name">负责人:</label> 
+							</select> </td>
+					
+						<td><label for="name">在线备注:</label> </td>
+						<td><input class="easyui-validatebox" type="text" id="addstu_beiZhu" name="stu_beiZhu" /></td>
+				</tr>
+				<tr>	
+						<td><label for="name">负责人:</label></td> 
 				     <!-- 下拉列表 -->
-			<select id="addtt" class="easyui-combobox">
-				<option selected="selected" >--请选择--</option>
-			</select>
-					</td>
+							<td><select id="addtt" class="easyui-combobox">
+								<option selected="selected" >--请选择--</option>
+							</select></td>
+			
 				</tr>
-				
-				<tr>
-			<td></td>
-				
-				</tr>
-				
 			</table>
 		</form>
 	</div>
@@ -801,7 +960,7 @@
 			class="easyui-form">
 			<a href="javascript:void()" class="easyui-linkbutton" id="isQuanXuan"
 				onclick="ChooseAll()" data-options="iconCls:'icon-edit'">全选</a>
-			<table>
+			<table >
 			<!--  -->
 				<tr>
 					<td><input type="checkbox" value="stu_id" />编号</td>
@@ -822,7 +981,7 @@
 					<td><input type="checkbox" value="stu_quDao" />来源渠道</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" value="stu_wangZhan" />来源渠道</td>
+					<td><input type="checkbox" value="stu_wangZhan" />来源网址</td>
 
 					<td><input type="checkbox" value="stu_guanZhu" />学员关注</td>
 
@@ -833,11 +992,11 @@
 				<tr>
 					 <td><input type="checkbox" value="stu_qq" />QQ</td>
 
-					<td><input type="checkbox" value="stu_baoBei" />/是否报备</td> 
+					<td><input type="checkbox" value="stu_baoBei" />是否报备</td> 
 
 					<td><input type="checkbox" value="stu_beiZhu" />在线备注</td>
 
-					<td><input type="checkbox" value="stu_useryId" />负责人</td>
+					<td><input type="checkbox" value="usery" />负责人</td>
 				</tr>
 				<tr>
 					<td><input type="checkbox" value="stu_youXiao" />是否有效</td>
@@ -898,6 +1057,11 @@
 					<td><input type="checkbox" value="stu_daFen" />打分</td>
 
 					<td><input type="checkbox" value="stu_luRu" />录入人 </td>
+				</tr>
+					<tr>
+
+
+					<td><input type="checkbox" value="caozuo" />操作 </td>
 				</tr>
 			</table>
 		</form>

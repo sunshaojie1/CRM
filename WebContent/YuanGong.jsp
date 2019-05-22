@@ -64,8 +64,8 @@
 				queryParams:{
 					u_loginName:$("#u_loginName").val(),
 					u_isLockout:$("#u_isLockout").combobox("getValue"),
-					startTime:$("#startTime").val(),
-		    		endTime:$("#endTime").val(),
+					startTime:$("#startTime").datetimebox("getValue"),
+		    		endTime:$("#endTime").datetimebox("getValue"),
 
 					}
 
@@ -179,6 +179,12 @@
 			},"json")
 			$("#addfrm").form("reset");
 		}
+		function closeAdd(){
+			$("#add-dialog").dialog("close") 
+		}
+		function closeUpdate(){
+			$("#updatedialog").dialog("close") 
+		}
 		function formatteru_isLockout(value,row,index) {
 			return row.u_isLockout==1? "已锁定":"未锁定";
 		}
@@ -224,7 +230,7 @@
 
 		  <label for="name">用户名:</label>   
           <input class="easyui-validatebox" type="text" id="u_loginName" /> 
-          
+       
           <label for="email">创建时间:</label>   
         <input class="easyui-datetimebox" id="startTime" />——
         <input class="easyui-datetimebox" id="endTime"  />
@@ -233,18 +239,22 @@
 			    <option value="">--请选择--</option>
 			    <option value="1">已锁定</option>   
 			    <option value="0">未锁定</option>
-			<select>
+			</select>
           
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="initUsery()">搜索</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addUsery()">添加</a> 
+		
 		 <a
 						class="easyui-linkbutton" plain="true" onclick="exportExcel()"
 						id="serach" data-options="iconCls:'icon-print'">导出excel</a>
+		<br>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addUsery()">添加</a> 
+		
 		</form>
 	</div>
 	
 	<!--修改的对话框  -->
-	<div  id="updatedialog" class="easyui-dialog" data-options="modal:true,closed:true,buttons:[
+	<div  id="updatedialog"  title="修改员工信息" style="width: 500px; height: 400px;"
+	 class="easyui-dialog" data-options="modal:true,closed:true,buttons:[
 	{
 	text:'保存',
 	handler:function(){
@@ -253,29 +263,47 @@
 	},{
 	text:'取消',
 	handler:function(){
-		
+		closeUpdate();
 		}
 	}
 	]">
-		<form id="updatefrm" class="easyui-form">
-			  <label for="name">Id:</label>   
-	          <input class="easyui-validatebox" disabled="disabled" name="u_id" type="text" id="updateu_id" data-options="required:true" />   
-			  <br>
-			  <label for="name">登录账户:</label>   
-	          <input class="easyui-validatebox" name="u_loginName" type="text" id="updateu_loginName" data-options="required:true" /> 
-	          <br>
-	         <!--  <label for="name">登录密码:</label>   
-	          <input class="easyui-validatebox" name="u_password" type="text" id="updateu_password" data-options="required:true" /> 
-	        <br> -->
-	         <!-- 下拉列表 -->
-			<select id="updatett" class="easyui-combobox" id="u_isLockout">
-				<option selected="selected" >--是否锁定--</option>
-				  <option value="1">已锁定</option>   
-			    <option value="2">未锁定</option>   
-				
-			</select>
-			<br>
-	    <!--      <label for="name">登录时间:</label>   
+		<form id="updatefrm" class="easyui-form" >
+		 <table  cellpadding="12">
+		 
+		 <tr>
+		 	<td><label for="name">员工编号:</label></td>
+		 	<td><input class="easyui-validatebox" disabled="disabled" name="u_id" type="text" id="updateu_id"  /></td>
+		 </tr>
+		 
+		 <tr>
+			 <td><label for="name">登录账户:</label></td>
+			 <td><input class="easyui-validatebox" name="u_loginName" type="text" id="updateu_loginName"  /></td>
+		 </tr>
+		 <tr>
+			 <td>登录密码:</td>
+			 <td> <input class="easyui-validatebox" name="u_password" type="text" id="updateu_password"  /></td>
+		 </tr>
+		 <tr>
+			 <td><label for="name">是否锁定:</label> </td>
+			 <td>
+			 	<select id="updatett" class="easyui-combobox" id="u_isLockout">
+				    	<option selected="selected" >--是否锁定--</option>
+				    	<option value="1">已锁定</option>   
+			        	<option value="2">未锁定</option>   	
+					</select>
+			 </td>
+		 </tr>
+		 <tr>
+			 <td><label for="name">邮箱:</label></td>
+			 <td> <input class="easyui-validatebox" name="u_email" type="text" id="updateu_email" /></td>
+		 </tr>
+		 <tr>
+			 <td><label for="name">手机号:</label></td>
+			 <td> <input class="easyui-validatebox" name="u_phone" type="text" id="updateu_phone"  /></td>
+		 </tr>
+			<!-- 
+	       
+	         <label for="name">登录时间:</label>   
 	          <input class="easyui-validatebox" name="u_loginTime" type="text" id="updateu_loginTime" data-options="required:true" /> 
 	        <br>
 	         <label for="name">退出时间:</label>   
@@ -289,20 +317,17 @@
 	        <br>
 	         <label for="name">创建时间:</label>   
 	          <input class="easyui-validatebox" name="u_creationTime" type="text" id="updateu_creationTime" data-options="required:true" /> 
-	        <br> -->
-	           <label for="name">邮箱:</label>   
-	          <input class="easyui-validatebox" name="u_email" type="text" id="updateu_email" data-options="required:true" /> 
 	        <br>
-	         <label for="name">手机号:</label>   
-	          <input class="easyui-validatebox" name="u_phone" type="text" id="updateu_phone" data-options="required:true" /> 
-	        <br>
+	         -->
+	     	
 	    
-	  
+	  </table>
 		</form>
 	</div>
 	
 	<!--添加的对话框  -->
-	<div  id="add-dialog" class="easyui-dialog" data-options="modal:true,closed:true,buttons:[
+	<div  id="add-dialog" class="easyui-dialog"  title="添加新员工信息" style="width: 500px; height: 400px;"
+	 data-options="modal:true,closed:true,buttons:[
 	{
 	text:'保存',
 	handler:function(){
@@ -311,27 +336,34 @@
 	},{
 	text:'取消',
 	handler:function(){
-		
+		closeAdd();
 		}
 	}
 	]">
-		<form id="addfrm" class="easyui-form">
-			  <label for="name">Id:</label>   
-	          <input class="easyui-validatebox" disabled="disabled" name="u_id" type="text" id="addu_id" data-options="required:true" />   
-			  <br>
-			  <label for="name">登录账户:</label>   
-	          <input class="easyui-validatebox" name="u_loginName" type="text" id="addu_loginName" data-options="required:true" /> 
-	          <br>
-	          <label for="name">登录密码:</label>   
-	          <input class="easyui-validatebox" name="u_password" type="text" id="addeu_password" data-options="required:true" value="123456" /> 
-	        <br> 
+		<form id="addfrm" class="easyui-form" >
+			  <table  cellpadding="12">
+			  <tr>
+				  <td><label for="name">Id:</label>  </td>  
+		          <td><input class="easyui-validatebox" disabled="disabled" name="u_id" type="text" id="addu_id" data-options="required:true" />  </td>  
+			  </tr>
+			  <tr>
+			  <td><label for="name">登录账户:</label></td> 
+	         <td> <input class="easyui-validatebox" name="u_loginName" type="text" id="addu_loginName" data-options="required:true" />(必填)</td>
+	         </tr> 
+	          <tr>
+	          <td><label for="name">登录密码:</label> </td>   
+	          <td><input class="easyui-validatebox" name="u_password" type="text" id="addeu_password" data-options="required:true" value="123456" /></td>
+	        </tr>
+	        <tr> 
 	         <!-- 下拉列表 -->
-			<select id="addtt" class="easyui-combobox" >
-				<option selected="selected" >是否锁定</option>
+	         <td><label for="name">是否锁定:</label></td>
+			<td><select id="addtt" class="easyui-combobox" >
+				<label for="name">是否锁定:</label> 
+				 <option selected="selected" >是否锁定</option>
 				 <option value="1">已锁定</option>   
-			    <option value="0">未锁定</option>  
-			</select>
-			<br>
+			     <option value="0">未锁定</option>  
+			</select> </td>
+			</tr>
 	      <!--    <label for="name">登录时间:</label>   
 	          <input class="easyui-validatebox" name="u_loginTime" type="text" id="addu_loginTime"  /> 
 	        <br>
@@ -347,12 +379,15 @@
 	         <label for="name">创建时间:</label>   
 	          <input class="easyui-validatebox" name="u_creationTime" type="text" id="addu_creationTime"  /> 
 	        <br> -->
-	           <label for="name">邮箱:</label>   
-	          <input class="easyui-validatebox" name="u_email" type="text" id="addu_email" data-options="required:true" /> 
-	        <br>
-	         <label for="name">手机号:</label>   
-	          <input class="easyui-validatebox" name="u_phone" type="text" id="addu_phone" data-options="required:true" /> 
-	        <br>
+	          <tr> 
+	          <td><label for="name">邮箱:</label>  </td>  
+	         <td> <input class="easyui-validatebox" name="u_email" type="text" id="addu_email" data-options="required:true" />(必填)</td>
+	         </tr>
+	          <tr>
+	         <td> <label for="name">手机号:</label> </td>  
+	          <td><input class="easyui-validatebox" name="u_phone" type="text" id="addu_phone" data-options="required:true" />(必填)</td> 
+	        </tr>
+	        </table>
 		</form>
 	</div>
 	
